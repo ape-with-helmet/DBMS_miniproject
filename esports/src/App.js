@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import './App.css'
 
 function App() {
     const [data, setData] = useState([]);
@@ -26,7 +27,7 @@ function App() {
                     {
                         data.map(prod => {
                             return (<tr key={prod.Product}>
-                                <td>{prod.Product}</td>
+                                <h1 className='about-us'>{prod.Product}</h1>
                                 <td>{prod.Team_Name}</td>
                                 <td>{prod.Sponsor_Name}</td>
                                 <td>{prod.Social_ID}</td>
