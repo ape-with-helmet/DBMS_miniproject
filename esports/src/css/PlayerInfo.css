@@ -1,0 +1,36 @@
+@keyframes dezuivere {
+    0% {
+        color: rgba(240, 248, 255, 0.558);
+    }
+
+    20% {
+        color: rgba(221, 160, 221, 0.677);
+    }
+
+    45% {
+        color: #b023ff;
+    }
+
+    55% {
+        color: #b023ff;
+    }
+
+    80% {
+        color: rgba(221, 160, 221, 0.677);
+    }
+
+    100% {
+        color: rgba(240, 248, 255, 0.558);
+    }
+}
+.about-us {
+    color: rgba(240, 248, 255, 0.558);
+    font-family: monospace;
+    animation-name: dezuivere;
+    animation-duration: 4s;
+    animation-delay: 2s;
+    animation-iteration-count: infinite;
+    padding: 3%;
+    padding-left: 10%;
+    top: 20vh;
+}

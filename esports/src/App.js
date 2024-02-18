@@ -1,43 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import './App.css'
+import React from 'react'
+import {BrowserRouter,Routes,Route} from 'react-router-dom'
+import PlayerInfo from './pages/PlayerInfo'
+import TeamInfo from './pages/TeamInfo'
+import TeamPlayers from './pages/TeamPlayers'
+import SpecPlayerInfo from './pages/SpecPlayerInfo'
 
-function App() {
-    const [data, setData] = useState([]);
-    useEffect(()=>{
-        axios.get("http://localhost:8080/player")
-            .then(data1=>setData(data1.data))
-            .catch(err=>console.log(err))
-            console.log(data)
-    },data)
-    return (
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>tNAME</th>
-                        <th>spns</th>
-                        <th>socal</th>
-                        <th>capname</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        data.map(prod => {
-                            return (<tr key={prod.Product}>
-                                <h1 className='about-us'>{prod.Product}</h1>
-                                <td>{prod.Team_Name}</td>
-                                <td>{prod.Sponsor_Name}</td>
-                                <td>{prod.Social_ID}</td>
-                                <td>{prod.Captain_Name}</td>
-                            </tr>)
-                        })
-                    }
-                </tbody>
-            </table>
-        </div>
-    )
+const App = () => {
+  return (
+    <>
+    <BrowserRouter>
+    <Routes>
+        {/* <Route element={<PlayerInfo/>} path='/player_info'/> */}
+        <Route element={<TeamInfo/>} path='/team_info'/>
+        <Route element={<TeamPlayers/>} path='/team_players'/>
+        <Route element={<SpecPlayerInfo/>} path='/player'/>
+    </Routes>
+    </BrowserRouter>
+    </>
+  )
 }
 
 export default App
