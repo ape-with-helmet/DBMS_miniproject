@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import game from './game.png'
-import team from './teams.png'
+import team from './buffalo-bills-logo.png'
 import '../css/Homepage.css'
 
 const Homepage = () => {

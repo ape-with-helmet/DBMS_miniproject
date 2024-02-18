@@ -26,12 +26,17 @@
   .navbar-links {
     list-style-type: none;
     padding: 0;
-    margin: 0;
+    margin-right: 10px;
+    color: aliceblue;
+    font-family: monospace;
+    font-size: xx-large;
+    padding-right: 10px;
+    transition: all 0.5s ease;
   }
   
   .navbar-links li {
     display: inline;
-    margin-right: 15px;
+    margin-right: 25px;
   }
   
   .navbar-links li:last-child {
@@ -45,5 +50,10 @@
   
   .navbar-links li a:hover {
     color: #ccc;
+    transform: translateY(-0.2vh);
+  }
+  .navbar-links:hover {
+    color: #ccc;
+    transform: translateY(-0.2vh);
   }
   

@@ -4,6 +4,7 @@ body{
 }
 .container {
     display: flex; /* Use flexbox layout */
+    margin-top: 10vh;
   }
   
   .left-div, .right-div {
@@ -19,29 +20,44 @@ body{
     padding: 20px; /* Example padding */
   }
   .team_logo{
+    padding-bottom: 2vh;
+  }
+  .game_logo{
     width: 20vw;
+    padding-bottom: 10vh;
   }
   .outer-box{
-    background-color: brown;
+    background-color: rgba(0, 0, 0, 0.251);
     border-radius: 30px;
-    height: 60vh;
+    height: 45vh;
     width: 40vw;
     text-align: center;
     align-content: center;
     margin-left: auto;
     margin-right: auto;
+    padding-top: 7vh;
+    padding-bottom: 10vh;
+    transition: all 0.5s ease;
   }
   .outer-box-right{
-    background-color: brown;
+    background-color: rgba(0, 0, 0, 0.251);
     border-radius: 30px;
-    height: auto;
+    height: 45vh;
+    overflow: hidden;
     width: 40vw;
     text-align: center;
     align-content: center;
     margin-left: auto;
     margin-right: auto;
-    padding-top: 8vh;
-    padding-bottom: 8vh;
+    padding-top: 12vh;
+    padding-bottom: 4vh;
+    transition: all 1s ease;
+  }
+  .outer-box:hover{
+    filter: invert(100%);
+  }
+  .outer-box-right:hover{
+    filter: invert(100%);
   }
   .teambutton {
     display: inline-block;

@@ -19,9 +19,9 @@ function NavBar() {
                     <span className="logo-name">ESPORT TOURNAMENT</span>
                 </div>
                 <ul className="navbar-links">
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/team_info">Teams</Link></li>
-                    <li><Link to="/games">Games</Link></li>
+                    <li className="navbar-links"><Link to="/">Home</Link></li>
+                    <li className="navbar-links"><Link to="/team_info">Teams</Link></li>
+                    <li className="navbar-links"><Link to="/games">Games</Link></li>
                 </ul>
             </nav>
         </>
