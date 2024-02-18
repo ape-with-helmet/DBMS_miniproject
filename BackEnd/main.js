@@ -8,12 +8,11 @@ app.use(cors())
 const connection = require ('./database.js')
 
 
-app.get("/", cors(), (req, res) => {
+// app.get("/", cors(), (req, res) => {
 
-});
+// });
 
-//
-
+//Fetches all player details
 app.get("/player_details",(req,res)=>{
     const sql = "SELECT p.pname, DATE_FORMAT(p.dob, '%d-%m-%Y') AS dob, p.origin, p.sex, pt.nickname, t.tname AS team_name FROM player p JOIN player_team pt ON p.pid = pt.pid JOIN team t ON pt.tid = t.tid;    ";
     connection.query(sql, function(err,results){
@@ -22,6 +21,7 @@ app.get("/player_details",(req,res)=>{
     })
 })
 
+//fetches list of players in a team
 app.post("/fetch_team_details",(req,res)=>{
     const data = req.body.id;
     const sql = `SELECT p.pname, pt.nickname, CASE WHEN p.pid = t.captain_id THEN 'Captain' ELSE 'Player' END AS captain_status FROM player p JOIN player_team pt ON p.pid = pt.pid JOIN team t ON pt.tid = t.tid WHERE t.tname = '${data}' ORDER BY (CASE WHEN p.pid = t.captain_id THEN 0 ELSE 1 END);    `;
@@ -31,7 +31,7 @@ app.post("/fetch_team_details",(req,res)=>{
     })
 })
 
-//SELECT DISTINCT gname, publisher, release_date FROM game;
+//fetches list of games
 app.get("/game_details",(req,res)=>{
     const sql = "SELECT DISTINCT gname, publisher, release_date FROM game;";
     connection.query(sql, function(err,results){
@@ -40,6 +40,7 @@ app.get("/game_details",(req,res)=>{
     })
 })
 
+//fetches all details of a particular player
 app.post("/fetch_player_details",(req,res)=>{
     const data = req.body.id;
     const sql = `SELECT p.pname, DATE_FORMAT(p.dob, '%Y-%m-%d') AS dob, p.origin, p.sex, pt.nickname, t.tname, p.description FROM player p JOIN player_team pt ON p.pid = pt.pid JOIN team t ON pt.tid = t.tid WHERE p.pname = '${data}';    `;
@@ -49,6 +50,7 @@ app.post("/fetch_player_details",(req,res)=>{
     })
 })
 
+//fetches list of all teams and captains
 app.get("/team_details",(req,res)=>{
     const sql = "SELECT t.tname, t.trank, p.pname AS captain_name, t.social_id, s.sname FROM team t LEFT JOIN sponsor s ON t.tid = s.tid LEFT JOIN player p ON t.captain_id = p.pid;    ";
     connection.query(sql, function(err,results){
@@ -57,6 +59,17 @@ app.get("/team_details",(req,res)=>{
     })
 })
 
+//fetches all teams in a particular game
+app.post("/fetch_game_teams",(req,res)=>{
+    const data = req.body.id;
+    const sql = `SELECT t.tname AS Team_Name, p.pname AS Captain_Name, t.trank AS Team_Rank FROM team t JOIN player p ON t.captain_id = p.pid JOIN game g ON t.tid = g.tid WHERE g.gname = '${data}' ORDER BY t.trank;`;
+    connection.query(sql, function(err,results){
+        if (err) throw err;
+        res.send(results);
+    })
+})
+
+//establishes connections
 app.listen(8080, () => {
     console.log("port connected")
     connection.connect(function(err){

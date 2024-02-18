@@ -8,11 +8,10 @@ const Games = () => {
             .then(data1 => setData1(data1.data))
             .catch(err => console.log(err))
     })
-    // function upload(x) {
-    //     localStorage.clear();
-    //     localStorage.setItem("SelectedTeam", x.tname);
-    //     window.location.href = "/team_players"
-    // }
+    function upload(x) {
+        localStorage.setItem("SelectedGame", x.gname);
+        window.location.href = "/game_team"
+    }
     return (
         <div>
             <table>
@@ -27,14 +26,15 @@ const Games = () => {
                     {
                         data1.map(prod => {
                             return (<tr key={prod.gname}>
-                                <td >{prod.gname}</td>
+                                <td><button onClick={() => upload(prod)}>{prod.gname}</button></td>
                                 <td>{prod.publisher}</td>
                                 <td>{prod.release_date}</td>
                             </tr>)
                         })
                     }
                 </tbody>
-            </table></div>
+            </table>
+        </div>
     )
 }
 

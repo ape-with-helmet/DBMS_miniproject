@@ -10,7 +10,6 @@ function App() {
             .catch(err=>console.log(err))
     })
     function upload(x) {
-        localStorage.clear();
         localStorage.setItem("SelectedTeam",x.tname);
         window.location.href = "/team_players"
     }
