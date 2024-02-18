@@ -70,7 +70,6 @@ app.post("/fetch_merch",(req,res)=>{
 app.post("/buy_merch",(req,res)=>{
     const team = req.body.teamname;
     const prod = req.body.merch_name;
-    console.log(team,"temanme",prod,"productname")
     const sql = `UPDATE merchandise SET quantity = CASE WHEN quantity > 0 THEN quantity - 1 ELSE 0 END WHERE tid = (SELECT tid FROM team WHERE tname = '${team}' LIMIT 1) AND product = '${prod}';`;
     connection.query(sql, function(err,results){
         if (err) throw err;
@@ -81,7 +80,6 @@ app.post("/buy_merch",(req,res)=>{
 app.post("/cancel_merch",(req,res)=>{
     const team = req.body.teamname;
     const prod = req.body.merch_name;
-    console.log(team,"temanme",prod,"productname")
     const sql = `UPDATE merchandise SET quantity = CASE WHEN quantity < 100 THEN quantity + 1 ELSE 0 END WHERE tid = (SELECT tid FROM team WHERE tname = '${team}' LIMIT 1) AND product = '${prod}';`;
     connection.query(sql, function(err,results){
         if (err) throw err;
