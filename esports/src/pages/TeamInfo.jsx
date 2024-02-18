@@ -13,6 +13,10 @@ function App() {
         localStorage.setItem("SelectedTeam",x.tname);
         window.location.href = "/team_players"
     }
+    function merch(x) {
+        localStorage.setItem("SelectedTeam",x.tname);
+        window.location.href = "/merch"
+    }
     return (
         <div>
             <table>
@@ -23,6 +27,7 @@ function App() {
                         <th>Captain Name</th>
                         <th>Social ID</th>
                         <th>Sponsor</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,6 +39,7 @@ function App() {
                                 <td>{prod.captain_name}</td>
                                 <td>{prod.social_id}</td>
                                 <td>{prod.sname}</td>
+                                <td><button onClick={()=>merch(prod)}>Buy Merch</button></td>
                             </tr>)
                         })
                     }

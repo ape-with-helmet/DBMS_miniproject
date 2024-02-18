@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+
 import '../css/PlayerInfo.css'
 
 function App() {

@@ -6,6 +6,7 @@ import TeamPlayers from './pages/TeamPlayers'
 import SpecPlayerInfo from './pages/SpecPlayerInfo'
 import Games from './pages/Games'
 import GameTeam from './pages/GameTeam'
+import Merch from './pages/Merch'
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route element={<SpecPlayerInfo/>} path='/player'/>
         <Route element={<Games/>} path='/games'/>
         <Route element={<GameTeam/>} path='/game_team'/>
+        <Route element={<Merch/>} path='/merch'/>
     </Routes>
     </BrowserRouter>
     </>

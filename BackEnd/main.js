@@ -7,20 +7,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors())
 const connection = require ('./database.js')
 
-
-// app.get("/", cors(), (req, res) => {
-
-// });
-
-//Fetches all player details
-app.get("/player_details",(req,res)=>{
-    const sql = "SELECT p.pname, DATE_FORMAT(p.dob, '%d-%m-%Y') AS dob, p.origin, p.sex, pt.nickname, t.tname AS team_name FROM player p JOIN player_team pt ON p.pid = pt.pid JOIN team t ON pt.tid = t.tid;    ";
-    connection.query(sql, function(err,results){
-        if (err) throw err;
-        res.send(results);
-    })
-})
-
 //fetches list of players in a team
 app.post("/fetch_team_details",(req,res)=>{
     const data = req.body.id;
@@ -66,6 +52,39 @@ app.post("/fetch_game_teams",(req,res)=>{
     connection.query(sql, function(err,results){
         if (err) throw err;
         res.send(results);
+    })
+})
+
+//fetches merchandise of each team
+app.post("/fetch_merch",(req,res)=>{
+    const data = req.body.id;
+    const sql = `SELECT product AS Product, price AS Price, quantity AS Stock FROM merchandise WHERE tid = (SELECT tid FROM team WHERE tname = '${data}' );
+    `;
+    connection.query(sql, function(err,results){
+        if (err) throw err;
+        res.send(results);
+    })
+})
+ 
+//decreases stock by 1 for a team
+app.post("/buy_merch",(req,res)=>{
+    const team = req.body.teamname;
+    const prod = req.body.merch_name;
+    console.log(team,"temanme",prod,"productname")
+    const sql = `UPDATE merchandise SET quantity = CASE WHEN quantity > 0 THEN quantity - 1 ELSE 0 END WHERE tid = (SELECT tid FROM team WHERE tname = '${team}' LIMIT 1) AND product = '${prod}';`;
+    connection.query(sql, function(err,results){
+        if (err) throw err;
+    })
+})
+
+//increases stock by 1 for a team
+app.post("/cancel_merch",(req,res)=>{
+    const team = req.body.teamname;
+    const prod = req.body.merch_name;
+    console.log(team,"temanme",prod,"productname")
+    const sql = `UPDATE merchandise SET quantity = CASE WHEN quantity < 100 THEN quantity + 1 ELSE 0 END WHERE tid = (SELECT tid FROM team WHERE tname = '${team}' LIMIT 1) AND product = '${prod}';`;
+    connection.query(sql, function(err,results){
+        if (err) throw err;
     })
 })
 
