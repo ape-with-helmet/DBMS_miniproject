@@ -1,53 +1,49 @@
-@keyframes dezuivere {
-    0% {
-        color: rgba(240, 248, 255, 0.558);
-    }
-
-    20% {
-        color: rgba(221, 160, 221, 0.677);
-    }
-
-    45% {
-        color: #b023ff;
-    }
-
-    55% {
-        color: #b023ff;
-    }
-
-    80% {
-        color: rgba(221, 160, 221, 0.677);
-    }
-
-    100% {
-        color: rgba(240, 248, 255, 0.558);
-    }
-}
-.about-us {
-    color: rgba(240, 248, 255, 0.558);
-    font-family: monospace;
-    animation-name: dezuivere;
-    animation-duration: 4s;
-    animation-delay: 2s;
-    animation-iteration-count: infinite;
-    padding: 3%;
-    padding-left: 10%;
-    top: 20vh;
-}
-
-.top_logo{
-    scale: 300%;
-    margin-right: 3vw;
-    margin-left: 2vw;
-    margin-top: 2vw;
-}
-
-.top_nav{
-    margin-bottom: 1vw;
-}
-.nav_name{
-    font-family: monospace;
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px 20px;
+  }
+  
+  .navbar-logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-img {
+    width: 40px; /* Adjust as needed */
+    height: 40px; /* Adjust as needed */
+    margin-right: 10px;
+  }
+  
+  .logo-name {
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .navbar-links {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .navbar-links li {
+    display: inline;
+    margin-right: 15px;
+  }
+  
+  .navbar-links li:last-child {
+    margin-right: 0;
+  }
+  
+  .navbar-links li a {
+    color: #fff;
     text-decoration: none;
-    font-size: xx-large;
-    color:#b023ff;
-}
+  }
+  
+  .navbar-links li a:hover {
+    color: #ccc;
+  }
+  

@@ -2,6 +2,7 @@ import '../css/Navbar.css'
 import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
+import Logo from './logo.png'
 
 function NavBar() {
     function team() {
@@ -12,22 +13,17 @@ function NavBar() {
     }
     return (
         <>
-            <Navbar className="bg-body-tertiary top_nav">
-                <Container>
-                    <Link to="/" className='nav_name'>
-                        <Navbar.Brand href="#home" className='nav_name'>
-                            <img
-                                alt=""
-                                src='logo.png'
-                                width="30"
-                                height="30"
-                                className="d-inline-block align-top top_logo"
-                            />{' '}
-                            <span><b>Esports Event</b></span>
-                        </Navbar.Brand>
-                    </Link>
-                </Container>
-            </Navbar>
+            <nav className="navbar">
+                <div className="navbar-logo">
+                    <img src={Logo} alt="Logo" className="logo-img" />
+                    <span className="logo-name">ESPORT TOURNAMENT</span>
+                </div>
+                <ul className="navbar-links">
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/team_info">Teams</Link></li>
+                    <li><Link to="/games">Games</Link></li>
+                </ul>
+            </nav>
         </>
     )
 }
