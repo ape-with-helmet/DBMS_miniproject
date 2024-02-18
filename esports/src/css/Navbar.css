@@ -34,3 +34,20 @@
     padding-left: 10%;
     top: 20vh;
 }
+
+.top_logo{
+    scale: 300%;
+    margin-right: 3vw;
+    margin-left: 2vw;
+    margin-top: 2vw;
+}
+
+.top_nav{
+    margin-bottom: 1vw;
+}
+.nav_name{
+    font-family: monospace;
+    text-decoration: none;
+    font-size: xx-large;
+    color:#b023ff;
+}

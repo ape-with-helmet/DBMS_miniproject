@@ -1,6 +1,6 @@
 import React from 'react'
-import {BrowserRouter,Routes,Route} from 'react-router-dom'
-import Navbar from './pages/Navbar'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import NavBar from './pages/Navbar'
 import TeamInfo from './pages/TeamInfo'
 import TeamPlayers from './pages/TeamPlayers'
 import SpecPlayerInfo from './pages/SpecPlayerInfo'
@@ -12,18 +12,18 @@ import Homepage from './pages/Homepage'
 const App = () => {
   return (
     <>
-    <Navbar/>
-    <BrowserRouter>
-    <Routes>
-        <Route element={<TeamInfo/>} path='/team_info'/>
-        <Route element={<Homepage/>} path='/'/>
-        <Route element={<TeamPlayers/>} path='/team_players'/>
-        <Route element={<SpecPlayerInfo/>} path='/player'/>
-        <Route element={<Games/>} path='/games'/>
-        <Route element={<GameTeam/>} path='/game_team'/>
-        <Route element={<Merch/>} path='/merch'/>
-    </Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+      <NavBar/>
+        <Routes>
+          <Route element={<TeamInfo />} path='/team_info' />
+          <Route element={<Homepage />} path='/' />
+          <Route element={<TeamPlayers />} path='/team_players' />
+          <Route element={<SpecPlayerInfo />} path='/player' />
+          <Route element={<Games />} path='/games' />
+          <Route element={<GameTeam />} path='/game_team' />
+          <Route element={<Merch />} path='/merch' />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
