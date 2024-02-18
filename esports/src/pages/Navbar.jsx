@@ -1,7 +1,6 @@
+import '../css/Navbar.css'
 
-import '../css/PlayerInfo.css'
-
-function App() {
+function navbar() {
     function team () {
         window.location.href = "/team_info"
     }
@@ -16,4 +15,4 @@ function App() {
     )
 }
 
-export default App
+export default navbar
