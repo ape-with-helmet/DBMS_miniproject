@@ -8,24 +8,23 @@ const Homepage = () => {
     return (
         <>
             <div className="container">
-                <div className="left-div">
-                    <div className="outer-box">
-                        <Link to="/team_info">
+                <Link to="/team_info" className='text_home'>
+                    <div className="left-div">
+                        <div className="outer-box">
                             <img src={team} className='team_logo' alt='Team logo' />
-                        </Link>
-                        <h2>The Teams Participating in this Mega Tournament</h2>
-                        <a href='/team_info'><button className='teambutton'>Click Here</button></a>
-                    </div>
-                </div>
-                <div className="right-div">
-                <div className="outer-box-right">
-                        <Link to="/games">
+                            <h2>The Teams Participating in this Mega Tournament</h2>
+                            <div className='teambutton'>Click Here</div>
+                        </div>
+                    </div></Link>
+                <Link to="/games" className='text_home'>
+                    <div className="right-div">
+                        <div className="outer-box-right">
                             <img src={game} className='game_logo' alt='Team logo' />
-                        </Link>
-                        <h2>The Games organized in this Mega Tournament</h2>
-                        <a href='/games'><button className='teambutton'>Click Here</button></a>
+                            <h2>The Games organized in this Mega Tournament</h2>
+                            <a href='/games'><button className='teambutton'>Click Here</button></a>
+                        </div>
                     </div>
-                </div>
+                </Link>
             </div>
         </>
     )

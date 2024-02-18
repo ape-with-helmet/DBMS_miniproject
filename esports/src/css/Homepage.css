@@ -20,11 +20,17 @@ body{
     padding: 20px; /* Example padding */
   }
   .team_logo{
-    padding-bottom: 2vh;
+    width: 20vw;
+    padding-bottom: 5vh;
   }
   .game_logo{
     width: 20vw;
     padding-bottom: 10vh;
+  }
+  .text_home{
+    text-decoration: none;
+    margin-left: auto;
+    margin-right: auto;
   }
   .outer-box{
     background-color: rgba(0, 0, 0, 0.251);
@@ -37,7 +43,7 @@ body{
     margin-right: auto;
     padding-top: 7vh;
     padding-bottom: 10vh;
-    transition: all 0.5s ease;
+    transition: all 1.5s ease;
   }
   .outer-box-right{
     background-color: rgba(0, 0, 0, 0.251);
@@ -51,7 +57,7 @@ body{
     margin-right: auto;
     padding-top: 12vh;
     padding-bottom: 4vh;
-    transition: all 1s ease;
+    transition: all 1.5s ease;
   }
   .outer-box:hover{
     filter: invert(100%);

@@ -5,17 +5,11 @@ import Navbar from 'react-bootstrap/Navbar';
 import Logo from './logo.png'
 
 function NavBar() {
-    function team() {
-        window.location.href = "/team_info"
-    }
-    function game() {
-        window.location.href = "/games"
-    }
     return (
         <>
             <nav className="navbar">
                 <div className="navbar-logo">
-                    <img src={Logo} alt="Logo" className="logo-img" />
+                    <Link to="/"><img src={Logo} alt="Logo" className="logo-img" /></Link>
                     <span className="logo-name">ESPORT TOURNAMENT</span>
                 </div>
                 <ul className="navbar-links">
