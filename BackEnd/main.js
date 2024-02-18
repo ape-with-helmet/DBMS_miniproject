@@ -31,7 +31,16 @@ app.post("/fetch_team_details",(req,res)=>{
     })
 })
 
-//SELECT p.pname, DATE_FORMAT(p.dob, '%Y-%m-%d') AS dob, p.origin, p.sex, pt.nickname, t.tname FROM player p JOIN player_team pt ON p.pid = pt.pid JOIN team t ON pt.tid = t.tid WHERE p.pname = 'input_player_name';
+//SELECT DISTINCT gname, publisher, release_date FROM game;
+app.get("/game_details",(req,res)=>{
+    const sql = "SELECT DISTINCT gname, publisher, release_date FROM game;";
+    connection.query(sql, function(err,results){
+        if (err) throw err;
+        console.log(results)
+        res.send(results);
+    })
+})
+
 app.post("/fetch_player_details",(req,res)=>{
     const data = req.body.id;
     const sql = `SELECT p.pname, DATE_FORMAT(p.dob, '%Y-%m-%d') AS dob, p.origin, p.sex, pt.nickname, t.tname, p.description FROM player p JOIN player_team pt ON p.pid = pt.pid JOIN team t ON pt.tid = t.tid WHERE p.pname = '${data}';    `;
