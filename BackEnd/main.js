@@ -36,7 +36,6 @@ app.get("/game_details",(req,res)=>{
     const sql = "SELECT DISTINCT gname, publisher, release_date FROM game;";
     connection.query(sql, function(err,results){
         if (err) throw err;
-        console.log(results)
         res.send(results);
     })
 })
