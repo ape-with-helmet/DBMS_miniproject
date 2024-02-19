@@ -88,7 +88,7 @@
     justify-content: center;
     margin-bottom: auto;
     display: block;
-    transition: all 1s ease;
+    transition: all 0.5s ease-in-out;
 }
 .player-text{
     position: absolute;
@@ -98,7 +98,7 @@
     margin-left: auto;
     padding-right: 10px;
     opacity: 0%;
-    transition: all 1s ease;
+    transition: all 0.5s ease-in;
 }
 .roster{
     font-family: monospace;

@@ -32,7 +32,7 @@ const GameTeam = () => {
   })
   return (
     <div>
-      <div className='header-game-team'>Teams Playing {download}</div>
+      <div className='header-game-team'>{download}</div>
       <ul className="team-card-list">
                 {player.map((cardData, index) => (
                     <li key={index} className="team-card">

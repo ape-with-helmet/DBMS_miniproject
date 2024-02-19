@@ -40,8 +40,13 @@
     color: rgba(255, 255, 255, 0.482);
     z-index: 4;
 }
-.team-roll-animation:hover{
-    transform: translateY(-70vh);
+.team-roll-animation:hover .team-text{
+    transform: translateY(-50vh);
+    opacity: 100%;
+}
+.team-roll-animation:hover .team_image{
+    transform: translateY(-50vh);
+    opacity: 0%;
 }
 .team_image{
     width: 15vw;
@@ -49,8 +54,11 @@
     justify-content: center;
     margin-bottom: auto;
     display: block;
+    transition: all 1s ease;
 }
 .team-text{
     position: absolute;
-    bottom: -70vh;
+    bottom: -50vh;
+    opacity: 0%;
+    transition: all 0.6s ease-in;
 }
