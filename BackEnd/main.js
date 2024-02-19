@@ -19,7 +19,7 @@ app.post("/fetch_team_details",(req,res)=>{
 
 //fetches list of games
 app.get("/game_details",(req,res)=>{
-    const sql = "SELECT DISTINCT gname, publisher, release_date FROM game;";
+    const sql = "SELECT DISTINCT gname, publisher, release_date, photo FROM game;";
     connection.query(sql, function(err,results){
         if (err) throw err;
         res.send(results);
