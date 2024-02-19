@@ -16,7 +16,6 @@ const Games = () => {
                 console.error(error);
             }
         };
-
         getGameDetails();
     }, []);
 
@@ -33,7 +32,6 @@ const Games = () => {
             {/* <button>{handleBack}</button> */}
             <ul className="games-card-list">
                 {data1.map((cardData, index) => (
-
                     <li key={index} className="games-card">
                         <Link onClick={() => upload(cardData)}>
                             <div className='roll-animation'>

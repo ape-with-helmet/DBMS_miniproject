@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import '../css/TeamInfo.css'
+import { Link } from 'react-router-dom';
+import { Buffer } from 'buffer';
 
 function App() {
     const [data1, setData1] = useState([]);
@@ -13,39 +15,28 @@ function App() {
         localStorage.setItem("SelectedTeam",x.tname);
         window.location.href = "/team_players"
     }
-    function merch(x) {
-        localStorage.setItem("SelectedTeam",x.tname);
-        window.location.href = "/merch"
-    }
+    
     return (
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Team Name</th>
-                        <th>Team Rank</th>
-                        <th>Captain Name</th>
-                        <th>Social ID</th>
-                        <th>Sponsor</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        data1.map(prod => {
-                            return (<tr key={prod.tname}>
-                                <td ><button onClick={()=>upload(prod)}>{prod.tname}</button></td>
-                                <td>{prod.trank}</td>
-                                <td>{prod.captain_name}</td>
-                                <td>{prod.social_id}</td>
-                                <td>{prod.sname}</td>
-                                <td><button onClick={()=>merch(prod)}>Buy Merch</button></td>
-                            </tr>)
-                        })
-                    }
-                </tbody>
-            </table>
-        </div>
+        <>
+            <ul className="team-card-list">
+                {data1.map((cardData, index) => (
+                    <li key={index} className="team-card">
+                        <Link onClick={() => upload(cardData)}>
+                            <div className='team-roll-animation'>
+                                 <img src={`data:image/png;base64,${Buffer.from(cardData.photo.data).toString('base64')}`} alt={cardData.tname} className='team_image' />
+                                <div className='team-text'>
+                                    <h1 className='team-text-header'>{cardData.tname}</h1>
+                                    <p className='team-text-inside'>Rank {cardData.trank}</p>
+                                    <p className='team-text-inside'>Captain: {cardData.captain_name}</p>
+                                    <p className='team-text-inside'>Instagram: @{cardData.social_id}</p>
+                                    <p className='team-text-inside'>Sponsor<br/>{cardData.sname}</p>
+                                </div>
+                            </div>
+                        </Link>
+                    </li>
+                ))}
+            </ul>
+        </>
     )
 }
 

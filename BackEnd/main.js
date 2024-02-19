@@ -38,7 +38,7 @@ app.post("/fetch_player_details",(req,res)=>{
 
 //fetches list of all teams and captains
 app.get("/team_details",(req,res)=>{
-    const sql = "SELECT t.tname, t.trank, p.pname AS captain_name, t.social_id, s.sname FROM team t LEFT JOIN sponsor s ON t.tid = s.tid LEFT JOIN player p ON t.captain_id = p.pid;    ";
+    const sql = "SELECT t.tname, t.trank, p.pname AS captain_name, t.social_id, s.sname, t.photo FROM team t LEFT JOIN sponsor s ON t.tid = s.tid LEFT JOIN player p ON t.captain_id = p.pid;    ";
     connection.query(sql, function(err,results){
         if (err) throw err;
         res.send(results);

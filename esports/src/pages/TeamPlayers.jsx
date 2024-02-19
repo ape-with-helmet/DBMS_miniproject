@@ -23,6 +23,10 @@ const TeamPlayers = () => {
 
         getTeamData(download)
     })
+    // function merch(x) {
+    //     localStorage.setItem("SelectedTeam",x.tname);
+    //     window.location.href = "/merch"
+    // }
     function uploadPlayer(x) {
         localStorage.setItem("SelectedPlayer", x.pname);
         window.location.href = "/player"
@@ -49,6 +53,7 @@ const TeamPlayers = () => {
                         })
                     }
                 </tbody>
+                {/* <p className='team-text-inside'><button onClick={()=>merch(cardData)}>Buy Merch</button></p> */}
             </table>
         </div>
     )
