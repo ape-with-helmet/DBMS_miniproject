@@ -2,25 +2,37 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #333;
+    background-color: #4747478f;
     padding: 10px 20px;
+    width: 96.7vw;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    transition: all 3s ease;
   }
-  
+  body{
+    position: absolute;
+    overflow-x: hidden;
+  }
   .navbar-logo {
     display: flex;
     align-items: center;
+    width: 20vw;
+    overflow: hidden;
   }
-  
   .logo-img {
     width: 80px; /* Adjust as needed */
     height: 80px; /* Adjust as needed */
-    margin-right: 10px;
+    margin-right: 20vw;
   }
   
   .logo-name {
     color: #fff;
     font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
     font-weight: bold;
+    position: absolute;
+    right: 0;
   }
   
   .navbar-links {
@@ -55,5 +67,48 @@
   .navbar-links:hover {
     color: #ccc;
     transform: translateY(-0.2vh);
+  }
+  
+  /* .navbar-logo:hover{
+    transform: translateX(-20vh);
+  } */
+  .navbar {
+    position: relative;
+  }
+  
+  .navbar-text {
+    width: 20vh; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+    transition: all 2s ease;
+    position: relative;
+    color: #fff;
+    left: -5vw;
+    font-size: 30px;
+    font-weight: bold;
+    font-family:monospace;
+  }
+  
+  .navbar-image {
+    position: relative;
+    left: -20vw;
+    width: 15vh;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 2s ease;
+    color: #fff;
+    font-size: 30px;
+    font-weight: bold;
+  }
+  
+  .navbar-logo:hover .navbar-text {
+    transform: translateX(-10vw);
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  .navbar-logo:hover .navbar-image {
+    transform: translateX(22vw);
+    opacity: 1;
+    visibility: visible;
   }
   

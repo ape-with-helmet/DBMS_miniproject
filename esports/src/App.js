@@ -8,12 +8,14 @@ import Games from './pages/Games'
 import GameTeam from './pages/GameTeam'
 import Merch from './pages/Merch'
 import Homepage from './pages/Homepage'
+import BackGroundImage from './pages/BackGroundImage'
 
 const App = () => {
   return (
     <>
       <BrowserRouter>
       <NavBar/>
+      <BackGroundImage/>
         <Routes>
           <Route element={<TeamInfo />} path='/team_info' />
           <Route element={<Homepage />} path='/' />

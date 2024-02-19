@@ -1,10 +1,11 @@
-body{
+/* body{
     background-color: rgba(0, 0, 0, 0.9); 
     color: rgba(240, 248, 255, 0.558);
-    background-image: url(https://e1.pxfuel.com/desktop-wallpaper/913/792/desktop-wallpaper-black-gaming-logo-esports-logo.jpg);
+    background-image: url('C:\Gribbons\DBMS_miniproject\esports\src\pages\skull-artwork-minimalism-gray-background-call-of-duty-call-of-duty-ghosts-dishonored-wallpaper-preview.jpg');
     background-size: cover;
-    background-blend-mode:overlay;
-}
+    background-blend-mode: color-dodge ;
+    position: fixed;
+} */
 .container {
     display: flex; /* Use flexbox layout */
     list-style-type: none;
