@@ -1,0 +1,23 @@
+.header-game-team {
+
+    font-size: 90px;
+    background-image: linear-gradient(to right, #000000, #ffffff);
+    background-size: 200%;
+    background-clip: text;
+    color: transparent;
+    /* Hide original text */
+    animation: slide 5s infinite alternate-reverse;
+    /* Adjust animation duration and iteration count as needed */
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: lighter;
+    text-align: center;
+}
+
+@keyframes slide {
+    0% {
+      background-position: left;
+    }
+    100% {
+      background-position: right;
+    }
+  }

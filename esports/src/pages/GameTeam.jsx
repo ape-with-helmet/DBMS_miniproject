@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
+import { Buffer } from 'buffer'
+import '../css/GameTeam.css'
 
 const GameTeam = () => {
   var [download, setDownload] = useState("")
@@ -29,27 +32,23 @@ const GameTeam = () => {
   })
   return (
     <div>
-      <h1>{download}</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Team Name</th>
-            <th>Captain Name</th>
-            <th>Team Rank</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            player.map(prod => {
-              return (<tr key={prod.Team_Name}>
-                <td><button onClick={() => upload(prod)}>{prod.Team_Name}</button></td>
-                <td>{prod.Captain_Name}</td>
-                <td>{prod.Team_Rank}</td>
-              </tr>)
-            })
-          }
-        </tbody>
-      </table>
+      <div className='header-game-team'>Teams Playing {download}</div>
+      <ul className="team-card-list">
+                {player.map((cardData, index) => (
+                    <li key={index} className="team-card">
+                        <Link onClick={() => upload(cardData)}>
+                            <div className='team-roll-animation'>
+                                 <img src={`data:image/png;base64,${Buffer.from(cardData.Team_Photo.data).toString('base64')}`} alt={cardData.tname} className='team_image' />
+                                <div className='team-text'>
+                                    <h1 className='team-text-header'>{cardData.Team_Name}</h1>
+                                    <p className='team-text-inside'>Captain: {cardData.Captain_Name}</p>
+                                    <p className='team-text-inside'>Rank {cardData.Team_Rank}</p>
+                                </div>
+                            </div>
+                        </Link>
+                    </li>
+                ))}
+            </ul>
     </div>
   )
 }

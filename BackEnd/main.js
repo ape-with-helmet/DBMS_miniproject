@@ -48,7 +48,7 @@ app.get("/team_details",(req,res)=>{
 //fetches all teams in a particular game
 app.post("/fetch_game_teams",(req,res)=>{
     const data = req.body.id;
-    const sql = `SELECT t.tname AS Team_Name, p.pname AS Captain_Name, t.trank AS Team_Rank FROM team t JOIN player p ON t.captain_id = p.pid JOIN game g ON t.tid = g.tid WHERE g.gname = '${data}' ORDER BY t.trank;`;
+    const sql = `SELECT t.tname AS Team_Name, p.pname AS Captain_Name, t.trank AS Team_Rank, t.photo AS Team_Photo FROM team t JOIN player p ON t.captain_id = p.pid JOIN game g ON t.tid = g.tid WHERE g.gname = '${data}' ORDER BY t.trank;    `;
     connection.query(sql, function(err,results){
         if (err) throw err;
         res.send(results);
