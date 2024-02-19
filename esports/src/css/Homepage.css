@@ -70,10 +70,12 @@
     width: 20vw;
     padding-bottom: 10vh;
     filter: invert(100);
+    transition: all 1s ease;
   }
   .game_logo{
     width: 20vw;
     padding-bottom: 10vh;
+    transition: all 1s ease;
   }
   .text_home{
     text-decoration: none;
@@ -98,12 +100,23 @@
     margin-right: auto;
     padding-top: 12vh;
     padding-bottom: 4vh;
-    transition: all 1.5s ease;
+    transition: all 1s ease;
   }
   .home-text{
     position: absolute;
-    bottom: -50vh;
+    bottom: -1vh;
+    opacity: 0%;
+    transition: all 1s ease;
   }
-  .outer-animation:hover{
-    transform: translateY(-70vh);
+  .outer-animation:hover .game_logo{
+    transform: translateY(-10vh);
+    opacity: 0%;
+  }
+  .outer-animation:hover .team_logo{
+    transform: translateY(-10vh);
+    opacity: 0%;
+  }
+  .outer-animation:hover .home-text{
+    transform: translateY(-25vh);
+    opacity: 100%;
   }
