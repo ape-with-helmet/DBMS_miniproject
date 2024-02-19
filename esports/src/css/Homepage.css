@@ -1,6 +1,9 @@
 body{
     background-color: rgba(0, 0, 0, 0.9); 
     color: rgba(240, 248, 255, 0.558);
+    background-image: url(https://e1.pxfuel.com/desktop-wallpaper/913/792/desktop-wallpaper-black-gaming-logo-esports-logo.jpg);
+    background-size: cover;
+    background-blend-mode:overlay;
 }
 .container {
     display: flex; /* Use flexbox layout */
@@ -42,9 +45,30 @@ body{
     transition: all 1s ease;
     color: rgba(255, 255, 255, 0.937);
   }
+  .left-div {
+    background-color: rgba(255, 0, 0, 0);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    margin: 1vw;
+    position: relative;
+    padding: 10vh;
+    padding-top: 15vh;
+    display: flex;
+    height: 30vh;
+    width: 20vw;
+    transition: all 1s ease;
+    color: rgba(255, 255, 255, 0.937);
+  }
   .team_logo{
     width: 20vw;
-    padding-bottom: 2%;
+    padding-bottom: 10vh;
+    filter: invert(100);
   }
   .game_logo{
     width: 20vw;

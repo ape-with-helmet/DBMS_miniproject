@@ -17,7 +17,7 @@ function App() {
     }
     
     return (
-        <>
+        <body>
             <ul className="team-card-list">
                 {data1.map((cardData, index) => (
                     <li key={index} className="team-card">
@@ -36,7 +36,7 @@ function App() {
                     </li>
                 ))}
             </ul>
-        </>
+        </body>
     )
 }
 

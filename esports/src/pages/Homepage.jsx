@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import game from './game.png'
-import team from './buffalo-bills-logo.png'
+import team from './tams.png'
 import '../css/Homepage.css'
 
 const Homepage = () => {
@@ -14,7 +14,7 @@ const Homepage = () => {
         <>
             <ul className="container">
                 <Link onClick={()=>actuate("/team_info")} className='text_home'>
-                <li className="right-div">
+                <li className="left-div">
                         <div className="outer-animation">
                             <img src={team} className='team_logo' alt='Team logo' />
                             <div className="home-text">
