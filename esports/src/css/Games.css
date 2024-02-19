@@ -2,20 +2,52 @@
     list-style-type: none;
     padding: 10px;
     margin: 0;
+    justify-content: space-between;
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
-
 .games-card {
-    background-color: rgba(0, 0, 0, 0.281);
-    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.099);
+    border-radius: 10px;
+    flex: 1 0 calc(20% - 20px); /* Adjust width based on 4 items per row */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
     margin-bottom: 10px;
     margin-left: auto;
     margin-right: auto;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    margin: 1vw;
+    position: relative;
+    display: flex;
+    height: 40vh;
     width: 20vw;
-    transition: all 1.5s ease;
+    transition: all 1s ease;
     padding: 20px;
+    color: rgba(255, 255, 255, 0.482);
 }
-.games-card:hover{
-    filter: invert(100%);
+.game-text-inside{
+    font-size: 20px;
+}
+.game-text-header{
+    font-size: 50px;
+    color: white;
+}
+.roll-animation{
+    transition: all 1.5s ease;
+    color: rgba(255, 255, 255, 0.482);
+}
+.roll-animation:hover{
+    transform: translateY(-60vh);
+}
+.game_image{
+    width: 20vw;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.games-text{
+    position: absolute;
+    bottom: -70vh;
 }
