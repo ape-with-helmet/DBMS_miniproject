@@ -40,16 +40,24 @@
     color: rgba(255, 255, 255, 0.482);
     z-index: 4;
 }
-.roll-animation:hover{
-    transform: translateY(-70vh);
+.roll-animation:hover .game_image{
+    transform: translateY(-30vh);
+    opacity: 0%;
+}
+.roll-animation:hover .games-text{
+    transform: translateY(-30vh);
+    opacity: 100%;
 }
 .game_image{
     width: 20vw;
     margin-top: 10vh;
     justify-content: center;
     margin-bottom: auto;
+    transition: all 1s ease;
 }
 .games-text{
     position: absolute;
-    bottom: -70vh;
+    bottom: -30vh;
+    opacity: 0%;
+    transition: all 1s ease;
 }
