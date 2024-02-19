@@ -22,10 +22,9 @@
     margin: 1vw;
     position: relative;
     display: flex;
-    height: 40vh;
+    height: 50vh;
     width: 20vw;
     transition: all 1s ease;
-    padding: 20px;
     color: rgba(255, 255, 255, 0.482);
 }
 .game-text-inside{
@@ -37,14 +36,17 @@
 }
 .roll-animation{
     transition: all 1.5s ease;
+    height: 40vh;
     color: rgba(255, 255, 255, 0.482);
+    z-index: 4;
 }
 .roll-animation:hover{
-    transform: translateY(-60vh);
+    transform: translateY(-70vh);
 }
 .game_image{
     width: 20vw;
-    margin-top: auto;
+    margin-top: 10vh;
+    justify-content: center;
     margin-bottom: auto;
 }
 .games-text{

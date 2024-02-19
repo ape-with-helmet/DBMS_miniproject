@@ -7,11 +7,6 @@ import { Link } from 'react-router-dom'
 
 const Games = () => {
     const [data1, setData1] = useState([]);
-    // const history = useHistory()
-
-    // const handleBack = () => {
-    //     history.goBack();
-    // };
     useEffect(() => {
         const getGameDetails = async () => {
             try {

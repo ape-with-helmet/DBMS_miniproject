@@ -4,7 +4,12 @@ body{
 }
 .container {
     display: flex; /* Use flexbox layout */
-    margin-top: 10vh;
+    list-style-type: none;
+    padding: 100px;
+    margin: 0;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
   
   .left-div, .right-div {
@@ -14,14 +19,32 @@ body{
   /* Optional styling */
   .left-div {
     padding: 20px; /* Example padding */
+    overflow: hidden;
   }
   
   .right-div {
-    padding: 20px; /* Example padding */
+    background-color: rgba(255, 0, 0, 0);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    margin: 1vw;
+    position: relative;
+    padding: 10vh;
+    padding-top: 20vh;
+    display: flex;
+    height: 30vh;
+    width: 20vw;
+    transition: all 1s ease;
+    color: rgba(255, 255, 255, 0.937);
   }
   .team_logo{
     width: 20vw;
-    padding-bottom: 5vh;
+    padding-bottom: 2%;
   }
   .game_logo{
     width: 20vw;
@@ -32,21 +55,14 @@ body{
     margin-left: auto;
     margin-right: auto;
   }
-  .outer-box{
-    background-color: rgba(0, 0, 0, 0.251);
-    border-radius: 30px;
-    height: 45vh;
-    width: 40vw;
-    text-align: center;
-    align-content: center;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 7vh;
-    padding-bottom: 10vh;
+  .outer-animation{
     transition: all 1.5s ease;
+    height: 40vh;
+    color: rgb(255, 255, 255);
+    z-index: 4;
   }
   .outer-box-right{
-    background-color: rgba(0, 0, 0, 0.251);
+    background-color: rgba(0, 0, 0, 0);
     border-radius: 30px;
     height: 45vh;
     overflow: hidden;
@@ -59,26 +75,10 @@ body{
     padding-bottom: 4vh;
     transition: all 1.5s ease;
   }
-  .outer-box:hover{
-    filter: invert(100%);
+  .home-text{
+    position: absolute;
+    bottom: -50vh;
   }
-  .outer-box-right:hover{
-    filter: invert(100%);
-  }
-  .teambutton {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff;
-    background-color:darkviolet;
-    border: solid rgba(0, 0, 0, 0.499) 0.5px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .teambutton:hover {
-    transform: translateY(-0.2vh);
-    transform: scale(1.1);
+  .outer-animation:hover{
+    transform: translateY(-70vh);
   }
