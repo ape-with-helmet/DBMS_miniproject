@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
+import { Buffer } from 'buffer'
+import '../css/TeamPlayers.css'
+import EmptyTriangle from '../resoures/circle'
 
 const TeamPlayers = () => {
     var [download, setDownload] = useState("")
@@ -7,7 +11,7 @@ const TeamPlayers = () => {
 
     useEffect(() => {
         setDownload(localStorage.getItem("SelectedTeam"))
-    })
+    }, [])
     useEffect(() => {
         const getTeamData = async (download) => {
             try {
@@ -22,7 +26,7 @@ const TeamPlayers = () => {
         }
 
         getTeamData(download)
-    })
+    }, [players])
     // function merch(x) {
     //     localStorage.setItem("SelectedTeam",x.tname);
     //     window.location.href = "/merch"
@@ -33,28 +37,28 @@ const TeamPlayers = () => {
     }
     return (
         <div>
-            <h1>{download}</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Player Name</th>
-                        <th>NickName</th>
-                        <th>Position</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        players.map(prod => {
-                            return (<tr key={prod.pname}>
-                                <td ><button onClick={() => uploadPlayer(prod)}>{prod.pname}</button></td>
-                                <td>{prod.nickname}</td>
-                                <td>{prod.captain_status}</td>
-                            </tr>)
-                        })
-                    }
-                </tbody>
-                {/* <p className='team-text-inside'><button onClick={()=>merch(cardData)}>Buy Merch</button></p> */}
-            </table>
+            <h1 className='roster'>{download} Player Roster</h1>
+            {/* <p className='team-text-inside'><button onClick={()=>merch(cardData)}>Buy Merch</button></p> */}
+            <ul className="player-card-list">
+                {players.map((cardData, index) => (<>
+                    
+                    <li key={index} className='player-card'>
+                        <div>
+                        {cardData.captain_status=="Captain"?<EmptyTriangle size="100px" borderWidth="2px" borderColor="yellow" />:<></>}
+                    </div>
+                        <Link onClick={() => uploadPlayer(cardData)}>
+                            <div className='player-roll-animation'>
+                                <img src={`data:image/png;base64,${Buffer.from(cardData.photo.data).toString('base64')}`} alt={cardData.pname} className='player-image' />
+                                <div className='player-text'>
+                                    <h1 className='player-text-header'>{cardData.nickname}</h1>
+                                    <p className='player-text-inside'>AKA {cardData.pname}</p>
+                                </div>
+                            </div>
+                        </Link>
+                    </li></>
+                ))}
+            </ul>
+
         </div>
     )
 }

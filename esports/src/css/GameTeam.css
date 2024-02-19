@@ -1,8 +1,9 @@
 .header-game-team {
 
     font-size: 90px;
-    background-image: linear-gradient(to right, #000000, #ffffff);
+    background-image: radial-gradient(circle, #fff200, #00bfff);
     background-size: 200%;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     background-clip: text;
     color: transparent;
     /* Hide original text */
