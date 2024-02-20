@@ -82,7 +82,6 @@ app.post("/buy_merch",(req,res)=>{
     const prod = req.body.merch_name;
     const sql = `UPDATE merchandise SET quantity = CASE WHEN quantity > 0 THEN quantity - 1 ELSE 0 END WHERE tid = (SELECT tid FROM team WHERE tname = '${team}' LIMIT 1) AND product = '${prod}';`;
     connection.query(sql, function(err,response){
-        console.log(prod)
         if (err) throw err;
     })
 })

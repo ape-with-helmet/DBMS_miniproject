@@ -50,7 +50,6 @@ const TeamPlayers = () => {
                     id: download
                 });
                 setMerchData(merch_response.data)
-                console.log(merchData)
             } catch (error) {
                 console.error(error);
                 throw error;
