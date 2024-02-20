@@ -29,7 +29,7 @@ app.get("/game_details",(req,res)=>{
 //fetches all details of a particular player
 app.post("/fetch_player_details",(req,res)=>{
     const data = req.body.id;
-    const sql = `SELECT p.pname, DATE_FORMAT(p.dob, '%Y-%m-%d') AS dob, p.origin, p.sex, pt.nickname, t.tname, p.description FROM player p JOIN player_team pt ON p.pid = pt.pid JOIN team t ON pt.tid = t.tid WHERE p.pname = '${data}';    `;
+    const sql = `SELECT p.pname, DATE_FORMAT(p.dob, '%Y-%m-%d') AS dob, p.origin, p.sex, pt.nickname, t.tname, p.photo, p.description FROM player p JOIN player_team pt ON p.pid = pt.pid JOIN team t ON pt.tid = t.tid WHERE p.pname = '${data}';    `;
     connection.query(sql, function(err,results){
         if (err) throw err;
         res.send(results);
