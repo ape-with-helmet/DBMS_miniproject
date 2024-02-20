@@ -5,6 +5,7 @@
 .spec-player-container{
     display:flex;
     width: 60vw;
+    height: 70vh;
     margin-left: auto;
     margin-right: auto;
     align-items: center;
@@ -12,6 +13,7 @@
     justify-content: center;
     padding: 1vw;
 }
+
 .player-desc{
     color: aliceblue;
     padding-left: 5vw;

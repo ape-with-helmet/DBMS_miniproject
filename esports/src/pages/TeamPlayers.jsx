@@ -44,9 +44,9 @@ const TeamPlayers = () => {
                     
                     <li key={index} className='player-card'>
                         <div>
-                        {cardData.captain_status=="Captain"?<EmptyTriangle size="100px" borderWidth="2px" borderColor="yellow" />:<></>}
+                        {cardData.captain_status=="Captain"?<div className='captain-status'></div>:<></>}
                     </div>
-                        <Link onClick={() => uploadPlayer(cardData)}>
+                        <Link onClick={() => uploadPlayer(cardData)} className='lonk-plonk'>
                             <div className='player-roll-animation'>
                                 <img src={`data:image/png;base64,${Buffer.from(cardData.photo.data).toString('base64')}`} alt={cardData.pname} className='player-image' />
                                 <div className='player-text'>

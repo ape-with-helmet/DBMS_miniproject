@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../css/AddData.css'
 
 function AddData() {
   const [formData, setFormData] = useState({
@@ -32,10 +33,10 @@ function AddData() {
 
   return (
     <div>
-      <h2>Simple Form with Image Upload</h2>
+      <h2 className='add-data-header'>Simple Form with Image Upload</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="name">Name:</label>
+          <label htmlFor="name" className='add-data-header'>Name:</label>
           <input
             type="text"
             id="name"
@@ -46,7 +47,7 @@ function AddData() {
           />
         </div>
         <div>
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email" className='add-data-header'>Email:</label>
           <input
             type="email"
             id="email"
@@ -57,7 +58,7 @@ function AddData() {
           />
         </div>
         <div>
-          <label htmlFor="message">Message:</label>
+          <label htmlFor="message" className='add-data-header'>Message:</label>
           <textarea
             id="message"
             name="message"
@@ -67,7 +68,7 @@ function AddData() {
           ></textarea>
         </div>
         <div>
-          <label htmlFor="image">Upload Image:</label>
+          <label htmlFor="image" className='add-data-header'>Upload Image:</label>
           <input
             type="file"
             id="image"
