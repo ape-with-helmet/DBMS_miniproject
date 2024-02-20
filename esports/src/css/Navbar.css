@@ -133,20 +133,19 @@
   }
 
   .back-button {
-    display: inline-block;
-    padding: 10px 20px;
     background-color: #6b6b6b87;
-    position: relative;
     color: white;
     font-size: 30px;
     text-align: center;
     text-decoration: none;
     border: none;
+    width: 0vw;
     left: -35vw;
+    position: relative;
     top: auto;
     cursor:crosshair;
     border-radius: 20px;
-    transition: background-color 0.3s;
+    transition: all 0.3s;
   }
   
   .back-button:hover {
