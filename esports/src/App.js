@@ -9,6 +9,7 @@ import GameTeam from './pages/GameTeam'
 import Merch from './pages/Merch'
 import Homepage from './pages/Homepage'
 import BackGroundImage from './pages/BackGroundImage'
+import AddData from './pages/AddData'
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
           <Route element={<Games />} path='/games' />
           <Route element={<GameTeam />} path='/game_team' />
           <Route element={<Merch />} path='/merch' />
+          <Route element={<AddData />} path='/add_data' />
         </Routes>
       </BrowserRouter>
     </>

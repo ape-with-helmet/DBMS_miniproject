@@ -2,6 +2,7 @@ import '../css/Navbar.css'
 import { Link, useLocation } from 'react-router-dom';
 import back from './back.svg'
 import Logo from './buffalo-bills-logo.png'
+import adduser from './add-user.svg'
 
 function NavBar() {
     const location = useLocation();
@@ -14,9 +15,7 @@ function NavBar() {
                 </div></Link>
                 {location.pathname !== '/' && <a className='back-button' onClick={()=>window.history.back()}><img src={back}/></a>}
                 <ul className="navbar-links">
-                    <li className="navbar-links-1"><Link to="/">Add info</Link></li>
-                    <li className="navbar-links-2"><Link to="/team_info">Teams</Link></li>
-                    <li className="navbar-links-3"><Link to="/games">Games</Link></li>
+                    <li className="navbar-links-1"><Link to="/add_data"><img src={adduser}/></Link></li>
                 </ul>
             </nav>
         </>

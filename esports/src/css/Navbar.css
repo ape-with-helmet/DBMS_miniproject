@@ -55,17 +55,12 @@
     transition: all 0.5s ease;
   }
   
-  .navbar-links-1,.navbar-links-2,.navbar-links-3  {
+  .navbar-links-1 {
     display: inline-block;
     position: relative;
     transition: all 1s ease;
     cursor:crosshair;
     margin-right: 25px;
-  }
-  
-  .navbar-links-3{
-    cursor:crosshair;
-    margin-right: 0;
   }
   
   .navbar-links  a {
@@ -127,9 +122,9 @@
   .links{
     text-decoration: none;
   }
-  .navbar-links a:hover{
-    color: rgba(251, 251, 251, 0.618);
-    transform:scale(20px)
+  .navbar-links:hover{
+    transform:scale(120%);
+    filter:invert(100%)
   }
 
   .back-button {
