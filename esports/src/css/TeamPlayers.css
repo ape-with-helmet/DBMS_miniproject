@@ -1,6 +1,6 @@
 .player-card-list {
     list-style-type: none;
-    padding: 10vw;
+    padding-right: 5vw;
     padding-top: 0px;
     margin: 0;
     justify-content: space-between;
@@ -33,7 +33,7 @@
 }
 .player-text-inside{
     font-size: 20px;
-    text-align: left;
+    text-align: center;
     justify-items: left;
     align-content: left;
     margin-left: auto;
@@ -42,7 +42,7 @@
 .player-text-header{
     font-size: 50px;
     width: 20vw;
-    text-align: left;
+    text-align: center;
     justify-items: left;
     align-content: left;
     /* margin-left: -1vw;
@@ -77,11 +77,10 @@
 }
 .player-text{
     position: relative;
-    text-align: center;
     justify-items: center;
     align-content: center;
     /* margin-left: auto; */
-    padding-right: 10px;
+    /* padding-left: 10px; */
     opacity: 0%;
     transition: all 0.5s ease-in;
 }
@@ -105,4 +104,105 @@
 .lonk-plonk{
     text-decoration: none;
 
+}
+.team-merch{
+    position: relative;
+    height: 80px;
+    text-align: center;
+    justify-content: center;
+    display: block;
+    margin-left: auto;
+    margin-right: 10%;
+    padding-bottom: 2vh;
+    filter: invert(60%);
+}
+.team-player-main-container{
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+}
+.team-player-left{
+    position: relative;
+    transition: all 0.5s ease;
+    width: 25vw;
+    left: 2vw;
+}
+.team-player-right{
+    width: 70vw;
+}
+.team-player-container{
+    width: 100%;
+    height: 60vh;
+    margin-top: 3vh;
+    transition: all 0.5s ease;
+    background-color: rgba(60, 60, 60, 0.622);
+    border: solid 2px rgba(255, 255, 255, 0.26);
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.158), 0 8px 16px rgba(255, 255, 255, 0.158);
+    border-radius: 20px;
+}
+.sponsor-name{
+    position: relative;
+    top: 10vh;
+    font-size: 60px;
+    font-weight: 900;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: rgb(255, 255, 255);
+}
+.sponsor-amount{
+    position: relative;
+    top: 15vh;
+    font-size: 30px;
+    align-items: center;
+    justify-content: center;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    color: rgb(171, 171, 171);
+    text-align: center;
+}
+.merch-line{
+    top: 25vh;
+    position: relative;
+    display: flex;
+    padding-bottom: 2vh;
+    transition: all 0.5s ease;
+}
+.merch-plus{
+    cursor:pointer;
+    position: absolute;
+    transition: all 0.5s ease;
+    width: 5%;
+    left: 14vw;
+    padding-bottom: 10px;
+    padding-left: 2vw;
+    filter: invert(100%);
+}
+.merch-minus{
+    cursor:pointer;
+    position: absolute;
+    right: 1vw;
+    transition: all 0.5s ease;
+    width: 5%;
+    padding-bottom: 10px;
+    padding-right: 1vw;
+    filter: invert(100%);
+}
+.merch-name,.merch-price{
+    width: 20%;
+    font-size: 20px;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;
+    padding-top: 1px;
+    padding-left: 2vw;
+    color: silver;
+}
+.merch-plus:hover{
+    scale: 110%;
+}
+.merch-stock{
+    font-size: 20px;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;
+    color: silver;
+    position: absolute;
+    left: 19vw;
 }

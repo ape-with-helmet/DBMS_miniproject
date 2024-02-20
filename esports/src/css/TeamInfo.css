@@ -8,14 +8,12 @@
     flex-wrap: wrap;
 }
 .team-card {
-    background-color: rgba(0, 0, 0, 0.099);
+    background-color: rgba(0, 0, 0, 0.69);
     border-radius: 10px;
     flex: 1 0 calc(10% - 20px); /* Adjust width based on 4 items per row */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     margin-bottom: 10px;
-    margin-left: auto;
-    margin-right: auto;
     align-items: center;
     align-content: center;
     justify-content: center;
@@ -32,6 +30,7 @@
 }
 .team-text-header{
     font-size: 50px;
+    text-align: center;
     color: white;
 }
 .team-roll-animation{
@@ -41,24 +40,31 @@
     z-index: 4;
 }
 .team-roll-animation:hover .team-text{
-    transform: translateY(-50vh);
+    transform: translateY(-30vh);
     opacity: 100%;
 }
 .team-roll-animation:hover .team_image{
-    transform: translateY(-50vh);
+    transform: translateY(-10vh);
     opacity: 0%;
 }
 .team_image{
-    width: 15vw;
-    margin-top: 10vh;
+    width: 100%;
+    margin-top: 3vh;
+    left: 0;
+    position: absolute;
+    align-items: center;
     justify-content: center;
-    margin-bottom: auto;
-    display: block;
-    transition: all 1s ease;
+    transition: all 1s ease-in-out;
 }
 .team-text{
     position: absolute;
-    bottom: -50vh;
+    justify-content: center;
+    align-items: center;
+    bottom: -30vh;
+    left: 0;
     opacity: 0%;
-    transition: all 0.6s ease-in;
+    transition: all 1s ease-in-out;
+}
+.team-text-inside{
+    padding-left: 1vw;
 }

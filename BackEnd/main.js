@@ -26,6 +26,16 @@ app.get("/game_details",(req,res)=>{
     })
 })
 
+//fetches sponsor of teams
+app.post("/sponsor_details",(req,res)=>{
+    const data = req.body.id;
+    const sql = `SELECT s.sname, s.money FROM sponsor s JOIN team t ON s.tid = t.tid WHERE t.tname = '${data}';    `;
+    connection.query(sql, function(err,results){
+        if (err) throw err;
+        res.send(results);
+    })
+})
+
 //fetches all details of a particular player
 app.post("/fetch_player_details",(req,res)=>{
     const data = req.body.id;
@@ -71,7 +81,8 @@ app.post("/buy_merch",(req,res)=>{
     const team = req.body.teamname;
     const prod = req.body.merch_name;
     const sql = `UPDATE merchandise SET quantity = CASE WHEN quantity > 0 THEN quantity - 1 ELSE 0 END WHERE tid = (SELECT tid FROM team WHERE tname = '${team}' LIMIT 1) AND product = '${prod}';`;
-    connection.query(sql, function(err,results){
+    connection.query(sql, function(err,response){
+        console.log(prod)
         if (err) throw err;
     })
 })
@@ -81,7 +92,7 @@ app.post("/cancel_merch",(req,res)=>{
     const team = req.body.teamname;
     const prod = req.body.merch_name;
     const sql = `UPDATE merchandise SET quantity = CASE WHEN quantity < 100 THEN quantity + 1 ELSE 0 END WHERE tid = (SELECT tid FROM team WHERE tname = '${team}' LIMIT 1) AND product = '${prod}';`;
-    connection.query(sql, function(err,results){
+    connection.query(sql, function(err){
         if (err) throw err;
     })
 })

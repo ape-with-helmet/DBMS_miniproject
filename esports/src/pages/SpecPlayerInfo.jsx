@@ -31,7 +31,7 @@ const SpecPlayerInfo = () => {
                 player.map(prod => {
                     return (<>
                         <div className='spec-player-image'>
-                        <img src={`data:image/png;base64,${Buffer.from(prod.photo.data).toString('base64')}`} alt={prod.pname} className='team_image' />
+                        <img src={`data:image/png;base64,${Buffer.from(prod.photo.data).toString('base64')}`} alt={prod.pname} className='spec-player-image' />
 
                         </div>
                         <div className='player-desc'>

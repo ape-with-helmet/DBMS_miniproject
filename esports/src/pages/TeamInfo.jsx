@@ -29,7 +29,6 @@ function App() {
                                     <p className='team-text-inside'>Rank {cardData.trank}</p>
                                     <p className='team-text-inside'>Captain: {cardData.captain_name}</p>
                                     <p className='team-text-inside'>Instagram: @{cardData.social_id}</p>
-                                    <p className='team-text-inside'>Sponsor<br/>{cardData.sname}</p>
                                 </div>
                             </div>
                         </Link>

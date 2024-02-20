@@ -7,29 +7,22 @@
     width: 96.7vw;
     position: fixed;
     left: 0px;
-    cursor:crosshair;
     top: 0px;
     transition: all 1s ease;
-  }
-  *{
-    cursor:crosshair;
   }
   body{
     position: absolute;
     overflow-x: hidden;
-    cursor:crosshair !important;
   }
   .navbar-logo {
     display: flex;
     align-items: center;
-    cursor:crosshair;
     width: 20vw;
     overflow: hidden;
   }
   .logo-img {
     width: 80px; /* Adjust as needed */
     height: 80px; /* Adjust as needed */
-    cursor:crosshair;
     margin-right: 20vw;
   }
   
@@ -38,7 +31,6 @@
     font-size: 18px;
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
-    cursor:crosshair;
     position: absolute;
     right: 0;
   }
@@ -50,7 +42,6 @@
     color: aliceblue;
     font-family: monospace;
     font-size: xx-large;
-    cursor:crosshair;
     padding-right: 10px;
     transition: all 0.5s ease;
   }
@@ -59,7 +50,6 @@
     display: inline-block;
     position: relative;
     transition: all 1s ease;
-    cursor:crosshair;
     margin-right: 25px;
   }
   
@@ -74,7 +64,6 @@
     transform: translateX(-20vh);
   } */
   .navbar {
-    cursor:crosshair;
     position: relative;
   }
   
@@ -90,7 +79,6 @@
     font-weight: bold;
     font-family:monospace;
     text-decoration: none;
-    cursor:crosshair;
   }
   
   .navbar-image {
@@ -103,7 +91,6 @@
     transition: all 1s ease;
     color: #fff;
     font-size: 30px;
-    cursor:crosshair;
     font-weight: bold;
   }
   
@@ -138,7 +125,7 @@
     left: -35vw;
     position: relative;
     top: auto;
-    cursor:crosshair;
+    cursor:pointer;
     border-radius: 20px;
     transition: all 0.3s;
   }

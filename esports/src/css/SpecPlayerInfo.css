@@ -15,6 +15,7 @@
 }
 
 .player-desc{
+    position: relative;
     color: aliceblue;
     padding-left: 5vw;
     font-size: 20px;
@@ -23,7 +24,11 @@
     font-weight: 100;
 }
 .spec-player-name{
+    position: relative;
     font-size: 50px;
     letter-spacing: 10px;
     font-family: monospace;
+}
+.spec-player-image{
+    height: 70vh;
 }

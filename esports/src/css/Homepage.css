@@ -9,7 +9,7 @@
 .container {
     display: flex; /* Use flexbox layout */
     list-style-type: none;
-    padding: 100px;
+    padding: 30px 100px 100px 100px;
     margin: 0;
     justify-content: space-between;
     flex-direction: row;
