@@ -1,3 +1,159 @@
-.add-data-header{
+.add-data-header {
+    color: black;
+    font-size: 20px;
+    margin-bottom: 4vh;
+}
+.main-div{  
+    height: 80vh;
+
+    overflow: hidden;
+}
+.add-data-form{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+}
+.add-data-form-container-1 {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10vh;
+    width: 35vw;
+    position: relative;
+    border-radius: 20px;
+    background-color: #ffffff99;
+    left: 32.5vw;
+    height: 40vh;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+}
+.add-data-form-container-2 {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10vh;
+    left: 32.5vw;
+    top: 70vh;
+    width: 35vw;
+    position: relative;
+    border-radius: 20px;
+    background-color: #ffffff99;
+    height: 40vh;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+}
+.team-submit{
+    border-radius: 10px;
+    position: relative;
+    top: 70vh;
+    width: 8vw;
+    margin-top: 5px;
+    justify-content: center;
+    left: 46.5vw;
+    height: 4vh; 
+    padding-left: 3%;
+    padding-right: 3%;
+    font-size: 20px;
+    transition: all 0.5s ease;
+}
+.reset{
+    width: fit-content;
+    left: 44.5vw;
+}
+
+.player-submit{
+    border-radius: 10px;
+    position: relative;
+    left: 46.5vw;
+    width: 8vw;
+    margin-top: 5px;
+    height: 4vh;
+    font-size: 20px;
+    transition: all 0.5s ease;
+}
+.reset-1{
+    width: fit-content;
+    left: 45.55vw;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+.vertical-line {
+    border: rgb(0, 0, 0) solid 1px;
+    height: 70%;
+    margin: 2%;
+    width: 0px;
+}
+
+.add-data-form-text {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    margin-top: 4vh;
+}
+
+.add-data-form-inputs {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    width: 15vw;
+    flex-direction: column;
+}
+
+.add-data-form-input-insides {
+    background-color: #ffffff99;
+    height: 5vh;
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 20px;
+    color: black;
+    padding-left: 10%;
+    margin-bottom: 10px;
+}
+
+.add-data-form-input-insides option {
+    background-color: #ffffff99;
+    font-size: 20px;
+}
+
+.add-data-form-input-insides-image{
+    position: relative;
+    left: 10%;
+    scale: 120%;
+    padding: 2px;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
     color: white;
+    /* width: 4.5vw; */
+    overflow: hidden;
+    /* Ensure content overflow is hidden */
+}
+.player-submit:hover{
+    background-color: grey;
+    color: black;
+}
+.conditional-com-1{
+    transition: all 1s ease;
+}
+.conditional-com-1.show{
+    opacity: 1;
+    transform: translateY(10vh);
+}
+.conditional-com-1.hide{
+    opacity: 0;
+    transform: translateY(-70vh);
+}
+.conditional-com-2{
+    transition: all 1s ease;
+}
+.conditional-com-2.show{
+    opacity: 0;
+    transform: translateY(10vh);
+}
+.conditional-com-2.hide{
+    opacity: 1;
+    transform: translateY(-70vh);
 }
