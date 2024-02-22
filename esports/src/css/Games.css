@@ -22,26 +22,27 @@
     margin: 1vw;
     position: relative;
     display: flex;
-    height: 50vh;
+    height: 60vh;
     width: 20vw;
     transition: all 1s ease;
     color: rgba(255, 255, 255, 0.482);
 }
 .game-text-inside{
-    font-size: 20px;
+    font-size: 18px;
+    text-align: justify;
 }
 .game-text-header{
     font-size: 50px;
     color: white;
 }
 .roll-animation{
-    transition: all 1.5s ease;
+    transition: all 1s ease;
     height: 40vh;
     color: rgba(255, 255, 255, 0.482);
     z-index: 4;
 }
 .roll-animation:hover .game_image{
-    transform: translateY(-30vh);
+    transform: translateY(-40vh);
     opacity: 0%;
 }
 .roll-animation:hover .games-text{
@@ -58,6 +59,7 @@
 .games-text{
     position: absolute;
     bottom: -30vh;
+    padding-right: 20px;
     opacity: 0%;
     transition: all 1s ease;
 }

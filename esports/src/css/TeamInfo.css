@@ -57,14 +57,12 @@
     transition: all 1s ease-in-out;
 }
 .team-text{
-    position: absolute;
+    position: relative;
+    padding-left: 20px;
+    padding-right: 20px;
     justify-content: center;
     align-items: center;
     bottom: -30vh;
-    left: 0;
     opacity: 0%;
     transition: all 1s ease-in-out;
-}
-.team-text-inside{
-    padding-left: 1vw;
 }
