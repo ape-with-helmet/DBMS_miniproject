@@ -136,7 +136,7 @@
     color: black;
 }
 .conditional-com-1{
-    transition: all 1s ease;
+    transition: all 2s ease;
 }
 .conditional-com-1.show{
     opacity: 1;
@@ -144,10 +144,10 @@
 }
 .conditional-com-1.hide{
     opacity: 0;
-    transform: translateY(-70vh);
+    transform: translateY(-60vh);
 }
 .conditional-com-2{
-    transition: all 1s ease;
+    transition: all 2s ease;
 }
 .conditional-com-2.show{
     opacity: 0;
@@ -155,5 +155,5 @@
 }
 .conditional-com-2.hide{
     opacity: 1;
-    transform: translateY(-70vh);
+    transform: translateY(-60vh);
 }
