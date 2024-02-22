@@ -3,7 +3,7 @@ import '../css/AddData.css'
 import axios from 'axios';
 
 function AddData() {
-  const [status, setStatus] = useState(2);
+  const [status, setStatus] = useState(0);
   const [captainTeam, setCaptainTeam] = useState([])
   const [captainSet, setCaptainSet] = useState([])
   const [playerFormData, setPlayerFormData] = useState({
