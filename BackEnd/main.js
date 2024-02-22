@@ -11,7 +11,8 @@ app.use(bodyParser.json());
 
 // Parse application/x-www-form-urlencoded requests
 app.use(bodyParser.urlencoded({ extended: true }));
-const connection = require('./database.js')
+const connection = require('./database.js');
+const { error } = require("console");
 
 //fetches list of players in a team
 app.post("/fetch_team_details", (req, res) => {
@@ -101,6 +102,7 @@ app.post("/cancel_merch", (req, res) => {
         if (err) throw err;
     })
 })
+
 //adds player details
 app.post("/add_player_data", (req, res) => {
     const desc = req.body.id.desc;
@@ -112,16 +114,70 @@ app.post("/add_player_data", (req, res) => {
     const sql = `INSERT INTO player (pname, dob, description, origin, sex) VALUES ('${pname}', '${dob}', '${desc}', '${origin}', '${sex}');`;
     connection.query(sql, function (err) {
         if (err) throw err;
-        else res.status(200).send({message:"SUCCESS"})
+        else res.status(200).send({ message: "SUCCESS" })
     })
 })
 
+//adds team details
+app.post("/add_team_data", (req, res) => {
+    const p1 = req.body.id.player1;
+    const p2 = req.body.id.player2;
+    const p3 = req.body.id.player3;
+    const tname = req.body.id.name;
+    const social = req.body.id.social;
+    const trank = req.body.id.trank;
+    console.log(req.body, "input")
 
-    //establishes connections
-    app.listen(8080, () => {
-        console.log("port connected")
-        connection.connect(function (err) {
-            if (err) throw err;
-            console.log("Database coletions")
-        })
+    const sql1 = `INSERT INTO team (tname, trank, social_id) VALUES ('${tname}', ${trank}, '${social}')`;
+    connection.query(sql1, function (err) {
+        if (err) {
+            console.log(err, "team");
+            res.status(500).json({ message: "Error occurred while adding team data" }); // Send error response
+        } else {
+            const sql2 = `INSERT INTO player_team (tid, pid) VALUES ((SELECT tid FROM team WHERE tname = '${tname}'), ${p1}), ((SELECT tid FROM team WHERE tname = '${tname}'), ${p2}), ((SELECT tid FROM team WHERE tname = '${tname}'), ${p3})`;
+            connection.query(sql2, function (err) {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({ message: "Error occurred while adding player data to team" }); // Send error response
+                } else {
+                    res.status(200).json({ message: "Team and player data added successfully" }); // Send success response
+                }
+            });
+        }
+    });
+});
+
+
+app.get("/get_notfullteams", (req, res) => {
+    const sql = `SELECT * FROM player WHERE pid NOT IN (SELECT pid FROM player_team);    `;
+    connection.query(sql, function (err, response) {
+        console.log(response,"not fdull teams");
+        if (err) throw err;
+        else res.send(response);
     })
+})
+
+app.get("/get_blank_team", (req,res)=>{
+    const sql = `SELECT * FROM team WHERE captain_id is NULL`;
+    connection.query(sql,function(err,response){
+        console.log(response,"not captain teams");
+        if (err) throw err;
+        else res.send(response);
+    })
+})
+app.post("/given_team_players",(req,res)=>{
+    const tname = req.body.id
+    const sql = `SELECT p.* FROM player p JOIN player_team pt ON p.pid = pt.pid JOIN team t ON pt.tid = t.tid WHERE t.tname = '${tname}';    `
+    connection.query(sql,function(err,response){
+        if (err) throw err;
+        else res.send(response);
+    })
+})
+//establishes connections
+app.listen(8080, () => {
+    console.log("port connected")
+    connection.connect(function (err) {
+        if (err) throw err;
+        console.log("Database coletions")
+    })
+})
