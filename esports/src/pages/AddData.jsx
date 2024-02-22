@@ -108,6 +108,7 @@ function AddData() {
     setStatus(1);
   };
   const handleTeamSubmit = async (e) => {
+    console.log("finalForm")
     e.preventDefault();
     await axios.post("http://localhost:8080/add_team_data", {
       id: teamFormData
@@ -124,15 +125,19 @@ function AddData() {
     })
     console.log(teamFormData, "FormData");
   };
-  const handleFinalSubmit = async (e) => {
+  const finalSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission logic here, e.g., send data to server
+    console.log(finalForm,"gaga")
+    await axios.post("http://localhost:8080/add_captain", {
+      id: finalForm
+    })
     setStatus(0);
     setFinalForm({
       captain: '',
       team: ''
     })
-    console.log(teamFormData, "FormData");
+    console.log(finalForm, "FormData");
   };
 
   return (
@@ -444,7 +449,7 @@ function AddData() {
               </div>
             </span>
             <button type="button" className='player-submit reset-1' onClick={() => setStatus(1)}>Existing Player?</button>
-            <button type="submit" className='player-submit' onSubmit={() => handlePlayerSubmit()}>Submit</button>
+            <button type="submit" className='player-submit' onClick={() => handlePlayerSubmit()}>Submit</button>
           </form>
           '  </div>'
         <br />
@@ -535,7 +540,7 @@ function AddData() {
               </div>
             </span>
             <button type="button" className='team-submit reset' onClick={() => setStatus(0)}>Add another player?</button>
-            <button type="submit" className='team-submit' onSubmit={() => handleTeamSubmit()}>Submit</button>
+            <button type="submit" className='team-submit' onClick={() => handleTeamSubmit()}>Submit</button>
           </form>
         </div>
         <br />
@@ -573,13 +578,13 @@ function AddData() {
                   <option value="" disabled>Choose Captain</option>
                   {
                     captainSet.map(play => (
-                      <option value={play.pname}>{play.pid} {play.pname}</option>
+                      <option value={play.pid}>{play.pid} {play.pname}</option>
                     ))
                   }
                 </select>
               </div>
             </span>
-            <button type="submit" className='team-submit' onSubmit={() => handleFinalSubmit()}>Submit</button>
+            <button type="submit" className='team-submit' onClick={finalSubmit}>confirm</button>
           </form>
         </div>
       </div>

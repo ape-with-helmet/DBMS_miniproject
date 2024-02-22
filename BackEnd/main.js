@@ -165,9 +165,21 @@ app.get("/get_blank_team", (req,res)=>{
         else res.send(response);
     })
 })
+//returns players of a given team iff the team doesnt have a captain
 app.post("/given_team_players",(req,res)=>{
     const tname = req.body.id
-    const sql = `SELECT p.* FROM player p JOIN player_team pt ON p.pid = pt.pid JOIN team t ON pt.tid = t.tid WHERE t.tname = '${tname}';    `
+    const sql = `SELECT p.* FROM player p JOIN player_team pt ON p.pid = pt.pid JOIN team t ON pt.tid = t.tid WHERE t.tname = '${tname}' AND t.captain_id IS NULL;    `
+    connection.query(sql,function(err,response){
+        if (err) throw err;
+        else res.send(response);
+    })
+})
+//updates captain value from NULL
+app.post("/add_captain",(req,res)=>{
+    const tname = req.body.id.team
+    const cap_id = req.body.id.captain
+    console.log(tname,cap_id)
+    const sql = `UPDATE team SET captain_id = ${cap_id} WHERE tname = '${tname}';`
     connection.query(sql,function(err,response){
         if (err) throw err;
         else res.send(response);
