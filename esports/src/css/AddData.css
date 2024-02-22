@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 .add-data-header {
     color: rgb(255, 255, 255);
     font-size: 20px;
     text-align: center;
+    font-family: Poppins;
 }
 .main-div{  
     height: 80vh;
@@ -42,34 +45,35 @@
     position: relative;
     /* top: 70vh; */
     /* width: 8vw;   */
-    left: 0;
+    cursor: pointer;
     margin-top: 5px;
-    justify-content: center;
-    text-align: center;
-    height: 4vh; 
     font-size: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 2%;
+    padding-right: 2%;
+    font-family: Poppins;
     transition: all 0.5s ease;
 }
 .reset{
     width: fit-content;
+    font-family: Poppins;
     /* left: 44.5vw; */
 }
 
 .player-submit{
+    cursor: pointer;
     border-radius: 10px;
     position: relative;
     /* left: 46.5vw; */
     margin-top: 5px;
-    height: 4vh;
     font-size: 20px;
     transition: all 0.5s ease;
     padding-left: 2%;
+    font-family: Poppins;
     padding-right: 2%;
 }
 .reset-1{
     width: fit-content;
+    font-family: Poppins;
     /* left: 45.55vw; */
     padding-left: 2%;
     padding-right: 2%;
@@ -77,7 +81,8 @@
 .vertical-line {
     border: rgb(0, 0, 0) solid 1px;
     height: 70%;
-    margin: 2%;
+    font-family: Poppins;
+    margin: 2%; 
     width: 0px;
 }
 
@@ -146,5 +151,15 @@
 }
 
 .show-cap{
-    transform: translateY(-130vh);
+    transform: translateY(-140vh);
+}
+.team-submit:hover{
+    background-color: rgb(105, 105, 105);
+    color: white;
+    border: white solid 0.5px;
+}
+.player-submit:hover{
+    background-color: rgb(105, 105, 105);
+    color: white;
+    border: white solid 0.5px;
 }

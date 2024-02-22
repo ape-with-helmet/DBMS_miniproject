@@ -151,39 +151,45 @@ app.post("/add_team_data", (req, res) => {
 app.get("/get_notfullteams", (req, res) => {
     const sql = `SELECT * FROM player WHERE pid NOT IN (SELECT pid FROM player_team);    `;
     connection.query(sql, function (err, response) {
-        console.log(response,"not fdull teams");
         if (err) throw err;
         else res.send(response);
     })
 })
 
-app.get("/get_blank_team", (req,res)=>{
+app.get("/get_blank_team", (req, res) => {
     const sql = `SELECT * FROM team WHERE captain_id is NULL`;
-    connection.query(sql,function(err,response){
-        console.log(response,"not captain teams");
+    connection.query(sql, function (err, response) {
         if (err) throw err;
         else res.send(response);
     })
 })
 //returns players of a given team iff the team doesnt have a captain
-app.post("/given_team_players",(req,res)=>{
+app.post("/given_team_players", (req, res) => {
     const tname = req.body.id
     const sql = `SELECT p.* FROM player p JOIN player_team pt ON p.pid = pt.pid JOIN team t ON pt.tid = t.tid WHERE t.tname = '${tname}' AND t.captain_id IS NULL;    `
-    connection.query(sql,function(err,response){
+    connection.query(sql, function (err, response) {
         if (err) throw err;
         else res.send(response);
     })
 })
 //updates captain value from NULL
-app.post("/add_captain",(req,res)=>{
+app.post("/add_captain", (req, res) => {
     const tname = req.body.id.team
     const cap_id = req.body.id.captain
-    console.log(tname,cap_id)
+    const sname = req.body.id.sponsor
+    const amount = req.body.id.amount
     const sql = `UPDATE team SET captain_id = ${cap_id} WHERE tname = '${tname}';`
-    connection.query(sql,function(err,response){
+    const sql2 = `INSERT INTO sponsor (tid,sname,money) VALUES ((SELECT tid FROM team WHERE tname='${tname}'), '${sname}', ${amount}) `
+    connection.query(sql, function (err, response) {
         if (err) throw err;
-        else res.send(response);
+        else {
+            connection.query(sql2, function (err, response) {
+                if (err) throw err;
+                else res.send(response);
+            })
+        }
     })
+
 })
 //establishes connections
 app.listen(8080, () => {

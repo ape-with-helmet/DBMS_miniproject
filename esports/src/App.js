@@ -10,6 +10,7 @@ import Merch from './pages/Merch'
 import Homepage from './pages/Homepage'
 import BackGroundImage from './pages/BackGroundImage'
 import AddData from './pages/AddData'
+import './App.css'
 
 const App = () => {
   return (

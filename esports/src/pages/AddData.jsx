@@ -15,7 +15,9 @@ function AddData() {
   });
   const [finalForm, setFinalForm] = useState({
     team: '',
-    captain: ''
+    captain: '',
+    sponsor: '',
+    amount: ''
   });
   const [teamFormData, setTeamFormData] = useState({
     name: '',
@@ -36,7 +38,7 @@ function AddData() {
       }
     }
     getEmptyTeam();
-  }, []); // Empty dependency array to ensure this effect runs only once on component mount
+  }); // Empty dependency array to ensure this effect runs only once on component mount
   useEffect(() => {
     async function getEmptyCap() {
       try {
@@ -47,7 +49,7 @@ function AddData() {
       }
     }
     getEmptyCap();
-  }, []); // Empty dependency array to ensure this effect runs only once on component mount
+  }); // Empty dependency array to ensure this effect runs only once on component mount
   useEffect(() => {
     // Log emptyTeam after it's updated
     setEmptyTeam(emptyTeam);
@@ -108,7 +110,6 @@ function AddData() {
     setStatus(1);
   };
   const handleTeamSubmit = async (e) => {
-    console.log("finalForm")
     e.preventDefault();
     await axios.post("http://localhost:8080/add_team_data", {
       id: teamFormData
@@ -128,16 +129,20 @@ function AddData() {
   const finalSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission logic here, e.g., send data to server
-    console.log(finalForm,"gaga")
+    console.log(finalForm, "gaga")
     await axios.post("http://localhost:8080/add_captain", {
       id: finalForm
     })
+    alert("Successfully registered the Team");
     setStatus(0);
     setFinalForm({
+      team: '',
       captain: '',
-      team: ''
+      sponsor: '',
+      amount: ''
     })
     console.log(finalForm, "FormData");
+    window.open("/","_self")
   };
 
   return (
@@ -449,7 +454,7 @@ function AddData() {
               </div>
             </span>
             <button type="button" className='player-submit reset-1' onClick={() => setStatus(1)}>Existing Player?</button>
-            <button type="submit" className='player-submit' onClick={() => handlePlayerSubmit()}>Submit</button>
+            <button type="submit" className='player-submit' onClick={handlePlayerSubmit}>Submit</button>
           </form>
           '  </div>'
         <br />
@@ -528,7 +533,7 @@ function AddData() {
                   onChange={handleTeamChange}
                 />
                 <input
-                  type='text'
+                  type='number'
                   id="trank"
                   name="trank"
                   placeholder='Ranking'
@@ -540,9 +545,13 @@ function AddData() {
               </div>
             </span>
             <button type="button" className='team-submit reset' onClick={() => setStatus(0)}>Add another player?</button>
-            <button type="submit" className='team-submit' onClick={() => handleTeamSubmit()}>Submit</button>
+            <button type="submit" className='team-submit' onClick={handleTeamSubmit}>Submit</button>
           </form>
         </div>
+        <br />
+        <br />
+        <br />
+        <br />
         <br />
         <br />
         <br />
@@ -582,6 +591,26 @@ function AddData() {
                     ))
                   }
                 </select>
+                <input
+                  type='text'
+                  id="sponsor"
+                  name="sponsor"
+                  placeholder='Sponsor name'
+                  className='add-data-form-input-insides'
+                  required
+                  value={finalForm.sponsor}
+                  onChange={handleFinalChange}
+                />
+                <input
+                  type='number'
+                  id="amount"
+                  name="amount"
+                  placeholder='Sponsor Amount'
+                  className='add-data-form-input-insides'
+                  required
+                  value={finalForm.amount}
+                  onChange={handleFinalChange}
+                />
               </div>
             </span>
             <button type="submit" className='team-submit' onClick={finalSubmit}>confirm</button>
