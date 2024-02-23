@@ -4,8 +4,10 @@ import axios from 'axios';
 
 function AddData() {
   const [status, setStatus] = useState(0);
+  const [number, setNumber] = useState('');
   const [captainTeam, setCaptainTeam] = useState([])
   const [captainSet, setCaptainSet] = useState([])
+  const maxAllowedValue = 999999;
   const [playerFormData, setPlayerFormData] = useState({
     name: '',
     dob: '',
@@ -74,6 +76,18 @@ function AddData() {
       [name]: val
     }));
   };
+  const handleChange = (e) => {
+    const inputNumber = e.target.value;
+    if (!isNaN(inputNumber) && inputNumber <= maxAllowedValue) {
+      setNumber(inputNumber);
+    }
+    const { name, value, type } = e.target;
+    const val = type === 'file' ? e.target.files[0] : value;
+    setFinalForm(prevState => ({
+      ...prevState,
+      [name]: val
+    }));
+  };
   const handleFinalChange = (e) => {
     const { name, value, type } = e.target;
     const val = type === 'file' ? e.target.files[0] : value;
@@ -119,14 +133,6 @@ function AddData() {
     })
     // Handle form submission logic here, e.g., send data to server
     setStatus(2);
-    setTeamFormData({
-      name: '',
-      player1: '',
-      player2: '',
-      player3: '',
-      trank: '',
-      social: ''
-    })
     console.log(teamFormData, "FormData");
   };
   const finalSubmit = async (e) => {
@@ -138,6 +144,14 @@ function AddData() {
     })
     alert("Successfully registered the Team");
     setStatus(0);
+    setTeamFormData({
+      name: '',
+      player1: '',
+      player2: '',
+      player3: '',
+      trank: '',
+      social: ''
+    })
     setFinalForm({
       team: '',
       captain: '',
@@ -601,12 +615,13 @@ function AddData() {
                   type='text'
                   id="nick1"
                   name="nick1"
-                  placeholder={"Nickname for " + teamFormData.player1}
+                  placeholder={`Nickname for ${teamFormData.player1}`}
                   className='add-data-form-input-insides'
                   required
                   value={finalForm.nick1}
                   onChange={handleFinalChange}
                 />
+
                 <input
                   type='text'
                   id="nick2"
@@ -639,13 +654,15 @@ function AddData() {
                 />
                 <input
                   type='number'
+                  min="0"
+                  max={maxAllowedValue}
                   id="amount"
                   name="amount"
                   placeholder='Sponsor Amount'
                   className='add-data-form-input-insides'
                   required
-                  value={finalForm.amount}
-                  onChange={handleFinalChange}
+                  value={number}
+                  onChange={handleChange}
                 />
               </div>
             </span>
