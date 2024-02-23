@@ -57,14 +57,14 @@ const TeamPlayers = () => {
         }
         getMerchData(download)
     })
-    function buymerch(x,y) {
-        axios.post("http://localhost:8080/buy_merch",{
+    function buymerch(x, y) {
+        axios.post("http://localhost:8080/buy_merch", {
             teamname: x,
             merch_name: y
         });
     }
-    function sellmerch(x,y) {
-        axios.post("http://localhost:8080/cancel_merch",{
+    function sellmerch(x, y) {
+        axios.post("http://localhost:8080/cancel_merch", {
             teamname: x,
             merch_name: y
         });
@@ -89,9 +89,9 @@ const TeamPlayers = () => {
                             <div className='merch-line'>
                                 <div className="merch-name">{merchandise.Product}</div>
                                 <div className="merch-price">${merchandise.Price}</div>
-                                    <img src={plus} className="merch-plus" onClick={() => buymerch(download,merchandise.Product)} />
-                                    <span className="merch-stock">{merchandise.Stock}</span>
-                                    <img src={minus} className="merch-minus" onClick={() => sellmerch(download,merchandise.Product)} />
+                                <img src={plus} className="merch-plus" onClick={() => buymerch(download, merchandise.Product)} />
+                                <span className="merch-stock">{merchandise.Stock}</span>
+                                <img src={minus} className="merch-minus" onClick={() => sellmerch(download, merchandise.Product)} />
                             </div>
                         ))}
                     </div>
@@ -106,7 +106,13 @@ const TeamPlayers = () => {
                                 </div>
                                 <Link onClick={() => uploadPlayer(cardData)} className='lonk-plonk'>
                                     <div className='player-roll-animation'>
-                                        <img src={`data:image/png;base64,${Buffer.from(cardData.photo.data).toString('base64')}`} alt={cardData.pname} className='player-image' />
+                                        {
+                                            cardData.photo != null ?
+                                                <img src={`data:image/png;base64,${Buffer.from(cardData.photo.data).toString('base64')}`} alt={cardData.tname} className='player-image' />
+                                                :
+                                                <img src='https://static.vecteezy.com/system/resources/thumbnails/010/884/730/small_2x/owl-head-mascot-team-logo-png.png' className='player-image' />
+                                        }
+                                        {/* <img src={`data:image/png;base64,${Buffer.from(cardData.photo.data).toString('base64')}`} alt={cardData.pname} className='player-image' /> */}
                                         <div className='player-text'>
                                             <h1 className='player-text-header'>{cardData.nickname}</h1>
                                             <p className='player-text-inside'>AKA {cardData.pname}</p>

@@ -16,6 +16,9 @@ function AddData() {
   const [finalForm, setFinalForm] = useState({
     team: '',
     captain: '',
+    nick1: '',
+    nick2: '',
+    nick3: '',
     sponsor: '',
     amount: ''
   });
@@ -38,7 +41,7 @@ function AddData() {
       }
     }
     getEmptyTeam();
-  }); // Empty dependency array to ensure this effect runs only once on component mount
+  }, captainTeam); // Empty dependency array to ensure this effect runs only once on component mount
   useEffect(() => {
     async function getEmptyCap() {
       try {
@@ -138,11 +141,14 @@ function AddData() {
     setFinalForm({
       team: '',
       captain: '',
+      nick1: '',
+      nick2: '',
+      nick3: '',
       sponsor: '',
       amount: ''
     })
     console.log(finalForm, "FormData");
-    window.open("/","_self")
+    window.open("/", "_self")
   };
 
   return (
@@ -591,6 +597,36 @@ function AddData() {
                     ))
                   }
                 </select>
+                <input
+                  type='text'
+                  id="nick1"
+                  name="nick1"
+                  placeholder={"Nickname for " + teamFormData.player1}
+                  className='add-data-form-input-insides'
+                  required
+                  value={finalForm.nick1}
+                  onChange={handleFinalChange}
+                />
+                <input
+                  type='text'
+                  id="nick2"
+                  name="nick2"
+                  placeholder={"Nickname for " + teamFormData.player2}
+                  className='add-data-form-input-insides'
+                  required
+                  value={finalForm.nick2}
+                  onChange={handleFinalChange}
+                />
+                <input
+                  type='text'
+                  id="nick3"
+                  name="nick3"
+                  placeholder={"Nickname for " + teamFormData.player3}
+                  className='add-data-form-input-insides'
+                  required
+                  value={finalForm.nick3}
+                  onChange={handleFinalChange}
+                />
                 <input
                   type='text'
                   id="sponsor"

@@ -178,14 +178,23 @@ app.post("/add_captain", (req, res) => {
     const cap_id = req.body.id.captain
     const sname = req.body.id.sponsor
     const amount = req.body.id.amount
+    const nick1 = req.body.id.nick1
+    const nick2 = req.body.id.nick2
+    const nick3 = req.body.id.nick3
     const sql = `UPDATE team SET captain_id = ${cap_id} WHERE tname = '${tname}';`
     const sql2 = `INSERT INTO sponsor (tid,sname,money) VALUES ((SELECT tid FROM team WHERE tname='${tname}'), '${sname}', ${amount}) `
+    const sql3 = `UPDATE player_team SET nickname = CASE WHEN pid = (SELECT pid FROM (SELECT * FROM player_team WHERE tid = (SELECT tid FROM team WHERE tname = '${tname}') ORDER BY pid LIMIT 1) AS subquery1) THEN '${nick1}' WHEN pid = (SELECT pid FROM (SELECT * FROM player_team WHERE tid = (SELECT tid FROM team WHERE tname = '${tname}') ORDER BY pid LIMIT 1, 1) AS subquery2) THEN '${nick2}' WHEN pid = (SELECT pid FROM (SELECT * FROM player_team WHERE tid = (SELECT tid FROM team WHERE tname = '${tname}') ORDER BY pid LIMIT 2, 1) AS subquery3) THEN '${nick3}' END WHERE tid = (SELECT tid FROM team WHERE tname = '${tname}');    `
     connection.query(sql, function (err, response) {
         if (err) throw err;
         else {
             connection.query(sql2, function (err, response) {
                 if (err) throw err;
-                else res.send(response);
+                else {
+                    connection.query(sql3, function (err, response) {
+                        if (err) throw err;
+                        else res.send(response);
+                    })
+                }
             })
         }
     })

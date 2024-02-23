@@ -31,8 +31,13 @@ const SpecPlayerInfo = () => {
                 player.map(prod => {
                     return (<>
                         <div className='spec-player-image'>
-                        <img src={`data:image/png;base64,${Buffer.from(prod.photo.data).toString('base64')}`} alt={prod.pname} className='spec-player-image' />
-
+                        {/* <img src={`data:image/png;base64,${Buffer.from(prod.photo.data).toString('base64')}`} alt={prod.pname} className='spec-player-image' /> */}
+                        {
+                                    prod.photo != null ?
+                                        <img src={`data:image/png;base64,${Buffer.from(prod.photo.data).toString('base64')}`} alt={prod.tname} className='spec-player-image' />
+                                        :
+                                        <img src='https://static.vecteezy.com/system/resources/thumbnails/010/884/730/small_2x/owl-head-mascot-team-logo-png.png' className='spec-player-image' />
+                                }
                         </div>
                         <div className='player-desc'>
                             <h1 className='spec-player-name'>{prod.pname}</h1>
