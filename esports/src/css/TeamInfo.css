@@ -21,6 +21,7 @@
     justify-content: center;
     margin: 1vw;
     position: relative;
+    flex-direction: column;
     display: flex;
     /* height: 60vh; */
     width: 20vw;
@@ -38,6 +39,8 @@
 .team-roll-animation{
     transition: all 1.5s ease;
     position: relative;
+    display: flex;
+    flex-direction: column;
     align-content: center;    
     height: 60vh;
     color: rgba(255, 255, 255, 0.482);
@@ -54,10 +57,10 @@
 .team_image{
     width: 400px;
     margin-top: 3vh;
-    left: 0;
+    /* left: 0; */
     margin-left: auto;
     margin-right: auto;
-    position: absolute;
+    /* position: absolute; */
     height: fit-content;
     align-items: center;
     justify-content: center;
@@ -69,7 +72,7 @@
     padding-right: 20px;
     justify-content: center;
     align-items: center;
-    bottom: -50vh;
+    /* bottom: -50vh; */
     opacity: 0%;
     transition: all 1s ease-in-out;
 }

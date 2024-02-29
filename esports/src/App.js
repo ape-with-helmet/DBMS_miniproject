@@ -10,6 +10,7 @@ import Merch from './pages/Merch'
 import Homepage from './pages/Homepage'
 import BackGroundImage from './pages/BackGroundImage'
 import AddData from './pages/AddData'
+import LoginPage from './pages/LoginPage'
 import './App.css'
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
           <Route element={<GameTeam />} path='/game_team' />
           <Route element={<Merch />} path='/merch' />
           <Route element={<AddData />} path='/add_data' />
+          <Route element={<LoginPage />} path='/login' />
         </Routes>
       </BrowserRouter>
     </>
