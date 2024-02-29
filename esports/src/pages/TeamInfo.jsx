@@ -31,7 +31,6 @@ function App() {
                                 }
                                 <div className='team-text'>
                                     <h1 className='team-text-header'>{cardData.tname}</h1>
-                                    <p className='team-text-inside'>Rank {cardData.trank}</p>
                                     <p className='team-text-inside'>Captain: {cardData.captain_name}</p>
                                     <p className='team-text-inside'>Instagram: @{cardData.social_id}</p>
                                 </div>

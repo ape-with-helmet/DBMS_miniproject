@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import '../css/AddData.css'
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 function AddData() {
   const [status, setStatus] = useState(0);
@@ -15,22 +17,24 @@ function AddData() {
     origin: '',
     desc: ''
   });
+  const [teamFormData, setTeamFormData] = useState({
+    name: '',
+    player1: '',
+    player2: '',
+    player3: '',
+    social: ''
+  });
   const [finalForm, setFinalForm] = useState({
     team: '',
     captain: '',
     nick1: '',
     nick2: '',
     nick3: '',
+    p1: '',
+    p2: '',
+    p3: '',
     sponsor: '',
     amount: ''
-  });
-  const [teamFormData, setTeamFormData] = useState({
-    name: '',
-    player1: '',
-    player2: '',
-    player3: '',
-    trank: '',
-    social: ''
   });
   const [emptyTeam, setEmptyTeam] = useState([])
   useEffect(() => {
@@ -43,7 +47,7 @@ function AddData() {
       }
     }
     getEmptyTeam();
-  }, captainTeam); // Empty dependency array to ensure this effect runs only once on component mount
+  }); // Empty dependency array to ensure this effect runs only once on component mount
   useEffect(() => {
     async function getEmptyCap() {
       try {
@@ -99,10 +103,16 @@ function AddData() {
   const handleFinalTeamChange = async (e) => {
     const { name, value, type } = e.target;
     const val = type === 'file' ? e.target.files[0] : value;
+    console.log(value)
     const response = await axios.post("http://localhost:8080/given_team_players", {
       id: value
     })
+    console.log(response.data, "huh")
     setCaptainSet(response.data)
+    finalForm.p1 = response.data[0].pid;
+    finalForm.p2 = response.data[1].pid;
+    finalForm.p3 = response.data[2].pid;
+    console.log(finalForm.p1, finalForm.p2, finalForm.p3, "Whaterher")
     setFinalForm(prevState => ({
       ...prevState,
       [name]: val
@@ -111,6 +121,10 @@ function AddData() {
 
   const handlePlayerSubmit = async (e) => {
     e.preventDefault();
+    if (!playerFormData.name || !playerFormData.dob || !playerFormData.sex || !playerFormData.origin || !playerFormData.desc) {
+      toast("Please fill in all fields.");
+      return;
+    }
     // Handle form submission logic here, e.g., send data to server
     console.log(playerFormData)
     await axios.post("http://localhost:8080/add_player_data", {
@@ -128,6 +142,16 @@ function AddData() {
   };
   const handleTeamSubmit = async (e) => {
     e.preventDefault();
+    if (!teamFormData.name || !teamFormData.player1 || !teamFormData.player2 || !teamFormData.player3 || !teamFormData.social) {
+      toast("Please fill in all fields.");
+      return;
+    }
+    const pattern = /^@[a-zA-Z0-9_.-]+$/;
+    if (!pattern.test(teamFormData.social)) {
+      toast("Invalid Social id.\nHint: Start your id with @");
+      return;
+    }
+
     await axios.post("http://localhost:8080/add_team_data", {
       id: teamFormData
     })
@@ -135,22 +159,70 @@ function AddData() {
     setStatus(2);
     console.log(teamFormData, "FormData");
   };
+  const [popupStatus,setPopupStatus] = useState(false);
   const finalSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here, e.g., send data to server
+    if (!finalForm.amount || !finalForm.captain || !finalForm.nick1 || !finalForm.nick2 || !finalForm.nick3 || !finalForm.sponsor || !finalForm.team) {
+      toast("Fill all in the fields please");
+      return
+    }
+    const name_convention = /^[a-zA-Z0-9_.-]{1,12}$/
+    if (!name_convention.test(finalForm.nick1)) {
+      toast(`Invalid Nickname for ${teamFormData.player1}`)
+      return;
+    }
+    if (!name_convention.test(finalForm.nick2)) {
+      toast(`Invalid Nickname for ${teamFormData.player2}`)
+      return;
+    }
+    if (!name_convention.test(finalForm.nick3)) {
+      toast(`Invalid Nickname for ${teamFormData.player3}`)
+      return;
+    }
+    // // Handle form submission logic here, e.g., send data to server
     console.log(finalForm, "gaga")
+    console.log(teamFormData, "pupu")
     await axios.post("http://localhost:8080/add_captain", {
       id: finalForm
     })
-    alert("Successfully registered the Team");
-    setStatus(0);
+    toast("Successfully registered the Team");
+    setPopupStatus(true)
     setTeamFormData({
       name: '',
       player1: '',
       player2: '',
       player3: '',
-      trank: '',
       social: ''
+    })
+    
+    console.log(finalForm, "FormData");
+  };
+  // const merchNo = 3;
+  const [merchDetails, setMerchDetails] = useState({
+    m1:'',
+    m2:'',
+    m3:'',
+    p1:'',
+    p2:'',
+    p3:'',
+    q1:1,
+    q2:1,
+    q3:1,
+    tid:''
+  });
+  
+  const handleMerchInputChange = (e) => {
+    const { name, value } = e.target;
+    console.log(name,value)
+    setMerchDetails({ ...merchDetails, [name]: value });
+    console.log(merchDetails)
+  };
+  
+  const handleMerchSubmit = async (e) => {
+    e.preventDefault();
+    merchDetails.tid = finalForm.team;
+    const response = await axios.post("http://localhost:8080/createMerch",{
+      id:merchDetails
     })
     setFinalForm({
       team: '',
@@ -161,10 +233,11 @@ function AddData() {
       sponsor: '',
       amount: ''
     })
-    console.log(finalForm, "FormData");
+    setStatus(0);
+    setPopupStatus(false)
+    console.log(merchDetails.m1,merchDetails.p1,merchDetails.q1)
     window.open("/", "_self")
   };
-
   return (
     <div className='main-div' >
       <div className={`conditional-com-1 ${status === 0 ? 'show' : status === 1 ? 'hide' : 'show-cap'}`}>
@@ -508,7 +581,7 @@ function AddData() {
                   <option value="" disabled>Choose player 1</option>
                   {
                     captainTeam.map(play => (
-                      <option value={play.pid}>{play.pid} {play.pname}</option>
+                      <option key={play.pid} value={play.pid}>{play.pid} {play.pname}</option>
                     ))
                   }
                 </select>
@@ -519,11 +592,12 @@ function AddData() {
                   className='add-data-form-input-insides'
                   value={teamFormData.player2}
                   onChange={handleTeamChange}
-                  required>
+                  required
+                  disabled={!(teamFormData.player1 !== '')}>
                   <option value="" disabled>Choose player 2</option>
                   {
-                    captainTeam.map(play => (
-                      <option value={play.pid}>{play.pid} {play.pname}</option>
+                    captainTeam.filter(play => play.pid != teamFormData.player1).map(play => (
+                      <option key={play.pid} value={play.pid}>{play.pid} {play.pname}</option>
                     ))
                   }
                 </select>
@@ -534,14 +608,16 @@ function AddData() {
                   className='add-data-form-input-insides'
                   value={teamFormData.player3}
                   onChange={handleTeamChange}
-                  required>
-                  <option value="" disabled>Choose player 3</option>
+                  required
+                  disabled={!(teamFormData.player1 !== '') || !(teamFormData.player2 !== '')}>
+                  <option value="" disabled={teamFormData.player1 != '' && teamFormData.player2 != ''}>Choose player 3</option>
                   {
-                    captainTeam.map(play => (
-                      <option value={play.pid}>{play.pid} {play.pname}</option>
+                    captainTeam.filter(play => play.pid != teamFormData.player1 && play.pid != teamFormData.player2).map(play => (
+                      <option key={play.pid} value={play.pid}>{play.pid} {play.pname}</option>
                     ))
                   }
                 </select>
+
                 <input
                   type='text'
                   id="social"
@@ -549,23 +625,15 @@ function AddData() {
                   placeholder='Social Id'
                   className='add-data-form-input-insides'
                   required
+                  pattern='^@[a-zA-Z0-9_.-]+$'
                   value={teamFormData.social}
-                  onChange={handleTeamChange}
-                />
-                <input
-                  type='number'
-                  id="trank"
-                  name="trank"
-                  placeholder='Ranking'
-                  className='add-data-form-input-insides'
-                  required
-                  value={teamFormData.trank}
                   onChange={handleTeamChange}
                 />
               </div>
             </span>
             <button type="button" className='team-submit reset' onClick={() => setStatus(0)}>Add another player?</button>
-            <button type="submit" className='team-submit' onClick={handleTeamSubmit}>Submit</button>
+            <button type="button" className='team-submit reset' onClick={() => setStatus(2)}>Already have a team?</button>
+            <button type="submit" className='team-submit'>Submit</button>
           </form>
         </div>
         <br />
@@ -615,7 +683,7 @@ function AddData() {
                   type='text'
                   id="nick1"
                   name="nick1"
-                  placeholder={`Nickname for ${teamFormData.player1}`}
+                  placeholder={'Nickname for ' + finalForm.p1}
                   className='add-data-form-input-insides'
                   required
                   value={finalForm.nick1}
@@ -626,7 +694,7 @@ function AddData() {
                   type='text'
                   id="nick2"
                   name="nick2"
-                  placeholder={"Nickname for " + teamFormData.player2}
+                  placeholder={"Nickname for " + finalForm.p2}
                   className='add-data-form-input-insides'
                   required
                   value={finalForm.nick2}
@@ -636,7 +704,7 @@ function AddData() {
                   type='text'
                   id="nick3"
                   name="nick3"
-                  placeholder={"Nickname for " + teamFormData.player3}
+                  placeholder={"Nickname for " + finalForm.p3}
                   className='add-data-form-input-insides'
                   required
                   value={finalForm.nick3}
@@ -668,10 +736,94 @@ function AddData() {
             </span>
             <button type="submit" className='team-submit' onClick={finalSubmit}>confirm</button>
           </form>
+          <div>
+            {popupStatus && (
+              <div className="popup">
+                <div className="popup-content">
+                  <p>Select your merchandise!</p>
+                {/* <form className='form-container-for-merch'> */}
+                  <div className='form-for-merch'>
+                    {/* Render other elements here if needed */}
+                    <input
+                      type="text"
+                      id="m1"
+                      name="m1"
+                      required
+                      onChange={handleMerchInputChange}
+                      placeholder='Enter Merch 1'
+                      className='merch-name'
+                    />
+                    <div>
+                      <label className='labels' htmlFor='p1'>Price</label>
+                      <input id='p1' type="number" className='merch-price' required name='p1' placeholder='Price $' onChange={handleMerchInputChange} min={0} />
+                    </div>
+                    <div>
+                      <label className='labels' htmlFor='q1'>Stock</label>
+                      <input id='q1' type="number" className='merch-price' required name='q1' placeholder='Stock' onChange={handleMerchInputChange} min={0} />
+                    </div>
+                  </div>
+                  <div className='form-for-merch'>
+                    {/* Render other elements here if needed */}
+                    <input
+                      type="text"
+                      id="m2"
+                      name="m2"
+                      required
+                      onChange={handleMerchInputChange}
+                      placeholder='Enter Merch 2'
+                      className='merch-name'
+                    />
+                    <div>
+                      <label className='labels' htmlFor='p2'>Price</label>
+                      <input id='p2' type="number" className='merch-price' required name='p2' placeholder='Price $' onChange={handleMerchInputChange} min={0} />
+                    </div>
+                    <div>
+                      <label className='labels' htmlFor='q2'>Stock</label>
+                      <input id='q2' type="number" className='merch-price' required name='q2' placeholder='Stock' onChange={handleMerchInputChange} min={0} />
+                    </div>
+                  </div>
+                  <div className='form-for-merch'>
+                    {/* Render other elements here if needed */}
+                    <input
+                      type="text"
+                      id="m3"
+                      name="m3"
+                      onChange={handleMerchInputChange}
+                      required
+                      placeholder='Enter Merch 3'
+                      className='merch-name'
+                    />
+                    <div>
+                      <label className='labels' htmlFor='p3'>Price</label>
+                      <input id='p3' type="number" className='merch-price' required name='p3' placeholder='Price $' onChange={handleMerchInputChange} min={0} />
+                    </div>
+                    <div>
+                      <label className='labels' htmlFor='q3'>Stock</label>
+                      <input id='q3' type="number" className='merch-price' required name='q3' placeholder='Stock' onChange={handleMerchInputChange} min={0} />
+                    </div>
+                  </div>
+                  <button type='button' onClick={handleMerchSubmit} className='merch-submit'>Submit</button>
+                {/* </form> */}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
+
   );
 }
 

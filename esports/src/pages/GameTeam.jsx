@@ -42,7 +42,6 @@ const GameTeam = () => {
                                 <div className='team-text'>
                                     <h1 className='team-text-header'>{cardData.Team_Name}</h1>
                                     <p className='team-text-inside'>Captain: {cardData.Captain_Name}</p>
-                                    <p className='team-text-inside'>Rank {cardData.Team_Rank}</p>
                                 </div>
                             </div>
                         </Link>

@@ -55,7 +55,7 @@ app.post("/fetch_player_details", (req, res) => {
 
 //fetches list of all teams and captains
 app.get("/team_details", (req, res) => {
-    const sql = "SELECT t.tname, t.trank, p.pname AS captain_name, t.social_id, s.sname, t.photo FROM team t LEFT JOIN sponsor s ON t.tid = s.tid LEFT JOIN player p ON t.captain_id = p.pid;    ";
+    const sql = "SELECT t.tname, p.pname AS captain_name, t.social_id, s.sname, t.photo FROM team t LEFT JOIN sponsor s ON t.tid = s.tid LEFT JOIN player p ON t.captain_id = p.pid;    ";
     connection.query(sql, function (err, results) {
         if (err) throw err;
         res.send(results);
@@ -65,7 +65,7 @@ app.get("/team_details", (req, res) => {
 //fetches all teams in a particular game
 app.post("/fetch_game_teams", (req, res) => {
     const data = req.body.id;
-    const sql = `SELECT t.tname AS Team_Name, p.pname AS Captain_Name, t.trank AS Team_Rank, t.photo AS Team_Photo FROM team t JOIN player p ON t.captain_id = p.pid JOIN game g ON t.tid = g.tid WHERE g.gname = '${data}' ORDER BY t.trank;    `;
+    const sql = `SELECT t.tname AS Team_Name, p.pname AS Captain_Name, t.photo AS Team_Photo FROM team t JOIN player p ON t.captain_id = p.pid JOIN game g ON t.tid = g.tid WHERE g.gname = '${data}';    `;
     connection.query(sql, function (err, results) {
         if (err) throw err;
         res.send(results);
@@ -125,10 +125,9 @@ app.post("/add_team_data", (req, res) => {
     const p3 = req.body.id.player3;
     const tname = req.body.id.name;
     const social = req.body.id.social;
-    const trank = req.body.id.trank;
     console.log(req.body, "input")
 
-    const sql1 = `INSERT INTO team (tname, trank, social_id) VALUES ('${tname}', ${trank}, '${social}')`;
+    const sql1 = `INSERT INTO team (tname, social_id) VALUES ('${tname}', '${social}')`;
     connection.query(sql1, function (err) {
         if (err) {
             console.log(err, "team");
@@ -156,8 +155,9 @@ app.get("/get_notfullteams", (req, res) => {
     })
 })
 
+//Uses a stored procedure GetTeamsWithNoCaptain which runs the sql query SELECT * FROM team where captain_is is NULL;
 app.get("/get_blank_team", (req, res) => {
-    const sql = `SELECT * FROM team WHERE captain_id is NULL`;
+    const sql = `CALL GetTeamsWithNoCaptain();`;
     connection.query(sql, function (err, response) {
         if (err) throw err;
         else res.send(response);
@@ -181,24 +181,72 @@ app.post("/add_captain", (req, res) => {
     const nick1 = req.body.id.nick1
     const nick2 = req.body.id.nick2
     const nick3 = req.body.id.nick3
+    const p1 = req.body.id.p1
+    const p2 = req.body.id.p2
+    const p3 = req.body.id.p3
+    console.log(p1,p2,p3)
     const sql = `UPDATE team SET captain_id = ${cap_id} WHERE tname = '${tname}';`
     const sql2 = `INSERT INTO sponsor (tid,sname,money) VALUES ((SELECT tid FROM team WHERE tname='${tname}'), '${sname}', ${amount}) `
-    const sql3 = `UPDATE player_team SET nickname = CASE WHEN pid = (SELECT pid FROM (SELECT * FROM player_team WHERE tid = (SELECT tid FROM team WHERE tname = '${tname}') ORDER BY pid LIMIT 1) AS subquery1) THEN '${nick1}' WHEN pid = (SELECT pid FROM (SELECT * FROM player_team WHERE tid = (SELECT tid FROM team WHERE tname = '${tname}') ORDER BY pid LIMIT 1, 1) AS subquery2) THEN '${nick2}' WHEN pid = (SELECT pid FROM (SELECT * FROM player_team WHERE tid = (SELECT tid FROM team WHERE tname = '${tname}') ORDER BY pid LIMIT 2, 1) AS subquery3) THEN '${nick3}' END WHERE tid = (SELECT tid FROM team WHERE tname = '${tname}');    `
+    const sql3 = `UPDATE player_team SET nickname = ? WHERE pid = ?`
+    const sql4 = `UPDATE player_team SET nickname = ? WHERE pid = ?`
+    const sql5 = `UPDATE player_team SET nickname = ? WHERE pid = ?`
     connection.query(sql, function (err, response) {
         if (err) throw err;
         else {
             connection.query(sql2, function (err, response) {
                 if (err) throw err;
                 else {
-                    connection.query(sql3, function (err, response) {
+                    connection.query(sql3, [nick1, p1], function (err, response) {
                         if (err) throw err;
-                        else res.send(response);
+                        else {
+                            connection.query(sql4, [nick2, p2], function (err, response) {
+                                if (err) throw err;
+                                else {
+                                    connection.query(sql5, [nick3, p3], function (err, response) {
+                                        if (err) throw err;
+                                        else {
+                                            res.send(response);
+                                        }
+                                    })
+                                }
+                            })
+                        }
                     })
                 }
             })
         }
     })
 
+})
+
+app.post("/createMerch",(req,res)=>{
+    const m1 = req.body.id.m1
+    const m2 = req.body.id.m2
+    const m3 = req.body.id.m3
+    const p1 = req.body.id.p1
+    const p2 = req.body.id.p2
+    const p3 = req.body.id.p3
+    const q1 = req.body.id.q1
+    const q2 = req.body.id.q2
+    const q3 = req.body.id.q3
+    const tname = req.body.id.tid
+    const sql1 = `INSERT INTO merchandise (tid, product, price, quantity) VALUES ((SELECT tid FROM team WHERE tname = '${tname}'), '${m1}', ${p1}, ${q1});    `
+    const sql2 = `INSERT INTO merchandise (tid, product, price, quantity) VALUES ((SELECT tid FROM team WHERE tname = '${tname}'), '${m2}', ${p2}, ${q2});    `
+    const sql3 = `INSERT INTO merchandise (tid, product, price, quantity) VALUES ((SELECT tid FROM team WHERE tname = '${tname}'), '${m3}', ${p3}, ${q3});    `
+    connection.query(sql1, function(err,response){
+        if (err) throw err;
+        else{
+            connection.query(sql2, function(err,response){
+                if (err) throw err;
+                else{
+                    connection.query(sql3, function(err,response){
+                        if (err) throw err;
+                        else res.send({message:"Success"})
+                    })
+                }
+            })
+        }
+    })
 })
 //establishes connections
 app.listen(8080, () => {
