@@ -80,17 +80,17 @@ const TeamPlayers = () => {
                     <h1 className='roster'>Sponsors and Merch </h1>
                     <div className="team-player-container">
                         {sponsor.map(spnsr => (
-                            <>
+                            <div className='sponsor-container'>
                                 <div className='sponsor-name'>{spnsr.sname}</div>
                                 <div className='sponsor-amount'>Sponsor amount : ${spnsr.money}</div>
-                            </>
+                            </div>
                         ))}
                         {merchData.map(merchandise => (
                             <div className='merch-line'>
-                                <div className="merch-name">{merchandise.Product}</div>
-                                <div className="merch-price">${merchandise.Price}</div>
+                                <div className="merch-nam33e">{merchandise.Product}</div>
+                                <div className="merch-nam33e">${merchandise.Price}</div>
                                 <img src={plus} className="merch-plus" onClick={() => buymerch(download, merchandise.Product)} />
-                                <span className="merch-stock">{merchandise.Stock}</span>
+                                <div className="merch-stock">{merchandise.Stock}</div>
                                 <img src={minus} className="merch-minus" onClick={() => sellmerch(download, merchandise.Product)} />
                             </div>
                         ))}
