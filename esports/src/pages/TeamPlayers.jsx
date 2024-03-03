@@ -22,7 +22,7 @@ const TeamPlayers = () => {
                     id: download
                 });
                 setPlayers(response.data)
-                
+
             } catch (error) {
                 console.error(error);
                 throw error;
@@ -108,13 +108,14 @@ const TeamPlayers = () => {
                                 </div>
                                 <Link onClick={() => uploadPlayer(cardData)} className='lonk-plonk'>
                                     <div className='player-roll-animation'>
-                                        {
-                                            cardData.photo != null ?
-                                                <img src={`data:image/png;base64,${Buffer.from(cardData.photo.data).toString('base64')}`} alt={cardData.tname} className='player-image' />
-                                                :
-                                                <img src='https://static.vecteezy.com/system/resources/thumbnails/010/884/730/small_2x/owl-head-mascot-team-logo-png.png' alt='ifk' className='player-image' />
-                                        }
-                                        {/* <img src={`data:image/png;base64,${Buffer.from(cardData.photo.data).toString('base64')}`} alt={cardData.pname} className='player-image' /> */}
+                                        <div className='filler0image'>
+                                            {
+                                                cardData.photo != null ?
+                                                    <img src={`data:image/png;base64,${Buffer.from(cardData.photo.data).toString('base64')}`} alt={cardData.tname} className='player-image' />
+                                                    :
+                                                    <img src='https://static.vecteezy.com/system/resources/thumbnails/010/884/730/small_2x/owl-head-mascot-team-logo-png.png' alt='ifk' className='player-image' />
+                                            }
+                                        </div>
                                         <div className='player-text'>
                                             <h1 className='player-text-header'>{cardData.nickname}</h1>
                                             <p className='player-text-inside'>AKA {cardData.pname}</p>
