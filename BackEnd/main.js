@@ -26,7 +26,7 @@ app.post("/fetch_team_details", (req, res) => {
 
 //fetches list of games
 app.get("/game_details", (req, res) => {
-    const sql = "SELECT DISTINCT gname, publisher, DATE_FORMAT(release_date, '%Y-%m-%d') as release_date, photo, description FROM game;";
+    const sql = "SELECT gname, publisher, DATE_FORMAT(release_date, '%Y-%m-%d') as release_date, photo, description FROM game;";
     connection.query(sql, function (err, results) {
         if (err) throw err;
         res.send(results);
@@ -65,7 +65,7 @@ app.get("/team_details", (req, res) => {
 //fetches all teams in a particular game
 app.post("/fetch_game_teams", (req, res) => {
     const data = req.body.id;
-    const sql = `SELECT t.tname AS Team_Name, p.pname AS Captain_Name, t.photo AS Team_Photo FROM team t JOIN player p ON t.captain_id = p.pid JOIN game g ON t.tid = g.tid WHERE g.gname = '${data}';    `;
+    const sql = `SELECT t.tname AS Team_Name, p.pname AS Captain_Name, t.photo AS Team_Photo FROM team t JOIN player p ON t.captain_id = p.pid JOIN game_team g ON t.tid = g.tid WHERE g.gname = '${data}';    `;
     connection.query(sql, function (err, results) {
         if (err) throw err;
         res.send(results);
@@ -278,6 +278,34 @@ app.post("/login",(req,res)=>{
     })  
 })
 
+app.post("/games_not_played_by_team",(req,res)=>{
+    const team = req.body.id;
+    if (!team) {
+        return res.send({payload:[],message:"Error"});
+    }
+    console.log(team)
+    const sql = `SELECT DISTINCT gname FROM game_team WHERE gname NOT IN (SELECT gname FROM game_team WHERE tid = (SELECT tid FROM team WHERE tname = ?));`
+    connection.query(sql,[team],function(err,response){
+        if (err) throw err;
+        else{
+            console.log(response)
+            res.send({payload:response,message:"Success"})
+        }
+    })
+})
+
+app.post("/add_team_to_game",(req,res)=>{
+    const team = req.body.team;
+    const game = req.body.game;
+    console.log(team,game)
+    const sql = `INSERT INTO game_team (tid, gname) SELECT team.tid, ? FROM team WHERE team.tname = ?;`
+    connection.query(sql,[game,team],function(err,response){
+        if (err) throw err;
+        else{
+            return res.send({message:"Success"})
+        }
+    })
+})
 //establishes connections
 app.listen(8080, () => {
     console.log("port connected")

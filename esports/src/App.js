@@ -12,6 +12,7 @@ import BackGroundImage from './pages/BackGroundImage'
 import AddData from './pages/AddData'
 import LoginPage from './pages/LoginPage'
 import UserValidation from './UserValidation'
+import AddToGame from './pages/AddToGame'
 import './App.css'
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
           <Route element={<LoginPage />} path='/login' />
           <Route element={<UserValidation />} >
             <Route element={<AddData />} path='/add_data' />
+            <Route element={<AddToGame />} path='/add_game' />
           </Route>
         </Routes>
       </BrowserRouter>

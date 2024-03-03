@@ -110,7 +110,11 @@ body {
   transform: scale(110%) translateX(5px) rotate(-5deg);
 }
 
-
+.game{
+  width: 50px;
+  color: white;
+  filter: invert(1000%);
+}
 .links {
   text-decoration: none;
 }
@@ -152,7 +156,7 @@ body {
   text-decoration: none;
   border: none;
   width: 6.5vh;
-  left: -35vw;
+  left: -25vw;
   position: relative;
   height: 6.5vh;
   /* top: auto; */

@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import back from './back.svg'
 import SnowFall from '../SnowFall';
 import adduser from './add-user.svg'
+import addGame from '../resoures/xbox.png'
 import { useEffect, useState } from 'react';
 
 function NavBar() {
@@ -38,6 +39,7 @@ function NavBar() {
                     {
                         auth ?
                             <>
+                                <li className="navbar-links-1 game"><Link to="/add_game"><img src={addGame} alt='adduser' className='game'/></Link></li>
                                 <li className="navbar-links-1"><Link to="/add_data"><img src={adduser} alt='adduser' /></Link></li>
                                 <li className="navbar-links-1"><Link to="/add_data"><button className='logout-button' onClick={()=>handleLogout()}>Logout</button></Link></li>
                             </>

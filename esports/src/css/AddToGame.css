@@ -1,0 +1,43 @@
+.select-game-container{
+    /* background-color: #ffffff29; */
+    /* padding-top: 300px; */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+}
+.select-game-form{
+    background-color: rgba(57, 57, 57, 0.73);
+    width: 30vw;
+    color: silver;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    border-radius: 20px;
+    padding: 20px;
+    justify-content: center;
+    border-top: dimgrey solid 2px;
+    border-left: dimgrey solid 2px;
+    border-bottom: rgb(29, 29, 29) solid 2px;
+    border-right: rgb(29, 29, 29) solid 2px;
+}
+.select-game-form-inside{
+    background-color: rgba(0, 0, 0, 0.45);
+    padding: 10px;
+    font-family: Poppins;
+    border-bottom: dimgrey solid 2px;
+    border-right: dimgrey solid 2px;
+    border-top: rgb(0, 0, 0) solid 2px;
+    border-left: rgb(0, 0, 0) solid 2px;
+    font-size: 15px;
+    color: grey;
+    border-radius: 20px;
+    width: 100%;
+}
+.select-game-form-inside option{
+    background-color: grey;
+    color: white;
+}
