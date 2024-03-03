@@ -6,11 +6,17 @@
     background-blend-mode: color-dodge ;
     position: fixed;
 } */
+.main-container-home{
+  display: block;
+  margin: auto;
+  width: 100vw;
+  padding: 10% 10% 10% 0%;
+}
 .container {
     display: flex; /* Use flexbox layout */
     list-style-type: none;
-    padding: 30px 100px 100px 100px;
-    margin: 0;
+    /* margin: 0; */
+    margin: auto;
     justify-content: space-between;
     flex-direction: row;
     flex-wrap: wrap;

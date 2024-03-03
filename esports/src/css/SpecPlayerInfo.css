@@ -4,6 +4,11 @@
     flex: 1;
     color: aliceblue;
 }
+.spec-player-box{
+    display: block;
+    padding-top: 150px;
+    width: 100vw;
+}
 .spec-player-container{
     display:flex;
     width: 60vw;
@@ -13,7 +18,6 @@
     align-items: center;
     align-content: center;
     justify-content: center;
-    padding: 1vw;
 }
 
 .player-desc{
@@ -33,4 +37,12 @@
 }
 .spec-player-image{
     height: 70vh;
+    transition: all 1s ease;
+}
+.spec-player-image-container:hover .spec-player-image{
+    transform: scaleX(-100%);
+}
+.spec-player-image-container{
+    height: 70vh;
+    transition: all 1s ease;
 }

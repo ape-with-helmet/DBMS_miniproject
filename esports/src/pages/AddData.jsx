@@ -52,7 +52,8 @@ function AddData() {
     async function getEmptyCap() {
       try {
         const response = await axios.get("http://localhost:8080/get_blank_team");
-        setEmptyTeam(response.data); // Update state with response.data
+        setEmptyTeam(response.data[0]); // Update state with response.data
+        console.log(emptyTeam,"empty")
       } catch (error) {
         console.error("Error fetching empty teams:", error);
       }
@@ -118,7 +119,15 @@ function AddData() {
       [name]: val
     }));
   };
-
+  const handleSkip = () => {
+    if (!emptyTeam[0]){
+      setStatus(1);
+      return toast.error("No empty teams exist!");
+    }
+    else{
+      setStatus(2)
+    }
+  }
   const handlePlayerSubmit = async (e) => {
     e.preventDefault();
     if (!playerFormData.name || !playerFormData.dob || !playerFormData.sex || !playerFormData.origin || !playerFormData.desc) {
@@ -221,7 +230,7 @@ function AddData() {
   const handleMerchSubmit = async (e) => {
     e.preventDefault();
     merchDetails.tid = finalForm.team;
-    const response = await axios.post("http://localhost:8080/createMerch",{
+    await axios.post("http://localhost:8080/createMerch",{
       id:merchDetails
     })
     setFinalForm({
@@ -544,6 +553,7 @@ function AddData() {
                   value={playerFormData.desc}
                   onChange={handlePlayerChange}
                 />
+                
               </div>
             </span>
             <button type="button" className='player-submit reset-1' onClick={() => setStatus(1)}>Existing Player?</button>
@@ -554,11 +564,13 @@ function AddData() {
         <br />
         <br />
         <br />
+        <br />  
+        <br />
         <br />
         <div>
           <h2 className='add-data-header'>Add your team</h2>
           <form onSubmit={handleTeamSubmit} className='add-data-form'>
-            <span className='add-data-form-container-2'>
+            <span className='add-data-form-container-1'>
               <div className='add-data-form-inputs'>
                 <input
                   type="text"
@@ -596,7 +608,7 @@ function AddData() {
                   disabled={!(teamFormData.player1 !== '')}>
                   <option value="" disabled>Choose player 2</option>
                   {
-                    captainTeam.filter(play => play.pid != teamFormData.player1).map(play => (
+                    captainTeam.filter(play => play.pid !== teamFormData.player1).map(play => (
                       <option key={play.pid} value={play.pid}>{play.pid} {play.pname}</option>
                     ))
                   }
@@ -610,9 +622,9 @@ function AddData() {
                   onChange={handleTeamChange}
                   required
                   disabled={!(teamFormData.player1 !== '') || !(teamFormData.player2 !== '')}>
-                  <option value="" disabled={teamFormData.player1 != '' && teamFormData.player2 != ''}>Choose player 3</option>
+                  <option value="" disabled={teamFormData.player1 !== '' && teamFormData.player2 !== ''}>Choose player 3</option>
                   {
-                    captainTeam.filter(play => play.pid != teamFormData.player1 && play.pid != teamFormData.player2).map(play => (
+                    captainTeam.filter(play => play.pid !== teamFormData.player1 && play.pid !== teamFormData.player2).map(play => (
                       <option key={play.pid} value={play.pid}>{play.pid} {play.pname}</option>
                     ))
                   }
@@ -632,7 +644,7 @@ function AddData() {
               </div>
             </span>
             <button type="button" className='team-submit reset' onClick={() => setStatus(0)}>Add another player?</button>
-            <button type="button" className='team-submit reset' onClick={() => setStatus(2)}>Already have a team?</button>
+            <button type="button" className='team-submit reset' onClick={() => handleSkip()}>Already have a team?</button>
             <button type="submit" className='team-submit'>Submit</button>
           </form>
         </div>
@@ -647,7 +659,7 @@ function AddData() {
         <div >
           <h2 className='add-data-header'>CHoose your Captain</h2>
           <form onSubmit={handleTeamSubmit} className='add-data-form'>
-            <span className='add-data-form-container-2'>
+            <span className='add-data-form-container-1'>
               <div className='add-data-form-inputs'>
                 <select
                   type="dropdown"
@@ -740,7 +752,7 @@ function AddData() {
             {popupStatus && (
               <div className="popup">
                 <div className="popup-content">
-                  <p>Select your merchandise!</p>
+                  <p className='merch-title'>Select your merchandise!</p>
                 {/* <form className='form-container-for-merch'> */}
                   <div className='form-for-merch'>
                     {/* Render other elements here if needed */}

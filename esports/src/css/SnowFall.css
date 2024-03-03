@@ -1,0 +1,21 @@
+
+@keyframes snowfall {
+    0% {
+        top: 0vh;
+    }
+    100%{
+        top: 100vh;
+    }
+}
+.snow{
+    top: -10px;
+    width: 5px;
+    height: 5px;
+    position: fixed;
+    background-color: #ffffff;
+    border-radius: 100%;
+    /* left: 100px; */
+    animation: snowfall 15s cubic-bezier(0, 0.1, 0.2, 0) infinite ;   
+    /* transition: all 10s ease; */
+    z-index: -1;
+  }

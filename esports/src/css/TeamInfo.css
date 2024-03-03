@@ -1,14 +1,15 @@
 .team-card-list {
     list-style-type: none;
-    padding: 20px;
-    margin-right: 40px;
+    padding-top: 100px;
+    /* margin-right: 40px; */
     justify-content: space-evenly;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    width: 100vw;
 }
 .team-card {
-    background-color: rgba(65, 63, 63, 0.69);
+    background-color: rgba(28, 28, 28, 0.69);
     border-radius: 10px;
     flex: 1 0 calc(40%); /* Adjust width based on 4 items per row */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

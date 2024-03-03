@@ -123,6 +123,7 @@
 .team-player-main-container{
     display: flex;
     justify-content: space-between;
+    padding-top: 150px;
     width: 100vw;
 }
 .team-player-left{

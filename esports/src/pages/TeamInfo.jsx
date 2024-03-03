@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import '../css/TeamInfo.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Buffer } from 'buffer';
 
 function App() {
     const [data1, setData1] = useState([]);
+    const navigate = useNavigate()
     useEffect(() => {
         axios.get("http://localhost:8080/team_details")
             .then(data1 => setData1(data1.data))
             .catch(err => console.log(err))
-    })
+    },[])
     function upload(x) {
         localStorage.setItem("SelectedTeam", x.tname);
-        window.location.href = "/team_players"
+        navigate('/team_players')
     }
 
     return (
@@ -27,7 +28,7 @@ function App() {
                                     cardData.photo != null ?
                                         <img src={`data:image/png;base64,${Buffer.from(cardData.photo.data).toString('base64')}`} alt={cardData.tname} className='team_image' />
                                         :
-                                        <img src='https://static.vecteezy.com/system/resources/thumbnails/010/884/730/small_2x/owl-head-mascot-team-logo-png.png' className='team_image' />
+                                        <img src='https://static.vecteezy.com/system/resources/thumbnails/010/884/730/small_2x/owl-head-mascot-team-logo-png.png' alt='idkl' className='team_image' />
                                 }
                                 <div className='team-text'>
                                     <h1 className='team-text-header'>{cardData.tname}</h1>

@@ -28,7 +28,7 @@ const TeamPlayers = () => {
             }
         }
         getTeamData(download)
-    }, [players])
+    }, [download])
     useEffect(() => {
         const getSpnsorData = async (download) => {
             try {
@@ -42,7 +42,7 @@ const TeamPlayers = () => {
             }
         }
         getSpnsorData(download)
-    })
+    },[download])
     useEffect(() => {
         const getMerchData = async (download) => {
             try {
@@ -56,7 +56,7 @@ const TeamPlayers = () => {
             }
         }
         getMerchData(download)
-    })
+    },[download])
     function buymerch(x, y) {
         axios.post("http://localhost:8080/buy_merch", {
             teamname: x,
@@ -77,7 +77,7 @@ const TeamPlayers = () => {
         <div>
             <div className="team-player-main-container">
                 <div className="team-player-left">
-                    <h1 className='roster'>Sponsors and Merch </h1>
+                    {/* <h1 className='roster'>Sponsors and Merch </h1> */}
                     <div className="team-player-container">
                         {sponsor.map(spnsr => (
                             <div className='sponsor-container'>
@@ -89,20 +89,20 @@ const TeamPlayers = () => {
                             <div className='merch-line'>
                                 <div className="merch-nam33e">{merchandise.Product}</div>
                                 <div className="merch-nam33e">${merchandise.Price}</div>
-                                <img src={plus} className="merch-plus" onClick={() => buymerch(download, merchandise.Product)} />
+                                <img src={plus} className="merch-plus" alt='+' onClick={() => buymerch(download, merchandise.Product)} />
                                 <div className="merch-stock">{merchandise.Stock}</div>
-                                <img src={minus} className="merch-minus" onClick={() => sellmerch(download, merchandise.Product)} />
+                                <img src={minus} className="merch-minus" alt='-' onClick={() => sellmerch(download, merchandise.Product)} />
                             </div>
                         ))}
                     </div>
                 </div>
                 <div className="team-player-right">
-                    <h1 className='roster'>{download} Player Roster</h1>
+                    {/* <h1 className='roster'>{download} Player Roster</h1> */}
                     <ul className="player-card-list">
                         {players.map((cardData, index) => (<>
                             <li key={index} className='player-card'>
                                 <div>
-                                    {cardData.captain_status == "Captain" ? <div className='captain-status'></div> : <></>}
+                                    {cardData.captain_status === "Captain" ? <div className='captain-status'></div> : <></>}
                                 </div>
                                 <Link onClick={() => uploadPlayer(cardData)} className='lonk-plonk'>
                                     <div className='player-roll-animation'>
@@ -110,7 +110,7 @@ const TeamPlayers = () => {
                                             cardData.photo != null ?
                                                 <img src={`data:image/png;base64,${Buffer.from(cardData.photo.data).toString('base64')}`} alt={cardData.tname} className='player-image' />
                                                 :
-                                                <img src='https://static.vecteezy.com/system/resources/thumbnails/010/884/730/small_2x/owl-head-mascot-team-logo-png.png' className='player-image' />
+                                                <img src='https://static.vecteezy.com/system/resources/thumbnails/010/884/730/small_2x/owl-head-mascot-team-logo-png.png' alt='ifk' className='player-image' />
                                         }
                                         {/* <img src={`data:image/png;base64,${Buffer.from(cardData.photo.data).toString('base64')}`} alt={cardData.pname} className='player-image' /> */}
                                         <div className='player-text'>

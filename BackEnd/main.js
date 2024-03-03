@@ -248,6 +248,22 @@ app.post("/createMerch",(req,res)=>{
         }
     })
 })
+
+app.post("/login",(req,res)=>{
+    const {email,password} = req.body;
+    console.log(email,password)
+    const sql = `SELECT email FROM LOGIN WHERE email = '${email}' AND pwd = '${password}';`
+    connection.query(sql, function(err,response){
+        if (err) {
+            console.log(err)
+        }else{
+            const data = response[0];
+            console.log(data)
+            res.send({message:"Login success", data:data});
+        }
+    })  
+})
+
 //establishes connections
 app.listen(8080, () => {
     console.log("port connected")

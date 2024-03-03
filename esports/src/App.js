@@ -11,14 +11,15 @@ import Homepage from './pages/Homepage'
 import BackGroundImage from './pages/BackGroundImage'
 import AddData from './pages/AddData'
 import LoginPage from './pages/LoginPage'
+import UserValidation from './UserValidation'
 import './App.css'
 
 const App = () => {
   return (
     <>
       <BrowserRouter>
-      <NavBar/>
-      <BackGroundImage/>
+        <NavBar />
+        <BackGroundImage />
         <Routes>
           <Route element={<TeamInfo />} path='/team_info' />
           <Route element={<Homepage />} path='/' />
@@ -27,8 +28,10 @@ const App = () => {
           <Route element={<Games />} path='/games' />
           <Route element={<GameTeam />} path='/game_team' />
           <Route element={<Merch />} path='/merch' />
-          <Route element={<AddData />} path='/add_data' />
           <Route element={<LoginPage />} path='/login' />
+          <Route element={<UserValidation />} >
+            <Route element={<AddData />} path='/add_data' />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
