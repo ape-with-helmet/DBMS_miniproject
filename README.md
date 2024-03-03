@@ -5,11 +5,11 @@ Will make the database public sometime in the future just for testing purposes.
 To run the project,
 
 run the following commands on one terminal
-cd esports
-npm start
+**cd esports
+npm start**
 
 and run the following on another terminal
-cd BackEnd
-npx nodemon main
+**cd BackEnd
+npx nodemon main**
 
 If you like the project, do leave a star.
