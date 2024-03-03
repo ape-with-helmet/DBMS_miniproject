@@ -12,7 +12,7 @@
     background-color: rgba(0, 0, 0, 0.7);
     border-radius: 10px;
     flex: 1 0 calc(30% - 20px); /* Adjust width based on 4 items per row */
-    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.158), 0 8px 16px rgba(255, 255, 255, 0.158);
+    box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.14);
     border: solid 2px rgba(255, 255, 255, 0.26);
     overflow: hidden;
     margin-bottom: 10px;
@@ -67,7 +67,7 @@
     transform: translateY(-30vh);
 }
 .player-image{
-    /* width: 100%; */
+    width: 100%;
     height: 100%;
     margin-top: 10vh;
     justify-content: center;

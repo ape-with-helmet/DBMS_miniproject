@@ -32,7 +32,6 @@ const SpecPlayerInfo = () => {
                     player.map(prod => {
                         return (<>
                             <div className='spec-player-image-container'>
-                                {/* <img src={`data:image/png;base64,${Buffer.from(prod.photo.data).toString('base64')}`} alt={prod.pname} className='spec-player-image' /> */}
                                 {
                                     prod.photo != null ?
                                         <img src={`data:image/png;base64,${Buffer.from(prod.photo.data).toString('base64')}`} alt={prod.tname} className='spec-player-image' />

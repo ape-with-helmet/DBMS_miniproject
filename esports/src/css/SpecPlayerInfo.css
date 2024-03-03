@@ -28,6 +28,7 @@
     font-family: Poppins;
     letter-spacing: 2px;
     font-weight: 100;
+    width: 50vw;
 }
 .spec-player-name{
     position: relative;
@@ -36,7 +37,8 @@
     font-family: Poppins;
 }
 .spec-player-image{
-    height: 70vh;
+    height: 100%;
+    width: 100%;
     transition: all 1s ease;
 }
 .spec-player-image-container:hover .spec-player-image{
@@ -44,5 +46,10 @@
 }
 .spec-player-image-container{
     height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:50vw;
+    /* background-color: #fff; */
     transition: all 1s ease;
 }
