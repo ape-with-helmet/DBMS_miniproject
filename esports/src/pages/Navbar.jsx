@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 
 function NavBar() {
     const snowpos=[];
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 1000; i++) {
         const snowpo=Math.floor(Math.random()*100)
         snowpos.push(snowpo)
     }

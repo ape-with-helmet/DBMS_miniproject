@@ -12,7 +12,7 @@
     width: 5px;
     height: 5px;
     position: fixed;
-    background-color: #ffffff;
+    background-color: #b8b8b8;
     border-radius: 100%;
     /* left: 100px; */
     animation: snowfall 15s cubic-bezier(0, 0.1, 0.2, 0) infinite ;   
