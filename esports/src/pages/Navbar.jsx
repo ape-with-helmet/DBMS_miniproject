@@ -10,7 +10,6 @@ function NavBar() {
     for (let i = 0; i < 30; i++) {
         const snowpo=Math.floor(Math.random()*100)
         snowpos.push(snowpo)
-        console.log(snowpos)
     }
     const navigate = useNavigate();
     const location = useLocation();

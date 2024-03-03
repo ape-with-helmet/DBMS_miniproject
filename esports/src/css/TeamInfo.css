@@ -31,6 +31,11 @@
 }
 .team-text-inside{
     font-size: 20px;
+    text-decoration: none;
+}
+.link-card{
+
+    text-decoration: none; 
 }
 .team-text-header{
     font-size: 50px;
@@ -42,8 +47,10 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    align-content: center;    
+    align-content: center; 
+    justify-content: center;   
     height: 60vh;
+    margin-top: 100px;
     color: rgba(255, 255, 255, 0.482);
     z-index: 4;
 }
@@ -62,7 +69,7 @@
     margin-left: auto;
     margin-right: auto;
     /* position: absolute; */
-    height: fit-content;
+    height: 400px;
     align-items: center;
     justify-content: center;
     transition: all 1s ease-in-out;
@@ -71,6 +78,7 @@
     position: relative;
     padding-left: 20px;
     padding-right: 20px;
+    text-decoration: none;
     justify-content: center;
     align-items: center;
     /* bottom: -50vh; */

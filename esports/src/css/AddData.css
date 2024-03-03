@@ -184,7 +184,7 @@ select {
 
 .hide {
     /* opacity: 0; */
-    transform: translateY(-70vh);
+    transform: translateY(-85vh);
 }
 
 .conditional-com-2 {
@@ -202,7 +202,9 @@ select {
     /* color: rgba(0, 0, 0, 0.63); */
 }
 
-
+.select-photo{
+    padding-top: 10px;
+}
 
 
 

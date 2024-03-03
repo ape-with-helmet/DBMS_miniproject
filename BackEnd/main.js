@@ -4,13 +4,13 @@ const fs = require('fs');
 const cors = require("cors");
 const app = express();
 const bodyParser = require('body-parser');
-app.use(express.json());
+app.use(express.json({ limit: '500mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cors())
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '500mb' }));
 
 // Parse application/x-www-form-urlencoded requests
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ limit: '500mb', extended: true }));
 const connection = require('./database.js');
 const { error } = require("console");
 
@@ -104,42 +104,56 @@ app.post("/cancel_merch", (req, res) => {
 })
 
 //adds player details
-app.post("/add_player_data", (req, res) => {
-    const desc = req.body.id.desc;
-    const dob = req.body.id.dob;
-    const sex = req.body.id.sex;
-    const pname = req.body.id.name;
-    const origin = req.body.id.origin;
-    console.log(req.body, "input")
-    const sql = `INSERT INTO player (pname, dob, description, origin, sex) VALUES ('${pname}', '${dob}', '${desc}', '${origin}', '${sex}');`;
-    connection.query(sql, function (err) {
-        if (err) throw err;
-        else res.status(200).send({ message: "SUCCESS" })
-    })
-})
+const multer = require('multer');
+const upload = multer(); // Initialize multer
+
+app.post("/add_player_data", upload.single('photo'), (req, res) => {
+    const desc = req.body.desc;
+    const dob = req.body.dob;
+    const sex = req.body.sex;
+    const pname = req.body.name;
+    const origin = req.body.origin;
+    const photo = req.file.buffer; // Use req.file.buffer to get the binary data of the photo
+    // console.log(req.body)
+    // console.log(desc,dob,sex,pname,origin,photo, "input");
+
+    const sql = `INSERT INTO player (pname, dob, description, origin, sex, photo) VALUES (?, ?, ?, ?, ?, ?);`;
+    connection.query(sql, [pname, dob, desc, origin, sex, photo], function (err,response) {
+        if (err) {
+            console.error('Error inserting data:', err);
+            res.status(500).send({ message: "Error inserting data" });
+        } else {
+            console.log(response)
+            res.status(200).send({ message: "SUCCESS" });
+        }
+    });
+});
+
+
 
 //adds team details
-app.post("/add_team_data", (req, res) => {
-    const p1 = req.body.id.player1;
-    const p2 = req.body.id.player2;
-    const p3 = req.body.id.player3;
-    const tname = req.body.id.name;
-    const social = req.body.id.social;
-    console.log(req.body, "input")
+app.post("/add_team_data",  upload.single('photo'), (req, res) => {
+    // Extract data from the request
+    const { name, social, p1, p2, p3 } = req.body;
+    const photo = req.file.buffer; // Access the uploaded image buffer
 
-    const sql1 = `INSERT INTO team (tname, social_id) VALUES ('${tname}', '${social}')`;
-    connection.query(sql1, function (err) {
+    // Insert team data into the database
+    const sql1 = `INSERT INTO team (tname, social_id, photo) VALUES (?, ?, ?)`;
+    connection.query(sql1, [name, social, photo], (err, result) => {
         if (err) {
-            console.log(err, "team");
-            res.status(500).json({ message: "Error occurred while adding team data" }); // Send error response
+            console.log(err);
+            res.status(500).json({ message: "Error occurred while adding team data" });
         } else {
-            const sql2 = `INSERT INTO player_team (tid, pid) VALUES ((SELECT tid FROM team WHERE tname = '${tname}'), ${p1}), ((SELECT tid FROM team WHERE tname = '${tname}'), ${p2}), ((SELECT tid FROM team WHERE tname = '${tname}'), ${p3})`;
-            connection.query(sql2, function (err) {
+            // Insert player-team relations into the database
+            const tid = result.insertId; // Get the ID of the inserted team
+            const sql2 = `INSERT INTO player_team (tid, pid) VALUES ?`;
+            const values = [[tid, p1], [tid, p2], [tid, p3]];
+            connection.query(sql2, [values], (err) => {
                 if (err) {
                     console.log(err);
-                    res.status(500).json({ message: "Error occurred while adding player data to team" }); // Send error response
+                    res.status(500).json({ message: "Error occurred while adding player data to team" });
                 } else {
-                    res.status(200).json({ message: "Team and player data added successfully" }); // Send success response
+                    res.status(200).json({ message: "Team and player data added successfully" });
                 }
             });
         }

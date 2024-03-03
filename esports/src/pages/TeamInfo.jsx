@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import '../css/TeamInfo.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Buffer } from 'buffer';
 
 function App() {
     const [data1, setData1] = useState([]);
-    const navigate = useNavigate()
     useEffect(() => {
         axios.get("http://localhost:8080/team_details")
             .then(data1 => setData1(data1.data))
@@ -14,7 +13,7 @@ function App() {
     },[])
     function upload(x) {
         localStorage.setItem("SelectedTeam", x.tname);
-        navigate('/team_players')
+        window.location.href = '/team_players'
     }
 
     return (
@@ -22,7 +21,7 @@ function App() {
             <ul className="team-card-list">
                 {data1.map((cardData, index) => (
                     <li key={index} className="team-card">
-                        <Link onClick={() => upload(cardData)}>
+                        <Link onClick={() => upload(cardData)} className='link-card'>
                             <div className='team-roll-animation'>
                                 {
                                     cardData.photo != null ?
@@ -33,7 +32,7 @@ function App() {
                                 <div className='team-text'>
                                     <h1 className='team-text-header'>{cardData.tname}</h1>
                                     <p className='team-text-inside'>Captain: {cardData.captain_name}</p>
-                                    <p className='team-text-inside'>Instagram: @{cardData.social_id}</p>
+                                    <p className='team-text-inside'>Instagram: {cardData.social_id}</p>
                                 </div>
                             </div>
                         </Link>

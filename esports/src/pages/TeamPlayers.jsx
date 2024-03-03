@@ -11,7 +11,7 @@ const TeamPlayers = () => {
     const [players, setPlayers] = useState([])
     const [sponsor, setSponsor] = useState([])
     const [merchData, setMerchData] = useState([])
-
+    const [imageUrl, setImageUrl] = useState(null);
     useEffect(() => {
         setDownload(localStorage.getItem("SelectedTeam"))
     }, [])
@@ -22,6 +22,7 @@ const TeamPlayers = () => {
                     id: download
                 });
                 setPlayers(response.data)
+                
             } catch (error) {
                 console.error(error);
                 throw error;
@@ -42,7 +43,7 @@ const TeamPlayers = () => {
             }
         }
         getSpnsorData(download)
-    },[download])
+    }, [download])
     useEffect(() => {
         const getMerchData = async (download) => {
             try {
@@ -56,7 +57,7 @@ const TeamPlayers = () => {
             }
         }
         getMerchData(download)
-    },[download])
+    }, [download])
     function buymerch(x, y) {
         axios.post("http://localhost:8080/buy_merch", {
             teamname: x,
@@ -78,6 +79,7 @@ const TeamPlayers = () => {
             <div className="team-player-main-container">
                 <div className="team-player-left">
                     {/* <h1 className='roster'>Sponsors and Merch </h1> */}
+                    {/* <img src={imageUrl} alt='hahahah'/> */}
                     <div className="team-player-container">
                         {sponsor.map(spnsr => (
                             <div className='sponsor-container'>

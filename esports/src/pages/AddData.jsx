@@ -15,14 +15,16 @@ function AddData() {
     dob: '',
     sex: '',
     origin: '',
-    desc: ''
+    desc: '',
+    photo: []
   });
   const [teamFormData, setTeamFormData] = useState({
     name: '',
     player1: '',
     player2: '',
     player3: '',
-    social: ''
+    social: '',
+    photo: []
   });
   const [finalForm, setFinalForm] = useState({
     team: '',
@@ -47,19 +49,18 @@ function AddData() {
       }
     }
     getEmptyTeam();
-  }); // Empty dependency array to ensure this effect runs only once on component mount
+  },[playerFormData]); // Empty dependency array to ensure this effect runs only once on component mount
   useEffect(() => {
     async function getEmptyCap() {
       try {
         const response = await axios.get("http://localhost:8080/get_blank_team");
         setEmptyTeam(response.data[0]); // Update state with response.data
-        console.log(emptyTeam,"empty")
       } catch (error) {
         console.error("Error fetching empty teams:", error);
       }
     }
     getEmptyCap();
-  }); // Empty dependency array to ensure this effect runs only once on component mount
+  },[teamFormData]); // Empty dependency array to ensure this effect runs only once on component mount
   useEffect(() => {
     // Log emptyTeam after it's updated
     setEmptyTeam(emptyTeam);
@@ -67,12 +68,26 @@ function AddData() {
   const handlePlayerChange = (e) => {
     const { name, value, type } = e.target;
     const val = type === 'file' ? e.target.files[0] : value;
-    console.log(playerFormData)
-    setPlayerFormData(prevState => ({
-      ...prevState,
+    setPlayerFormData({
+      ...playerFormData,
       [name]: val
-    }));
+    });
   };
+  const handlePlayerFileChange = (e) => {
+    const file = e.target.files[0];
+    setPlayerFormData({
+      ...playerFormData,
+      photo: file
+    });
+  };
+  const handleTeamFileChange = (e) => {
+    const file = e.target.files[0];
+    setTeamFormData({
+      ...teamFormData,
+      photo: file
+    });
+  };
+
   const handleTeamChange = (e) => {
     const { name, value, type } = e.target;
     const val = type === 'file' ? e.target.files[0] : value;
@@ -120,34 +135,40 @@ function AddData() {
     }));
   };
   const handleSkip = () => {
-    if (!emptyTeam[0]){
+    if (!emptyTeam[0]) {
       setStatus(1);
       return toast.error("No empty teams exist!");
     }
-    else{
+    else {
       setStatus(2)
     }
   }
   const handlePlayerSubmit = async (e) => {
     e.preventDefault();
-    if (!playerFormData.name || !playerFormData.dob || !playerFormData.sex || !playerFormData.origin || !playerFormData.desc) {
+    if (!playerFormData.name || !playerFormData.dob || !playerFormData.sex || !playerFormData.origin || !playerFormData.desc || !playerFormData.photo) {
       toast("Please fill in all fields.");
       return;
     }
-    // Handle form submission logic here, e.g., send data to server
-    console.log(playerFormData)
-    await axios.post("http://localhost:8080/add_player_data", {
-      id: playerFormData
-    })
-    alert("Successful")
-    setPlayerFormData({
-      name: '',
-      dob: '',
-      sex: '',
-      origin: '',
-      desc: ''
-    })
-    setStatus(1);
+
+    const formData = new FormData();
+    formData.append('photo', playerFormData.photo);
+    formData.append('name', playerFormData.name);
+    formData.append('dob', playerFormData.dob);
+    formData.append('sex', playerFormData.sex);
+    formData.append('origin', playerFormData.origin);
+    formData.append('desc', playerFormData.desc);
+    try {
+      await axios.post("http://localhost:8080/add_player_data", formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      // Handle success
+    } catch (error) {
+      console.error("Error submitting player data:", error);
+      // Handle error
+    }
+    setStatus(1)
   };
   const handleTeamSubmit = async (e) => {
     e.preventDefault();
@@ -160,15 +181,34 @@ function AddData() {
       toast("Invalid Social id.\nHint: Start your id with @");
       return;
     }
-
-    await axios.post("http://localhost:8080/add_team_data", {
-      id: teamFormData
-    })
+    if(!teamFormData.photo){
+      toast("We will use a default photo for your team. Dont blame us...")
+    }
+    const tormData = new FormData();
+    tormData.append('photo', teamFormData.photo);
+    tormData.append('name', teamFormData.name);
+    tormData.append('p1', teamFormData.player1);
+    tormData.append('p2', teamFormData.player2);
+    tormData.append('p3', teamFormData.player3);
+    tormData.append('social', teamFormData.social);
+    console.log(teamFormData.name)
+    try {
+      const response = await axios.post("http://localhost:8080/add_team_data", tormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      console.log(response)
+      // Handle success
+    } catch (error) {
+      console.error("Error submitting player data:", error);
+      // Handle error
+    }
     // Handle form submission logic here, e.g., send data to server
     setStatus(2);
-    console.log(teamFormData, "FormData");
+    // console.log(teamFormData, "FormData");
   };
-  const [popupStatus,setPopupStatus] = useState(false);
+  const [popupStatus, setPopupStatus] = useState(false);
   const finalSubmit = async (e) => {
     e.preventDefault();
     if (!finalForm.amount || !finalForm.captain || !finalForm.nick1 || !finalForm.nick2 || !finalForm.nick3 || !finalForm.sponsor || !finalForm.team) {
@@ -203,35 +243,35 @@ function AddData() {
       player3: '',
       social: ''
     })
-    
+
     console.log(finalForm, "FormData");
   };
   // const merchNo = 3;
   const [merchDetails, setMerchDetails] = useState({
-    m1:'',
-    m2:'',
-    m3:'',
-    p1:'',
-    p2:'',
-    p3:'',
-    q1:1,
-    q2:1,
-    q3:1,
-    tid:''
+    m1: '',
+    m2: '',
+    m3: '',
+    p1: '',
+    p2: '',
+    p3: '',
+    q1: 1,
+    q2: 1,
+    q3: 1,
+    tid: ''
   });
-  
+
   const handleMerchInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(name,value)
+    console.log(name, value)
     setMerchDetails({ ...merchDetails, [name]: value });
     console.log(merchDetails)
   };
-  
+
   const handleMerchSubmit = async (e) => {
     e.preventDefault();
     merchDetails.tid = finalForm.team;
-    await axios.post("http://localhost:8080/createMerch",{
-      id:merchDetails
+    await axios.post("http://localhost:8080/createMerch", {
+      id: merchDetails
     })
     setFinalForm({
       team: '',
@@ -244,7 +284,7 @@ function AddData() {
     })
     setStatus(0);
     setPopupStatus(false)
-    console.log(merchDetails.m1,merchDetails.p1,merchDetails.q1)
+    console.log(merchDetails.m1, merchDetails.p1, merchDetails.q1)
     window.open("/", "_self")
   };
   return (
@@ -553,7 +593,16 @@ function AddData() {
                   value={playerFormData.desc}
                   onChange={handlePlayerChange}
                 />
-                
+                {/* Adding photo data please remove if it doesnt work */}
+                <input
+                  type='file'
+                  id="photo"
+                  name="photo"
+                  accept='image/*'
+                  className='add-data-form-input-insides select-photo'
+                  required
+                  onChange={handlePlayerFileChange}
+                />
               </div>
             </span>
             <button type="button" className='player-submit reset-1' onClick={() => setStatus(1)}>Existing Player?</button>
@@ -564,7 +613,7 @@ function AddData() {
         <br />
         <br />
         <br />
-        <br />  
+        <br />
         <br />
         <br />
         <div>
@@ -608,7 +657,7 @@ function AddData() {
                   disabled={!(teamFormData.player1 !== '')}>
                   <option value="" disabled>Choose player 2</option>
                   {
-                    captainTeam.filter(play => play.pid !== teamFormData.player1).map(play => (
+                    captainTeam.filter(play => play.pid != teamFormData.player1).map(play => (
                       <option key={play.pid} value={play.pid}>{play.pid} {play.pname}</option>
                     ))
                   }
@@ -622,9 +671,9 @@ function AddData() {
                   onChange={handleTeamChange}
                   required
                   disabled={!(teamFormData.player1 !== '') || !(teamFormData.player2 !== '')}>
-                  <option value="" disabled={teamFormData.player1 !== '' && teamFormData.player2 !== ''}>Choose player 3</option>
+                  <option value="" disabled={teamFormData.player1 != '' && teamFormData.player2 != ''}>Choose player 3</option>
                   {
-                    captainTeam.filter(play => play.pid !== teamFormData.player1 && play.pid !== teamFormData.player2).map(play => (
+                    captainTeam.filter(play => play.pid != teamFormData.player1 && play.pid != teamFormData.player2).map(play => (
                       <option key={play.pid} value={play.pid}>{play.pid} {play.pname}</option>
                     ))
                   }
@@ -640,6 +689,15 @@ function AddData() {
                   pattern='^@[a-zA-Z0-9_.-]+$'
                   value={teamFormData.social}
                   onChange={handleTeamChange}
+                />
+                <input
+                  type='file'
+                  id="photo"
+                  name="photo"
+                  accept='image/*'
+                  className='add-data-form-input-insides select-photo'
+                  required
+                  onChange={handleTeamFileChange}
                 />
               </div>
             </span>
@@ -753,7 +811,7 @@ function AddData() {
               <div className="popup">
                 <div className="popup-content">
                   <p className='merch-title'>Select your merchandise!</p>
-                {/* <form className='form-container-for-merch'> */}
+                  {/* <form className='form-container-for-merch'> */}
                   <div className='form-for-merch'>
                     {/* Render other elements here if needed */}
                     <input
@@ -815,7 +873,7 @@ function AddData() {
                     </div>
                   </div>
                   <button type='button' onClick={handleMerchSubmit} className='merch-submit'>Submit</button>
-                {/* </form> */}
+                  {/* </form> */}
                 </div>
               </div>
             )}
