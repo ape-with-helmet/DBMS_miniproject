@@ -22,7 +22,7 @@ function NavBar() {
     const handleLogout = () => {
         localStorage.clear()
         setAuth('');
-        navigate('/')
+        window.location.href = ''
     }
     const handleLogin = () => {
         navigate('/login')
