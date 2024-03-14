@@ -1,15 +1,25 @@
-This is a Database Manipulation project using MySQL. 
-The project currently can only run on my system as the database is locally hosted. 
-Will make the database public sometime in the future just for testing purposes.
+# DBMS Project with React
 
-To run the project,
+This project is a Database Manipulation project using MySQL. Currently, the database is locally hosted and the project can only run on my system. However, I plan to make the database public in the future for testing purposes.
 
-run the following commands on one terminal
-**cd esports
-npm start**
+## Running the Project
 
-and run the following on another terminal
-**cd BackEnd
-npx nodemon main**
+To run the project, follow these steps:
 
-If you like the project, do leave a star.
+1. Open a terminal and navigate to the project directory.
+
+2. Run the following commands:
+    ```bash
+    cd esports
+    npm start
+    ```
+
+3. Open another terminal and navigate to the `BackEnd` directory.
+
+4. Run the following command to start the server:
+    ```bash
+    cd BackEnd
+    npx nodemon main
+    ```
+
+If you find the project useful, consider leaving a star! Thank you for checking it out.
