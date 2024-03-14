@@ -192,7 +192,7 @@ select {
 }
 
 .show-cap {
-    transform: translateY(-165vh);
+    transform: translateY(-180vh);
 }
 
 .team-submit:hover {

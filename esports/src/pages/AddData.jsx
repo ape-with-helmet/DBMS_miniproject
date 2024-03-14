@@ -49,7 +49,7 @@ function AddData() {
       }
     }
     getEmptyTeam();
-  },[playerFormData]); // Empty dependency array to ensure this effect runs only once on component mount
+  }); // Empty dependency array to ensure this effect runs only once on component mount
   useEffect(() => {
     async function getEmptyCap() {
       try {
@@ -60,11 +60,11 @@ function AddData() {
       }
     }
     getEmptyCap();
-  },[teamFormData]); // Empty dependency array to ensure this effect runs only once on component mount
+  }); // Empty dependency array to ensure this effect runs only once on component mount
   useEffect(() => {
     // Log emptyTeam after it's updated
     setEmptyTeam(emptyTeam);
-  }, [emptyTeam]);
+  });
   const handlePlayerChange = (e) => {
     const { name, value, type } = e.target;
     const val = type === 'file' ? e.target.files[0] : value;
