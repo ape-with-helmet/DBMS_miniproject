@@ -1,5 +1,5 @@
 const express = require("express");
-var mysql = require("mysql");
+var mysql = require("mysql2");
 const fs = require('fs');
 const cors = require("cors");
 const app = express();
@@ -90,6 +90,7 @@ app.post("/buy_merch", (req, res) => {
     const sql = `UPDATE merchandise SET quantity = CASE WHEN quantity > 0 THEN quantity - 1 ELSE 0 END WHERE tid = (SELECT tid FROM team WHERE tname = '${team}' LIMIT 1) AND product = '${prod}';`;
     connection.query(sql, function (err, response) {
         if (err) throw err;
+        res.send(response);
     })
 })
 
@@ -100,6 +101,7 @@ app.post("/cancel_merch", (req, res) => {
     const sql = `UPDATE merchandise SET quantity = CASE WHEN quantity < 100 THEN quantity + 1 ELSE 0 END WHERE tid = (SELECT tid FROM team WHERE tname = '${team}' LIMIT 1) AND product = '${prod}';`;
     connection.query(sql, function (err) {
         if (err) throw err;
+        res.send();
     })
 })
 
@@ -309,8 +311,4 @@ app.post("/add_team_to_game",(req,res)=>{
 //establishes connections
 app.listen(8080, () => {
     console.log("port connected")
-    connection.connect(function (err) {
-        if (err) throw err;
-        console.log("Database coletions")
-    })
 })
