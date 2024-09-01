@@ -18,9 +18,9 @@ body::-webkit-scrollbar {
   }
 .background-img {
     position: fixed;
-    top: 30px;
-    left: 6vw; 
-    width: 90%;
+    /* top: 30px; */
+    /* left: 6vw;  */
+    /* width: 90%; */
     /* height: 101%; */
     object-fit: cover;
     filter: blur(5px) brightness(20%);

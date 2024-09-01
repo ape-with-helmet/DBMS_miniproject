@@ -23,7 +23,6 @@ const Merch = () => {
     })
     const buymerch = async (bought_merch) => {
         try {
-            console.log(bought_merch)
             const response = await axios.post("http://localhost:8080/buy_merch", {
                 teamname: download,
                 merch_name: bought_merch

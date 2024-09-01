@@ -42,15 +42,15 @@ function AddData() {
   useEffect(() => {
     async function getEmptyTeam() {
       try {
-        const response = await axios.get("http://localhost:8080/get_notfullteams");
+        const response = await axios.get("http://localhost:8080/unassigned_players");
         setCaptainTeam(response.data); // Update state with response.data
       } catch (error) {
         console.error("Error fetching empty teams:", error);
       }
     }
     getEmptyTeam();
-  }); // Empty dependency array to ensure this effect runs only once on component mount
-  useEffect(() => {
+  },[status]); // Empty dependency array to ensure this effect runs only once on component mount
+  useEffect(() => { 
     async function getEmptyCap() {
       try {
         const response = await axios.get("http://localhost:8080/get_blank_team");
@@ -60,7 +60,7 @@ function AddData() {
       }
     }
     getEmptyCap();
-  }); // Empty dependency array to ensure this effect runs only once on component mount
+  },[status]); // Empty dependency array to ensure this effect runs only once on component mount
   useEffect(() => {
     // Log emptyTeam after it's updated
     setEmptyTeam(emptyTeam);
@@ -119,16 +119,13 @@ function AddData() {
   const handleFinalTeamChange = async (e) => {
     const { name, value, type } = e.target;
     const val = type === 'file' ? e.target.files[0] : value;
-    console.log(value)
     const response = await axios.post("http://localhost:8080/given_team_players", {
       id: value
     })
-    console.log(response.data, "huh")
     setCaptainSet(response.data)
     finalForm.p1 = response.data[0].pid;
     finalForm.p2 = response.data[1].pid;
     finalForm.p3 = response.data[2].pid;
-    console.log(finalForm.p1, finalForm.p2, finalForm.p3, "Whaterher")
     setFinalForm(prevState => ({
       ...prevState,
       [name]: val
@@ -145,11 +142,13 @@ function AddData() {
   }
   const handlePlayerSubmit = async (e) => {
     e.preventDefault();
+  
+    // Check if all fields are filled
     if (!playerFormData.name || !playerFormData.dob || !playerFormData.sex || !playerFormData.origin || !playerFormData.desc || !playerFormData.photo) {
-      toast("Please fill in all fields.");
+      toast.warn("Please fill in all fields.");
       return;
     }
-
+  
     const formData = new FormData();
     formData.append('photo', playerFormData.photo);
     formData.append('name', playerFormData.name);
@@ -157,19 +156,37 @@ function AddData() {
     formData.append('sex', playerFormData.sex);
     formData.append('origin', playerFormData.origin);
     formData.append('desc', playerFormData.desc);
+  
     try {
-      await axios.post("http://localhost:8080/add_player_data", formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
+      const response = await toast.promise(
+        axios.post("http://localhost:8080/add_player_data", formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          }
+        }),
+        {
+          pending: "Waiting for server response...",
+          success: "Player data submitted successfully!",
+          error: "Failed to submit player data.",
         }
+      );
+  
+      // Reset form data after successful submission
+      setPlayerFormData({
+        photo: '',
+        name: '',
+        dob: '',
+        sex: '',
+        origin: '',
+        desc: '',
       });
-      // Handle success
+      setStatus(1);
+      
     } catch (error) {
-      console.error("Error submitting player data:", error);
-      // Handle error
+      toast.error(`Error submitting player data: ${error.message}`);
     }
-    setStatus(1)
   };
+  
   const handleTeamSubmit = async (e) => {
     e.preventDefault();
     if (!teamFormData.name || !teamFormData.player1 || !teamFormData.player2 || !teamFormData.player3 || !teamFormData.social) {
@@ -191,22 +208,32 @@ function AddData() {
     tormData.append('p2', teamFormData.player2);
     tormData.append('p3', teamFormData.player3);
     tormData.append('social', teamFormData.social);
-    console.log(teamFormData.name)
     try {
-      const response = await axios.post("http://localhost:8080/add_team_data", tormData, {
+      await toast.promise(axios.post("http://localhost:8080/add_team_data", tormData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
+      }),{
+        pending: "Waiting for server response...",
+        success: "Team data submitted successfully!",
+        error: "Failed to submit team data.",
       });
-      console.log(response)
+      setTeamFormData({
+        photo: '',
+        name: '',
+        player1: '',
+        player2: '',
+        player3: '',
+        social: '',
+      })
+      setStatus(2);
       // Handle success
     } catch (error) {
-      console.error("Error submitting player data:", error);
+      toast.error("Error submitting player data:", error.message);
       // Handle error
     }
     // Handle form submission logic here, e.g., send data to server
-    setStatus(2);
-    // console.log(teamFormData, "FormData");
+    
   };
   const [popupStatus, setPopupStatus] = useState(false);
   const finalSubmit = async (e) => {
@@ -228,23 +255,8 @@ function AddData() {
       toast(`Invalid Nickname for ${teamFormData.player3}`)
       return;
     }
-    // // Handle form submission logic here, e.g., send data to server
-    console.log(finalForm, "gaga")
-    console.log(teamFormData, "pupu")
-    await axios.post("http://localhost:8080/add_captain", {
-      id: finalForm
-    })
-    toast("Successfully registered the Team");
     setPopupStatus(true)
-    setTeamFormData({
-      name: '',
-      player1: '',
-      player2: '',
-      player3: '',
-      social: ''
-    })
-
-    console.log(finalForm, "FormData");
+    toast.success("Successfully recorded details")
   };
   // const merchNo = 3;
   const [merchDetails, setMerchDetails] = useState({
@@ -262,16 +274,19 @@ function AddData() {
 
   const handleMerchInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value)
     setMerchDetails({ ...merchDetails, [name]: value });
-    console.log(merchDetails)
   };
 
   const handleMerchSubmit = async (e) => {
     e.preventDefault();
     merchDetails.tid = finalForm.team;
-    await axios.post("http://localhost:8080/createMerch", {
-      id: merchDetails
+    await toast.promise(axios.post("http://localhost:8080/add_captain_and_create_merch", {
+      team: finalForm,
+      merch: merchDetails
+    }),{
+      pending: "Waiting for server response...",
+      success: "Team registered successfully!",
+      error: "Failed to register team.",
     })
     setFinalForm({
       team: '',
@@ -282,15 +297,26 @@ function AddData() {
       sponsor: '',
       amount: ''
     })
+    setMerchDetails({
+      m1: '',
+      m2: '',
+      m3: '',
+      p1: '',
+      p2: '',
+      p3: '',
+      q1: 1,
+      q2: 1,
+      q3: 1,
+      tid: ''
+    })
     setStatus(0);
     setPopupStatus(false)
-    console.log(merchDetails.m1, merchDetails.p1, merchDetails.q1)
     window.open("/", "_self")
   };
   return (
     <div className='main-div' >
-      <div className={`conditional-com-1 ${status === 0 ? 'show' : status === 1 ? 'hide' : 'show-cap'}`}>
-        <div className=''>
+      <div className='conditional-com-1'>
+        <div className={`main-form-container ${status === 0 ? 'show' : 'hide'}`}>
           <form onSubmit={handlePlayerSubmit} className='add-data-form'>
             <h2 className='add-data-header'>Upload player Details</h2>
             <span className='add-data-form-container-1'>
@@ -608,15 +634,8 @@ function AddData() {
             <button type="button" className='player-submit reset-1' onClick={() => setStatus(1)}>Existing Player?</button>
             <button type="submit" className='player-submit' onClick={handlePlayerSubmit}>Submit</button>
           </form>
-          '  </div>'
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <div>
+        </div>
+        <div className={`main-form-container ${status === 1 ? 'show' : 'hide'}`}>
           <h2 className='add-data-header'>Add your team</h2>
           <form onSubmit={handleTeamSubmit} className='add-data-form'>
             <span className='add-data-form-container-1'>
@@ -706,15 +725,7 @@ function AddData() {
             <button type="submit" className='team-submit'>Submit</button>
           </form>
         </div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <div >
+        <div className={`main-form-container ${status === 2 ? 'show' : 'hide'}`}>
           <h2 className='add-data-header'>CHoose your Captain</h2>
           <form onSubmit={handleTeamSubmit} className='add-data-form'>
             <span className='add-data-form-container-1'>

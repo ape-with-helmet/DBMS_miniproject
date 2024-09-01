@@ -17,7 +17,6 @@ function NavBar() {
     const [auth, setAuth] = useState('')
     useEffect(() => {
         setAuth(localStorage.getItem("LoginData"));
-        console.log(auth)
     },[auth])
     const handleLogout = () => {
         localStorage.clear()

@@ -1,19 +1,24 @@
-/* body{
-    background-color: rgba(0, 0, 0, 0.9); 
+body{
+    background-color: rgba(0, 0, 0, 0.527); 
     color: rgba(240, 248, 255, 0.558);
-    background-image: url('C:\Gribbons\DBMS_miniproject\esports\src\pages\skull-artwork-minimalism-gray-background-call-of-duty-call-of-duty-ghosts-dishonored-wallpaper-preview.jpg');
-    background-size: cover;
+    /* background-image: url('https://w.wallhaven.cc/full/45/wallhaven-45ppe9.jpg'); */
+    /* background-size: contain; */
     background-blend-mode: color-dodge ;
-    position: fixed;
-} */
+    /* position: fixed; */
+}
 .main-container-home{
-  display: block;
+  display: flex;
+  gap: 10%;
   margin: auto;
+  height: 100vh;
+  align-items: center;
+  justify-content: space-between;
   width: 100vw;
-  padding: 10% 10% 10% 0%;
+  /* padding: 10% 0% 10% 0%; */
 }
 .container {
     display: flex; /* Use flexbox layout */
+    width: 100vw;
     list-style-type: none;
     /* margin: 0; */
     margin: auto;

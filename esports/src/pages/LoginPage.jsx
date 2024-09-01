@@ -15,7 +15,6 @@ const LoginPage = () => {
     }
   })
   async function handleSubmit() {
-    console.log(email, password)
     if (!email || !password) {
       return toast.error('Enter all details please');
     }

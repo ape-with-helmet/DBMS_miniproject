@@ -1,4 +1,4 @@
-
+/* 
 @keyframes snowfall {
     0% {
         top: 0vh;
@@ -15,7 +15,7 @@
     background-color: #b8b8b8;
     border-radius: 100%;
     /* left: 100px; */
-    animation: snowfall 15s cubic-bezier(0, 0.1, 0.2, 0) infinite ;   
+    /* animation: snowfall 15s cubic-bezier(0, 0.1, 0.2, 0) infinite ;    */
     /* transition: all 10s ease; */
-    z-index: -1;
-  }
+    /* z-index: -1; */
+  /* } */ 

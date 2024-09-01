@@ -57,12 +57,13 @@ const TeamPlayers = () => {
             }
         }
         getMerchData(download)
-    }, [download])
+    }, [download,buymerch,sellmerch])
     function buymerch(x, y) {
         axios.post("http://localhost:8080/buy_merch", {
             teamname: x,
             merch_name: y
         });
+        
     }
     function sellmerch(x, y) {
         axios.post("http://localhost:8080/cancel_merch", {
@@ -83,7 +84,8 @@ const TeamPlayers = () => {
                     <div className="team-player-container">
                         {sponsor.map(spnsr => (
                             <div className='sponsor-container'>
-                                <div className='sponsor-name'>{spnsr.sname}</div>
+                                <div className='sponsor-name'>{download}</div>
+                                <div className="sponsor-amount">Sponsor : {spnsr.sname}</div>
                                 <div className='sponsor-amount'>Sponsor amount : ${spnsr.money}</div>
                             </div>
                         ))}

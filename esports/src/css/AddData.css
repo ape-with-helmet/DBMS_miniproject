@@ -5,14 +5,15 @@
     font-size: 20px;
     text-align: center;
     font-family: Poppins;
+
 }
 
 .main-div {
-    margin: auto;
     width: 100vw;
-    padding-top: 100px;
-    display: block;
-    height: 80vh;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     overflow: hidden;
 }
 
@@ -175,25 +176,34 @@ select {
 
 .conditional-com-1 {
     transition: all 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    /* gap: 5%; */
+    /* height: 300vh; */
+    padding-top: 10%;
+    padding-bottom: 15%;
 }
-
+.main-form-container {
+    position: absolute;
+    transition: all 0.5s ease;
+}
 .show {
     opacity: 1;
-    transform: translateY(10vh);
+    visibility: visible;
 }
 
 .hide {
-    /* opacity: 0; */
-    transform: translateY(-85vh);
+    opacity: 0;
+    transform: translateY(2vh);
+    visibility: hidden;
 }
 
 .conditional-com-2 {
     transition: all 0.5s ease;
 }
 
-.show-cap {
-    transform: translateY(-180vh);
-}
 
 .team-submit:hover {
     transform: scale(110%) translateY(-2px);

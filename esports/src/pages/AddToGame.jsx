@@ -13,7 +13,6 @@ const AddToGame = () => {
         const getTeam = async () => {
             const response = await axios.get("http://localhost:8080/team_details");
             setTeams(response.data)
-            // console.log(response.data,teams)
         }
         getTeam();
     }, [])
@@ -23,20 +22,21 @@ const AddToGame = () => {
                 id: gameForm
             })
             setNon(response.data.payload)
-            // console.log(nonPart,"huh")
         }
         getNonPart();
     }, [gameForm])
     async function handleAddGame() {
-        console.log(gameForm,selGame,"Check")
         if (!gameForm || !selGame) {
             return toast.error("Enter the details");
         }
-        const response = await axios.post("http://localhost:8080/add_team_to_game", {
+        const response = await toast.promise(axios.post("http://localhost:8080/add_team_to_game", {
             team: gameForm,
             game: selGame
+        }),{
+            pending: "Waiting for server response...",
+            success: "Game added successfully!",
+            error: "Failed to add game.",
         })
-        toast(response.data.message)
         setTimeout(()=>{
             window.location.href='/'
         },2000)

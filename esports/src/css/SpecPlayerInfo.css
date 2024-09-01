@@ -5,18 +5,22 @@
     color: aliceblue;
 }
 .spec-player-box{
-    display: block;
-    padding-top: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+    /* padding-top: 150px; */
     width: 100vw;
 }
 .spec-player-container{
     display:flex;
-    width: 60vw;
-    height: 70vh;
-    margin-left: auto;
-    margin-right: auto;
+    flex-direction: row;
+    width: 100%;
+    height: 100vh;
+    /* margin-left: auto;
+    margin-right: auto; */
     align-items: center;
-    align-content: center;
+    /* align-content: center; */
     justify-content: center;
 }
 
@@ -27,8 +31,8 @@
     font-size: 20px;
     font-family: Poppins;
     letter-spacing: 2px;
-    font-weight: 100;
-    width: 50vw;
+    font-weight: 200;
+    width: 30vw;
 }
 .spec-player-name{
     position: relative;
@@ -45,11 +49,11 @@
     transform: scaleX(-100%);
 }
 .spec-player-image-container{
-    height: 70vh;
-    display: flex;
+    /* height: 70vh; */
+    display: block;
     justify-content: center;
     align-items: center;
-    width:50vw;
+    width:30vw;
     /* background-color: #fff; */
     transition: all 1s ease;
 }

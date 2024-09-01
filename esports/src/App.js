@@ -13,6 +13,7 @@ import AddData from './pages/AddData'
 import LoginPage from './pages/LoginPage'
 import UserValidation from './UserValidation'
 import AddToGame from './pages/AddToGame'
+import { ToastContainer } from 'react-toastify'
 import './App.css'
 
 const App = () => {
@@ -36,6 +37,17 @@ const App = () => {
           </Route>
         </Routes>
       </BrowserRouter>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </>
   )
 }

@@ -1,14 +1,13 @@
 .login-main-container{
-    display:block;
-    margin: auto;
+    display:flex;
+    height: 100vh;
     width: 100vw;
-    padding-top: 100px;
+    /* padding-top: 100px; */
 }
 .login-form-container{
     background-color: rgba(58, 58, 58, 0.712);
-    display: block;
+    display: flex;
     position: relative;
-    top: 100px;
     padding: 50px;
     flex-direction: column;
     width: fit-content;

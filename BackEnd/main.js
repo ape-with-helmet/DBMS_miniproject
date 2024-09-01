@@ -61,16 +61,29 @@ app.get("/team_details", (req, res) => {
         res.send(results);
     })
 })
-
-//fetches all teams in a particular game
+// Fetches all teams in a particular game
 app.post("/fetch_game_teams", (req, res) => {
     const data = req.body.id;
-    const sql = `SELECT t.tname AS Team_Name, p.pname AS Captain_Name, t.photo AS Team_Photo FROM team t JOIN player p ON t.captain_id = p.pid JOIN game_team g ON t.tid = g.tid WHERE g.gname = '${data}';    `;
-    connection.query(sql, function (err, results) {
-        if (err) throw err;
-        res.send(results);
-    })
-})
+
+    const sql = `SELECT t.tname AS Team_Name, p.pname AS Captain_Name, t.photo AS Team_Photo FROM team t JOIN player p ON t.captain_id = p.pid JOIN game_team g ON t.tid = g.tid WHERE g.gname = ?;`;
+
+    connection.query(sql, [data], (err, results) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            res.status(500).send('Error fetching data');
+            return;
+        }
+
+        // Convert photo column from binary to Base64
+        const resultsWithBase64 = results.map(row => {
+            if (row.Team_Photo) {
+                row.Team_Photo = Buffer.from(row.Team_Photo).toString('base64');
+            }
+            return row;
+        });
+        res.send(resultsWithBase64);
+    });
+});
 
 //fetches merchandise of each team
 app.post("/fetch_merch", (req, res) => {
@@ -115,18 +128,14 @@ app.post("/add_player_data", upload.single('photo'), (req, res) => {
     const sex = req.body.sex;
     const pname = req.body.name;
     const origin = req.body.origin;
-    const photo = req.file.buffer; // Use req.file.buffer to get the binary data of the photo
-    // console.log(req.body)
-    // console.log(desc,dob,sex,pname,origin,photo, "input");
+    const photo = req.file.buffer; 
 
     const sql = `INSERT INTO player (pname, dob, description, origin, sex, photo) VALUES (?, ?, ?, ?, ?, ?);`;
     connection.query(sql, [pname, dob, desc, origin, sex, photo], function (err,response) {
         if (err) {
-            console.error('Error inserting data:', err);
             res.status(500).send({ message: "Error inserting data" });
         } else {
-            console.log(response)
-            res.status(200).send({ message: "SUCCESS" });
+            res.status(200).send({ message: "Added the player to the Roster!" });
         }
     });
 });
@@ -143,7 +152,6 @@ app.post("/add_team_data",  upload.single('photo'), (req, res) => {
     const sql1 = `INSERT INTO team (tname, social_id, photo) VALUES (?, ?, ?)`;
     connection.query(sql1, [name, social, photo], (err, result) => {
         if (err) {
-            console.log(err);
             res.status(500).json({ message: "Error occurred while adding team data" });
         } else {
             // Insert player-team relations into the database
@@ -152,7 +160,6 @@ app.post("/add_team_data",  upload.single('photo'), (req, res) => {
             const values = [[tid, p1], [tid, p2], [tid, p3]];
             connection.query(sql2, [values], (err) => {
                 if (err) {
-                    console.log(err);
                     res.status(500).json({ message: "Error occurred while adding player data to team" });
                 } else {
                     res.status(200).json({ message: "Team and player data added successfully" });
@@ -163,7 +170,7 @@ app.post("/add_team_data",  upload.single('photo'), (req, res) => {
 });
 
 
-app.get("/get_notfullteams", (req, res) => {
+app.get("/unassigned_players", (req, res) => {
     const sql = `SELECT * FROM player WHERE pid NOT IN (SELECT pid FROM player_team);    `;
     connection.query(sql, function (err, response) {
         if (err) throw err;
@@ -179,6 +186,7 @@ app.get("/get_blank_team", (req, res) => {
         else res.send(response);
     })
 })
+
 //returns players of a given team iff the team doesnt have a captain
 app.post("/given_team_players", (req, res) => {
     const tname = req.body.id
@@ -188,109 +196,163 @@ app.post("/given_team_players", (req, res) => {
         else res.send(response);
     })
 })
-//updates captain value from NULL
-app.post("/add_captain", (req, res) => {
-    const tname = req.body.id.team
-    const cap_id = req.body.id.captain
-    const sname = req.body.id.sponsor
-    const amount = req.body.id.amount
-    const nick1 = req.body.id.nick1
-    const nick2 = req.body.id.nick2
-    const nick3 = req.body.id.nick3
-    const p1 = req.body.id.p1
-    const p2 = req.body.id.p2
-    const p3 = req.body.id.p3
-    console.log(p1,p2,p3)
-    const sql = `UPDATE team SET captain_id = ${cap_id} WHERE tname = '${tname}';`
-    const sql2 = `INSERT INTO sponsor (tid,sname,money) VALUES ((SELECT tid FROM team WHERE tname='${tname}'), '${sname}', ${amount}) `
-    const sql3 = `UPDATE player_team SET nickname = ? WHERE pid = ?`
-    const sql4 = `UPDATE player_team SET nickname = ? WHERE pid = ?`
-    const sql5 = `UPDATE player_team SET nickname = ? WHERE pid = ?`
-    connection.query(sql, function (err, response) {
-        if (err) throw err;
-        else {
-            connection.query(sql2, function (err, response) {
-                if (err) throw err;
-                else {
-                    connection.query(sql3, [nick1, p1], function (err, response) {
-                        if (err) throw err;
-                        else {
-                            connection.query(sql4, [nick2, p2], function (err, response) {
-                                if (err) throw err;
-                                else {
-                                    connection.query(sql5, [nick3, p3], function (err, response) {
-                                        if (err) throw err;
-                                        else {
-                                            res.send(response);
-                                        }
-                                    })
-                                }
-                            })
-                        }
-                    })
-                }
-            })
-        }
-    })
+app.post("/add_captain_and_create_merch", (req, res) => {
+    // Data from the request
+    const { team, captain, sponsor, amount, nick1, nick2, nick3, p1, p2, p3 } = req.body.team;
+    const { m1, m2, m3, p1: mp1, p2: mp2, p3: mp3, q1, q2, q3, tid: tname } = req.body.merch;
 
-})
+    // SQL Queries
+    const sqlAddCaptain = `UPDATE team SET captain_id = ${captain} WHERE tname = '${team}';`;
+    const sqlInsertSponsor = `INSERT INTO sponsor (tid, sname, money) VALUES ((SELECT tid FROM team WHERE tname='${team}'), '${sponsor}', ${amount});`;
+    const sqlUpdateNick1 = `UPDATE player_team SET nickname = ? WHERE pid = ?`;
+    const sqlInsertMerch1 = `INSERT INTO merchandise (tid, product, price, quantity) VALUES ((SELECT tid FROM team WHERE tname = '${tname}'), '${m1}', ${mp1}, ${q1});`;
+    const sqlInsertMerch2 = `INSERT INTO merchandise (tid, product, price, quantity) VALUES ((SELECT tid FROM team WHERE tname = '${tname}'), '${m2}', ${mp2}, ${q2});`;
+    const sqlInsertMerch3 = `INSERT INTO merchandise (tid, product, price, quantity) VALUES ((SELECT tid FROM team WHERE tname = '${tname}'), '${m3}', ${mp3}, ${q3});`;
 
-app.post("/createMerch",(req,res)=>{
-    const m1 = req.body.id.m1
-    const m2 = req.body.id.m2
-    const m3 = req.body.id.m3
-    const p1 = req.body.id.p1
-    const p2 = req.body.id.p2
-    const p3 = req.body.id.p3
-    const q1 = req.body.id.q1
-    const q2 = req.body.id.q2
-    const q3 = req.body.id.q3
-    const tname = req.body.id.tid
-    const sql1 = `INSERT INTO merchandise (tid, product, price, quantity) VALUES ((SELECT tid FROM team WHERE tname = '${tname}'), '${m1}', ${p1}, ${q1});    `
-    const sql2 = `INSERT INTO merchandise (tid, product, price, quantity) VALUES ((SELECT tid FROM team WHERE tname = '${tname}'), '${m2}', ${p2}, ${q2});    `
-    const sql3 = `INSERT INTO merchandise (tid, product, price, quantity) VALUES ((SELECT tid FROM team WHERE tname = '${tname}'), '${m3}', ${p3}, ${q3});    `
-    connection.query(sql1, function(err,response){
-        if (err) throw err;
-        else{
-            connection.query(sql2, function(err,response){
-                if (err) throw err;
-                else{
-                    connection.query(sql3, function(err,response){
-                        if (err) throw err;
-                        else res.send({message:"Success"})
-                    })
-                }
-            })
-        }
-    })
-})
-
-app.post("/login",(req,res)=>{
-    const {email,password} = req.body;
-    console.log(email,password)
-    const sql = `SELECT email FROM LOGIN WHERE email = '${email}' AND pwd = '${password}';`
-    connection.query(sql, function(err,response){
+    connection.beginTransaction(err => {
         if (err) {
-            console.log(err)
-        }else{
-            const data = response[0];
-            console.log(data)
-            res.send({message:"Login success", data:data});
+            return res.status(500).send({ error: "Transaction error", details: err });
         }
-    })  
-})
+
+        // Execute the add_captain logic
+        connection.query(sqlAddCaptain, (err, response) => {
+            if (err) {
+                return connection.rollback(() => {
+                    res.status(500).send({ error: "Error in add_captain", details: err });
+                });
+            }
+
+            connection.query(sqlInsertSponsor, (err, response) => {
+                if (err) {
+                    return connection.rollback(() => {
+                        res.status(500).send({ error: "Error in inserting sponsor", details: err });
+                    });
+                }
+
+                connection.query(sqlUpdateNick1, [nick1, p1], (err, response) => {
+                    if (err) {
+                        return connection.rollback(() => {
+                            res.status(500).send({ error: "Error in updating nickname 1", details: err });
+                        });
+                    }
+
+                    connection.query(sqlUpdateNick1, [nick2, p2], (err, response) => {
+                        if (err) {
+                            return connection.rollback(() => {
+                                res.status(500).send({ error: "Error in updating nickname 2", details: err });
+                            });
+                        }
+
+                        connection.query(sqlUpdateNick1, [nick3, p3], (err, response) => {
+                            if (err) {
+                                return connection.rollback(() => {
+                                    res.status(500).send({ error: "Error in updating nickname 3", details: err });
+                                });
+                            }
+
+                            // Execute the createMerch logic
+                            connection.query(sqlInsertMerch1, (err, response) => {
+                                if (err) {
+                                    return connection.rollback(() => {
+                                        res.status(500).send({ error: "Error in creating merch 1", details: err });
+                                    });
+                                }
+
+                                connection.query(sqlInsertMerch2, (err, response) => {
+                                    if (err) {
+                                        return connection.rollback(() => {
+                                            res.status(500).send({ error: "Error in creating merch 2", details: err });
+                                        });
+                                    }
+
+                                    connection.query(sqlInsertMerch3, (err, response) => {
+                                        if (err) {
+                                            return connection.rollback(() => {
+                                                res.status(500).send({ error: "Error in creating merch 3", details: err });
+                                            });
+                                        }
+
+                                        // If everything succeeded, commit the transaction
+                                        connection.commit(err => {
+                                            if (err) {
+                                                return connection.rollback(() => {
+                                                    res.status(500).send({ error: "Transaction commit error", details: err });
+                                                });
+                                            }
+                                            res.send({ message: "Success" });
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
+});
+
+const bcrypt = require('bcrypt');
+app.post('/register', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Insert the email and hashed password into the database
+        const sql = `INSERT INTO LOGIN (email, pwd) VALUES (?, ?)`;
+        connection.query(sql, [email, hashedPassword], function (err, result) {
+            if (err) {
+                console.error(err);
+                return res.status(500).send({ message: "Error storing password" });
+            }
+            res.send({ message: "Password stored successfully" });
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: "Server error" });
+    }
+});
+// During login
+app.post("/login", (req, res) => {
+    const { email, password } = req.body;
+    const sql = `SELECT email, pwd FROM LOGIN WHERE email = '${email}';`;
+    
+    connection.query(sql, function (err, response) {
+        if (err) {
+            console.log(err);
+        } else {
+            if (response.length > 0) {
+                const hashedPassword = response[0].pwd;
+                // Compare the entered password with the stored hashed password
+                bcrypt.compare(password, hashedPassword, function(err, result) {
+                    if (result) {
+                        // Passwords match
+                        res.send({ message: "Login success", data: response[0] });
+                    } else {
+                        // Passwords don't match
+                        res.send({ message: "Invalid credentials" });
+                    }
+                });
+            } else {
+                res.send({ message: "Invalid credentials" });
+            }
+        }
+    });
+});
+
 
 app.post("/games_not_played_by_team",(req,res)=>{
     const team = req.body.id;
     if (!team) {
         return res.send({payload:[],message:"Error"});
     }
-    console.log(team)
-    const sql = `SELECT DISTINCT gname FROM game_team WHERE gname NOT IN (SELECT gname FROM game_team WHERE tid = (SELECT tid FROM team WHERE tname = ?));`
+    const sql = `SELECT DISTINCT gname FROM game WHERE gname NOT IN (SELECT gname FROM game_team WHERE tid = (SELECT tid FROM team WHERE tname = ?));`
     connection.query(sql,[team],function(err,response){
         if (err) throw err;
         else{
-            console.log(response)
             res.send({payload:response,message:"Success"})
         }
     })
@@ -299,7 +361,6 @@ app.post("/games_not_played_by_team",(req,res)=>{
 app.post("/add_team_to_game",(req,res)=>{
     const team = req.body.team;
     const game = req.body.game;
-    console.log(team,game)
     const sql = `INSERT INTO game_team (tid, gname) SELECT team.tid, ? FROM team WHERE team.tname = ?;`
     connection.query(sql,[game,team],function(err,response){
         if (err) throw err;
@@ -308,6 +369,34 @@ app.post("/add_team_to_game",(req,res)=>{
         }
     })
 })
+
+
+
+
+// //temporarily used for testing
+// app.post("/update_game_photo", (req, res) => {
+//     const { gname, photoBase64 } = req.body;
+
+//     // Convert base64 string to binary buffer
+//     const photoBuffer = Buffer.from(photoBase64, 'base64');
+
+//     const sql = `UPDATE player SET photo = ? WHERE pid = ?`;
+//     connection.query(sql, [photoBuffer, gname], (err, results) => {
+//         if (err) {
+//             console.error("Error updating photo: ", err);
+//             res.status(500).send("Database error.");
+//             return;
+//         }
+//         res.send("Photo updated successfully.");
+//     });
+// });
+
+
+
+
+
+
+
 //establishes connections
 app.listen(8080, () => {
     console.log("port connected")

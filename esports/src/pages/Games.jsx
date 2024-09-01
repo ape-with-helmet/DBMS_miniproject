@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Buffer } from 'buffer'
 import '../css/Games.css'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
 // import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 
@@ -10,7 +11,12 @@ const Games = () => {
     useEffect(() => {
         const getGameDetails = async () => {
             try {
-                const response = await axios.get("http://localhost:8080/game_details");
+                const response = await toast.promise( axios.get("http://localhost:8080/game_details"),
+                {
+                    pending: "Waiting for server to respond",
+                    success: "Found the data",
+                    error: "Failed to fetch data",
+                });
                 setData1(response.data);
             } catch (error) {
                 console.error(error);
@@ -35,7 +41,12 @@ const Games = () => {
                     <li key={index} className="games-card">
                         <Link onClick={() => upload(cardData)}>
                             <div className='roll-animation'>
-                                <img src={`data:image/png;base64,${Buffer.from(cardData.photo.data).toString('base64')}`} alt={cardData.gname} className='game_image' />
+                                {
+                                    cardData.photo != null ?
+                                        <img src={`data:image/png;base64,${Buffer.from(cardData.photo.data).toString('base64')}`} alt={cardData.gname} className='game_image' />
+                                        :
+                                        <img src='https://static.vecteezy.com/system/resources/thumbnails/010/884/730/small_2x/owl-head-mascot-team-logo-png.png' alt='idkl' className='game_image' />
+                                }
                                 <div className='games-text'>
                                     <h1 className='game-text-header'>{cardData.gname}</h1>
                                     <p className='game-text-inside'>{cardData.publisher}</p>
