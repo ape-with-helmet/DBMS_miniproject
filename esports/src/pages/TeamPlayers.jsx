@@ -18,7 +18,7 @@ const TeamPlayers = () => {
     useEffect(() => {
         const getTeamData = async (download) => {
             try {
-                const response = await axios.post("http://localhost:8080/fetch_team_details", {
+                const response = await axios.post("https://b098-2405-201-d00f-608c-4e4b-9e5b-b74a-27a/fetch_team_details", {
                     id: download
                 });
                 setPlayers(response.data)
@@ -33,7 +33,7 @@ const TeamPlayers = () => {
     useEffect(() => {
         const getSpnsorData = async (download) => {
             try {
-                const sponsor_response = await axios.post("http://localhost:8080/sponsor_details", {
+                const sponsor_response = await axios.post("https://b098-2405-201-d00f-608c-4e4b-9e5b-b74a-27a/sponsor_details", {
                     id: download
                 });
                 setSponsor(sponsor_response.data)
@@ -47,7 +47,7 @@ const TeamPlayers = () => {
     useEffect(() => {
         const getMerchData = async (download) => {
             try {
-                const merch_response = await axios.post("http://localhost:8080/fetch_merch", {
+                const merch_response = await axios.post("https://b098-2405-201-d00f-608c-4e4b-9e5b-b74a-27a/fetch_merch", {
                     id: download
                 });
                 setMerchData(merch_response.data)
@@ -59,14 +59,14 @@ const TeamPlayers = () => {
         getMerchData(download)
     }, [download,buymerch,sellmerch])
     function buymerch(x, y) {
-        axios.post("http://localhost:8080/buy_merch", {
+        axios.post("https://b098-2405-201-d00f-608c-4e4b-9e5b-b74a-27a/buy_merch", {
             teamname: x,
             merch_name: y
         });
         
     }
     function sellmerch(x, y) {
-        axios.post("http://localhost:8080/cancel_merch", {
+        axios.post("https://b098-2405-201-d00f-608c-4e4b-9e5b-b74a-27a/cancel_merch", {
             teamname: x,
             merch_name: y
         });

@@ -7,7 +7,7 @@ import { Buffer } from 'buffer';
 function App() {
     const [data1, setData1] = useState([]);
     useEffect(() => {
-        axios.get("http://localhost:8080/team_details")
+        axios.get("https://b098-2405-201-d00f-608c-4e4b-9e5b-b74a-27a/team_details")
             .then(data1 => setData1(data1.data))
             .catch(err => console.log(err))
     },[])

@@ -13,7 +13,7 @@ const SpecPlayerInfo = () => {
     useEffect(() => {
         const getTeamData = async (download) => {
             try {
-                const response = await axios.post("http://localhost:8080/fetch_player_details", {
+                const response = await axios.post("https://b098-2405-201-d00f-608c-4e4b-9e5b-b74a-27a/fetch_player_details", {
                     id: download
                 });
                 setPlayer(response.data)

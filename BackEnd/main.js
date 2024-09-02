@@ -6,7 +6,7 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(express.json({ limit: '500mb' }));
 app.use(express.urlencoded({ extended: true }));
-app.use(cors())
+app.use(cors({ origin: 'https://dbms-miniproject-ten.vercel.app' }));
 app.use(bodyParser.json({ limit: '500mb' }));
 
 // Parse application/x-www-form-urlencoded requests

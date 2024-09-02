@@ -22,7 +22,7 @@ const LoginPage = () => {
     if (!regex.test(email)) {
       return toast.error("Bad email id")
     }
-    const response = await axios.post("http://localhost:8080/login", {
+    const response = await axios.post("https://b098-2405-201-d00f-608c-4e4b-9e5b-b74a-27a/login", {
       email, password
     })
     if (!response.data.data) {

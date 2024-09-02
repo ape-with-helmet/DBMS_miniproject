@@ -11,14 +11,14 @@ const AddToGame = () => {
     const [selGame, setSelGame] = useState('')
     useEffect(() => {
         const getTeam = async () => {
-            const response = await axios.get("http://localhost:8080/team_details");
+            const response = await axios.get("https://b098-2405-201-d00f-608c-4e4b-9e5b-b74a-27a/team_details");
             setTeams(response.data)
         }
         getTeam();
     }, [])
     useEffect(() => {
         const getNonPart = async () => {
-            const response = await axios.post("http://localhost:8080/games_not_played_by_team", {
+            const response = await axios.post("https://b098-2405-201-d00f-608c-4e4b-9e5b-b74a-27a/games_not_played_by_team", {
                 id: gameForm
             })
             setNon(response.data.payload)
@@ -29,7 +29,7 @@ const AddToGame = () => {
         if (!gameForm || !selGame) {
             return toast.error("Enter the details");
         }
-        const response = await toast.promise(axios.post("http://localhost:8080/add_team_to_game", {
+        const response = await toast.promise(axios.post("https://b098-2405-201-d00f-608c-4e4b-9e5b-b74a-27a/add_team_to_game", {
             team: gameForm,
             game: selGame
         }),{
