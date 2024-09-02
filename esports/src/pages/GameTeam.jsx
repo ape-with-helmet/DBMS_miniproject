@@ -23,7 +23,7 @@ const GameTeam = () => {
     const getTeamData = async () => {
       try {
         const response = await toast.promise(
-          axios.post("https://b098-2405-201-d00f-608c-4e4b-9e5b-b74a-27a/fetch_game_teams", { id: download }),
+          axios.post("https://690c-2405-201-d00f-608c-4e4b-9e5b-b74a-27ab.ngrok-free.app/fetch_game_teams", { id: download }),
           {
             pending: "Waiting for server to respond",
             success: "Found the data",

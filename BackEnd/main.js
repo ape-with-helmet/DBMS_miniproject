@@ -6,7 +6,7 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(express.json({ limit: '500mb' }));
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: 'https://dbms-miniproject-ten.vercel.app' }));
+app.use(cors({ origin: ['https://dbms-miniproject-ten.vercel.app', 'https://690c-2405-201-d00f-608c-4e4b-9e5b-b74a-27ab.ngrok-free.app/'] }));
 app.use(bodyParser.json({ limit: '500mb' }));
 
 // Parse application/x-www-form-urlencoded requests
@@ -14,6 +14,11 @@ app.use(bodyParser.urlencoded({ limit: '500mb', extended: true }));
 const connection = require('./database.js');
 const { error } = require("console");
 
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+  });
+  
 //fetches list of players in a team
 app.post("/fetch_team_details", (req, res) => {
     const data = req.body.id;
