@@ -14,11 +14,11 @@
   transition: all 1s ease;
 }
 
-body {
+/* body {
   position: absolute;
   font-family: Poppins;
   overflow-x: hidden;
-}
+} */
 
 .navbar-logo {
   display: flex;
@@ -147,28 +147,29 @@ body {
   box-shadow: 7px 7px 15px black;
   /* color: rgba(0, 0, 0, 0.63); */
 }
-
-.back-button {
-  background-color: #6b6b6b00;
-  color: white;
-  /* font-size: 30px; */
-  text-align: center;
-  text-decoration: none;
-  border: none;
-  width: 6.5vh;
-  left: -25vw;
-  position: relative;
-  height: 6.5vh;
-  /* top: auto; */
-  box-shadow: 5px 10px 10px black;
-  cursor: pointer;
-  border-radius: 1000%;
-  transition: all 1s ease;
+@media (max-width: 600px){
+  .navbar-logo{
+    width: 20vw;
+  }
 }
-
-.back-button:hover {
-  transform: scale(110%) translateY(-2px);
-  /* background-color: grey; */
-  box-shadow: 10px 15px 15px black;
-  /* color: rgba(0, 0, 0, 0.63); */
+@media (min-width: 600px) and (max-width: 1024px){
+  .navbar-logo{
+    width: 20vw;
+  }
+}
+@media (min-width: 1024px) and (max-width: 1440px){
+  .navbar-logo{
+    width: 20vw;
+  }
+}
+@media (min-width: 1440px){
+  .navbar-logo{
+    width: 10vw;
+  }
+  .navbar-text{
+    font-size: 40px;
+  }
+  .logout-button{
+    font-size: 30px;
+  }
 }

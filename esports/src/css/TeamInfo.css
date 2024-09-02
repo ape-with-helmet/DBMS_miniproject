@@ -11,21 +11,15 @@
 .team-card {
     background-color: rgba(28, 28, 28, 0.69);
     border-radius: 10px;
-    flex: 1 0 calc(40%); /* Adjust width based on 4 items per row */
+    flex: 1 0 calc(10%); /* Adjust width based on 4 items per row */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    margin-bottom: 10px;
-    margin-left: auto;
-    margin-right: auto;
     align-items: center;
-    align-content: center;
     justify-content: center;
-    margin: 1vw;
-    position: relative;
     flex-direction: column;
     display: flex;
-    /* height: 60vh; */
-    width: 20vw;
+    margin: 1%;
+    /* width: 20vw; */
     transition: all 1s ease;
     color: rgba(255, 255, 255, 0.482);
 }
@@ -50,17 +44,17 @@
     flex-direction: column;
     align-content: center; 
     justify-content: center;   
-    height: 60vh;
+    height: fit-content;
     /* margin-top: 100px; */
     color: rgba(255, 255, 255, 0.482);
     z-index: 4;
 }
 .team-roll-animation:hover .team-text{
-    transform: translateY(-30vh);
+    transform: translateY(0vh);
     opacity: 100%;
 }
 .team-roll-animation:hover .team_image{
-    transform: translateY(-100vh);
+    transform: translateY(-20vh) rotateX(90deg);
     opacity: 0%;
 }
 .team_image{
@@ -73,11 +67,11 @@
     height: 400px;
     align-items: center;
     justify-content: center;
-    transition: all 1s ease-in-out;
+    transition: all 0.5s ease-in-out;
 }
 .team-text{
     position: absolute;
-    top: 50vh;
+    transform: translateY(25vh) rotateX(90deg);
     width: 100%;
     /* padding-left: 20px; */
     display: flex;
@@ -89,5 +83,55 @@
     margin: auto;
     /* bottom: -50vh; */
     opacity: 0%;
-    transition: all 1s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+/* Responsive styles */
+
+/* For small devices (phones, up to 600px) */
+@media (max-width: 600px) {
+    
+}
+
+/* For medium devices (tablets, 600px to 1024px) */
+@media (min-width: 600px) and (max-width: 1024px) {
+    .team-card-list{
+        flex-direction: row;
+        /* width: 70vw; */
+    }
+    .team-card{
+        flex: 1 0 calc(100%);
+    }
+    .team-roll-animation{
+        height: fit-content;
+    }
+}
+
+/* For large devices (desktops, 1024px to 1440px) */
+@media (min-width: 1024px) and (max-width: 1440px) {
+    .team-card-list{
+        flex-direction: row;
+        /* width: 70vw; */
+    }
+    .team-card{
+        flex: 1 0 calc(40%);
+    }
+    .team-roll-animation{
+        height: fit-content;
+    }
+}
+
+/* For extra large devices (large 4K TVs, 1440px and above) */
+@media (min-width: 1440px) {
+    .team-card-list{
+        flex-direction: row;
+        /* width: 70vw; */
+    }
+    .team-card{
+        flex: 1 0 calc(20%);
+        height: 50vh;
+    }
+    .team-roll-animation{
+        height: fit-content;
+    }
 }

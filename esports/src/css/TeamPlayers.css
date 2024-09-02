@@ -15,16 +15,9 @@
     box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.14);
     border: solid 2px rgba(255, 255, 255, 0.26);
     overflow: hidden;
-    margin-bottom: 10px;
-    padding-top: 10vh;
-    margin-left: auto;
-    margin-right: auto;
-    /* align-items: center; */
-    align-content: center;
+    align-items: center;
     justify-content: center;
-    top: 0vh;
     margin: 1vw;
-    position: relative;
     display: flex;
     height: 50vh;
     width: 20vw;
@@ -40,7 +33,7 @@
     margin-right: auto;
 }
 .player-text-header{
-    font-size: 32px;
+    font-size: 30px;
     /* width: 20vw; */
     text-align: center;
     /* justify-items: left;
@@ -61,11 +54,11 @@
 }
 .player-roll-animation:hover .player-image{
     opacity: 0%;
-    transform: translateY(-30vh);
+    transform: translateY(10vh) rotateX(90deg);
 }
 .player-roll-animation:hover .player-text{
     opacity: 100%;
-    transform: translateY(-30vh)
+    transform: translateY(0vh)
 }
 .filler0image{
     /* height: 800px; */
@@ -76,29 +69,24 @@
     /* background-color: #fff; */
     width: 20vw;
     transition: all 1s ease;
-    padding-top: 10vh;
-    padding-bottom: 10vh;
 }
 .player-image{
     width: 100%;
     /* height: 400px; */
     justify-content: center;
-    margin-bottom: auto;
+    /* margin-bottom: auto; */
     /* display: block; */
-    transition: all 1s ease-in-out;
+    transition: all 1s ease;
 }
 .player-text{
     position: absolute;
     justify-items: center;
-    width: 100%;
-    top: 55vh;
     display: flex;
     flex-direction: column;
     align-content: center;
-    /* margin-left: auto; */
-    /* padding-left: 10px; */
     opacity: 0%;
-    transition: all 1s ease-in-out;
+    transform: translateY(-10vh) rotateX(90deg);
+    transition: all 1s ease;
 }
 .roster{
     font-family: monospace;
@@ -110,8 +98,6 @@
 }
 .captain-status{
     position: absolute;
-    top: -10px;
-    left: 50%;
     background-color: yellow;
     transform: rotate(45deg);
     height: 20px;
@@ -244,4 +230,30 @@
     color: silver;
     /* position: absolute; */
     /* left: 19vw; */
+}
+@media (min-width:600px) and (max-width:1024px){
+    .team-player-main-container{
+        padding-top: 100px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .team-player-left{
+        width: 60%;
+    }
+    .team-player-container{
+        height: fit-content;
+    }
+    .team-player-right{
+        width: 80%;
+    }
+    .player-card-list {
+        padding-right: 0;
+    }
+    .player-card{
+        height: fit-content;
+    }
+    .captain-status{
+        transform: translateY(-20vh) rotate(45deg);
+    }
 }

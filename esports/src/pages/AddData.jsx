@@ -238,25 +238,30 @@ function AddData() {
   const [popupStatus, setPopupStatus] = useState(false);
   const finalSubmit = async (e) => {
     e.preventDefault();
-    if (!finalForm.amount || !finalForm.captain || !finalForm.nick1 || !finalForm.nick2 || !finalForm.nick3 || !finalForm.sponsor || !finalForm.team) {
+    try {
+      if (!finalForm.amount || !finalForm.captain || !finalForm.nick1 || !finalForm.nick2 || !finalForm.nick3 || !finalForm.sponsor || !finalForm.team) {
       toast("Fill all in the fields please");
       return
+      }
+      const name_convention = /^[a-zA-Z0-9_.-]{1,12}$/
+      if (!name_convention.test(finalForm.nick1)) {
+        toast(`Invalid Nickname for ${teamFormData.player1}`)
+        return;
+      }
+      if (!name_convention.test(finalForm.nick2)) {
+        toast(`Invalid Nickname for ${teamFormData.player2}`)
+        return;
+      }
+      if (!name_convention.test(finalForm.nick3)) {
+        toast(`Invalid Nickname for ${teamFormData.player3}`)
+        return;
+      }
+      setPopupStatus(true)
+      toast.success("Successfully recorded details")
+    } catch (error) {
+      error.log(error)
     }
-    const name_convention = /^[a-zA-Z0-9_.-]{1,12}$/
-    if (!name_convention.test(finalForm.nick1)) {
-      toast(`Invalid Nickname for ${teamFormData.player1}`)
-      return;
-    }
-    if (!name_convention.test(finalForm.nick2)) {
-      toast(`Invalid Nickname for ${teamFormData.player2}`)
-      return;
-    }
-    if (!name_convention.test(finalForm.nick3)) {
-      toast(`Invalid Nickname for ${teamFormData.player3}`)
-      return;
-    }
-    setPopupStatus(true)
-    toast.success("Successfully recorded details")
+    
   };
   // const merchNo = 3;
   const [merchDetails, setMerchDetails] = useState({
@@ -835,11 +840,11 @@ function AddData() {
                       className='merch-name'
                     />
                     <div>
-                      <label className='labels' htmlFor='p1'>Price</label>
+                      {/* <label className='labels' htmlFor='p1'>Price</label> */}
                       <input id='p1' type="number" className='merch-price' required name='p1' placeholder='Price $' onChange={handleMerchInputChange} min={0} />
                     </div>
                     <div>
-                      <label className='labels' htmlFor='q1'>Stock</label>
+                      {/* <label className='labels' htmlFor='q1'>Stock</label> */}
                       <input id='q1' type="number" className='merch-price' required name='q1' placeholder='Stock' onChange={handleMerchInputChange} min={0} />
                     </div>
                   </div>
@@ -855,11 +860,11 @@ function AddData() {
                       className='merch-name'
                     />
                     <div>
-                      <label className='labels' htmlFor='p2'>Price</label>
+                      {/* <label className='labels' htmlFor='p2'>Price</label> */}
                       <input id='p2' type="number" className='merch-price' required name='p2' placeholder='Price $' onChange={handleMerchInputChange} min={0} />
                     </div>
                     <div>
-                      <label className='labels' htmlFor='q2'>Stock</label>
+                      {/* <label className='labels' htmlFor='q2'>Stock</label> */}
                       <input id='q2' type="number" className='merch-price' required name='q2' placeholder='Stock' onChange={handleMerchInputChange} min={0} />
                     </div>
                   </div>
@@ -875,11 +880,11 @@ function AddData() {
                       className='merch-name'
                     />
                     <div>
-                      <label className='labels' htmlFor='p3'>Price</label>
+                      {/* <label className='labels' htmlFor='p3'>Price</label> */}
                       <input id='p3' type="number" className='merch-price' required name='p3' placeholder='Price $' onChange={handleMerchInputChange} min={0} />
                     </div>
                     <div>
-                      <label className='labels' htmlFor='q3'>Stock</label>
+                      {/* <label className='labels' htmlFor='q3'>Stock</label> */}
                       <input id='q3' type="number" className='merch-price' required name='q3' placeholder='Stock' onChange={handleMerchInputChange} min={0} />
                     </div>
                   </div>

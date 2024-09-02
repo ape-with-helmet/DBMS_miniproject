@@ -27,12 +27,12 @@
 .player-desc{
     position: relative;
     color: aliceblue;
-    padding-left: 5vw;
+    text-align: left;
     font-size: 20px;
     font-family: Poppins;
     letter-spacing: 2px;
     font-weight: 200;
-    width: 30vw;
+    width: 30%;
 }
 .spec-player-name{
     position: relative;
@@ -43,17 +43,41 @@
 .spec-player-image{
     height: 100%;
     width: 100%;
+    border: 8px white solid;
     transition: all 1s ease;
-}
-.spec-player-image-container:hover .spec-player-image{
-    transform: scaleX(-100%);
+    animation: rotation both 20s linear infinite;
 }
 .spec-player-image-container{
     /* height: 70vh; */
     display: block;
     justify-content: center;
     align-items: center;
-    width:30vw;
+    width:30%;
     /* background-color: #fff; */
     transition: all 1s ease;
+}
+
+@media (min-width: 600px) and (max-width: 1024px) {
+    .spec-player-container{
+        flex-direction: column;
+        width: 100%;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+    }
+   .player-desc{
+    width: 50%;
+   }
+   .spec-player-image-container{
+    width: 50%;
+   }
+}
+
+@keyframes rotation{
+    0%{
+        transform: rotateY(0deg);
+    }
+    100%{
+        transform: rotateY(360deg);
+    }
 }

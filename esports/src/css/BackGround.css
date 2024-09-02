@@ -1,38 +1,49 @@
+/* Ensure the background image covers the entire viewport and adjusts on resize */
 .background {
     background-color: rgba(0, 0, 0, 1);
-    /* color: rgba(240, 248, 255, 0.558);  */
-    /* background-image: url('C:\Gribbons\DBMS_miniproject\esports\src\pages\skull-artwork-minimalism-gray-background-call-of-duty-call-of-duty-ghosts-dishonored-wallpaper-preview.jpg'); */
-    /* background-size: cover;
-    background-blend-mode: color-dodge ; */
     height: 100vh;
-    top: 0;
     width: 100vw;
-    justify-content: center;
     position: fixed;
+    /* top: 0;
+    left: 0; */
+    display: flex;
+    justify-content: center;
     align-items: center;
-    display: block;
     z-index: -44;
 }
-body::-webkit-scrollbar {
-    width: 0;  /* This will hide the scrollbar for webkit browsers */
-  }
+
 .background-img {
     position: fixed;
-    /* top: 30px; */
-    /* left: 6vw;  */
-    /* width: 90%; */
-    /* height: 101%; */
-    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the entire background */
     filter: blur(5px) brightness(20%);
-    /* animation-name: shaker; */
     animation: shaker 0.3s linear infinite both;
-    /* Ensure the image covers the entire container */
     z-index: -1;
 }
+
+/* Hide scrollbar for webkit browsers */
+body::-webkit-scrollbar {
+    width: 0;
+}
+
+/* Adjust the keyframes for smaller devices if needed */
 @keyframes shaker {
-    0%{transform: translate(0px);}
-    25%{transform: translate(5px,-5px);}
-    50%{transform: translate(0px);}
-    75%{transform: translate(-5px,-5px);}
-    100%{transform: translate(0px);}
+    0% { transform: translate(0px); }
+    25% { transform: translate(5px, -5px); }
+    50% { transform: translate(0px); }
+    75% { transform: translate(-5px, -5px); }
+    100% { transform: translate(0px); }
+}
+
+/* Media Queries for smaller screens */
+@media (max-width: 768px) {
+    .background {
+        height: auto;
+    }
+
+    .background-img {
+        width: 100%;
+        height: auto;
+    }
 }

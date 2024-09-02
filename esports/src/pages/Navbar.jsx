@@ -1,6 +1,6 @@
 import '../css/Navbar.css'
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import back from './back.svg'
+import { Link, useNavigate } from 'react-router-dom';
+// import back from './back.svg'
 import SnowFall from '../SnowFall';
 import adduser from './add-user.svg'
 import addGame from '../resoures/xbox.png'
@@ -13,7 +13,7 @@ function NavBar() {
         snowpos.push(snowpo)
     }
     const navigate = useNavigate();
-    const location = useLocation();
+    // const location = useLocation();
     const [auth, setAuth] = useState('')
     useEffect(() => {
         setAuth(localStorage.getItem("LoginData"));
@@ -33,7 +33,6 @@ function NavBar() {
                 <Link to="/" className='links'><div className="navbar-logo">
                     <span className="navbar-text">Ghost Esports</span>
                 </div></Link>
-                {location.pathname !== '/' && <button className='back-button' onClick={() => window.history.back()}><img src={back} alt='ayein' /></button>}
                 <ul className="navbar-links">
                     {
                         auth ?

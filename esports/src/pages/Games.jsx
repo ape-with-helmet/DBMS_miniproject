@@ -3,7 +3,7 @@ import { Buffer } from 'buffer'
 import '../css/Games.css'
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 // import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 
 const Games = () => {
@@ -38,8 +38,7 @@ const Games = () => {
             {/* <button>{handleBack}</button> */}
             <ul className="games-card-list">
                 {data1.map((cardData, index) => (
-                    <li key={index} className="games-card">
-                        <Link onClick={() => upload(cardData)}>
+                    <li key={index} onClick={() => upload(cardData)} className="games-card">
                             <div className='roll-animation'>
                                 {
                                     cardData.photo != null ?
@@ -54,7 +53,6 @@ const Games = () => {
                                     <p className='game-text-inside'>{cardData.description}</p>
                                 </div>
                             </div>
-                        </Link>
                     </li>
                 ))}
             </ul>

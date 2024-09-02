@@ -11,7 +11,7 @@ const TeamPlayers = () => {
     const [players, setPlayers] = useState([])
     const [sponsor, setSponsor] = useState([])
     const [merchData, setMerchData] = useState([])
-    const [imageUrl, setImageUrl] = useState(null);
+    // const [imageUrl, setImageUrl] = useState(null);
     useEffect(() => {
         setDownload(localStorage.getItem("SelectedTeam"))
     }, [])
@@ -105,9 +105,7 @@ const TeamPlayers = () => {
                     <ul className="player-card-list">
                         {players.map((cardData, index) => (<>
                             <li key={index} className='player-card'>
-                                <div>
-                                    {cardData.captain_status === "Captain" ? <div className='captain-status'></div> : <></>}
-                                </div>
+                                {cardData.captain_status === "Captain" ? <div className='captain-status'></div> : <></>}
                                 <Link onClick={() => uploadPlayer(cardData)} className='lonk-plonk'>
                                     <div className='player-roll-animation'>
                                         <div className='filler0image'>

@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
 
 .add-data-header {
     color: rgb(255, 255, 255);
     font-size: 20px;
     text-align: center;
     font-family: Poppins;
-
 }
 
 .main-div {
@@ -13,6 +12,7 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     overflow: hidden;
 }
@@ -27,38 +27,30 @@
     gap: 5px;
 }
 
-.add-data-form-container-1 {
+.add-data-form-container-1, .add-data-form-container-2 {
     margin-left: auto;
     margin-right: auto;
-    padding: 15px 0px 0px 15px;
-    width: 25vw;
+    padding: 15px;
+    /* width: 25vw; */
     position: relative;
     border-radius: 20px;
-    background-color: #363636c2;
     display: flex;
     flex-direction: row;
+}
+
+.add-data-form-container-1 {
+    background-color: #363636c2;
 }
 
 .add-data-form-container-2 {
-    margin-left: auto;
-    margin-right: auto;
-    margin: 10px;
-    width: 25vw;
-    position: relative;
-    border-radius: 20px;
     background-color: #ffffff99;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    flex-direction: row;
 }
 
-.team-submit {
+.team-submit, .player-submit, .merch-submit {
     padding: 10px 15px 10px 18px;
     border-radius: 20px;
     cursor: pointer;
-    margin: auto;
-
+    /* margin: auto; */
     background-color: rgba(60, 60, 60, 0.73);
     color: silver;
     font-weight: 700;
@@ -69,32 +61,17 @@
     transition: all 1s ease;
 }
 
-.reset {
+.team-submit:hover, .player-submit:hover, .merch-submit:hover {
+    transform: scale(110%) translateY(-2px);
+    box-shadow: 7px 7px 15px black;
+}
+
+.reset, .reset-1 {
     width: fit-content;
     font-family: Poppins;
-    /* left: 44.5vw; */
-}
-
-.player-submit {
-    padding: 10px 15px 10px 18px;
-    border-radius: 20px;
-    cursor: pointer;
-    margin: auto;
-
-    background-color: rgba(60, 60, 60, 0.73);
-    color: silver;
-    font-weight: 700;
-    letter-spacing: 2px;
-    font-family: Poppins;
-    font-size: 17px;
-    box-shadow: 2px 5px 10px rgb(0, 0, 0);
-    transition: all 1s ease;
 }
 
 .reset-1 {
-    width: fit-content;
-    font-family: Poppins;
-    /* left: 45.55vw; */
     padding-left: 2%;
     padding-right: 2%;
 }
@@ -102,7 +79,6 @@
 .vertical-line {
     border: rgb(0, 0, 0) solid 1px;
     height: 70%;
-    font-family: Poppins;
     margin: 2%;
     width: 0px;
 }
@@ -117,8 +93,9 @@
 .add-data-form-inputs {
     display: flex;
     justify-content: center;
+    /* align-items: center; */
     margin: 10px;
-    width: 90%;
+    width: 100%;
     color: white;
     flex-direction: column;
 }
@@ -139,19 +116,6 @@
     color: white;
 }
 
-select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    text-indent: 1px;
-    text-overflow: '';
-}
-
-.add-data-form-input-insides option {
-    background-color: #00000099;
-    font-size: 20px;
-    overflow-x: hidden;
-}
-
 .add-data-form-input-insides-image {
     position: relative;
     left: 10%;
@@ -162,33 +126,24 @@ select {
     justify-content: center;
     border-radius: 5px;
     color: white;
-    /* width: 4.5vw; */
     overflow: hidden;
-    /* Ensure content overflow is hidden */
-}
-
-.player-submit:hover {
-    transform: scale(110%) translateY(-2px);
-  /* background-color: grey; */
-  box-shadow: 7px 7px 15px black;
-  /* color: rgba(0, 0, 0, 0.63); */
 }
 
 .conditional-com-1 {
     transition: all 0.5s ease;
     display: flex;
+    height: 50vh;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    /* gap: 5%; */
-    /* height: 300vh; */
-    padding-top: 10%;
-    padding-bottom: 15%;
+    /* padding-bottom: 15%; */
 }
+
 .main-form-container {
     position: absolute;
     transition: all 0.5s ease;
 }
+
 .show {
     opacity: 1;
     visibility: visible;
@@ -200,39 +155,18 @@ select {
     visibility: hidden;
 }
 
-.conditional-com-2 {
-    transition: all 0.5s ease;
-}
-
-
-.team-submit:hover {
-    transform: scale(110%) translateY(-2px);
-    /* background-color: grey; */
-    box-shadow: 7px 7px 15px black;
-    /* color: rgba(0, 0, 0, 0.63); */
-}
-
-.select-photo{
-    padding-top: 10px;
-}
-
-
-
-/* Popup container */
 .popup {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.475);
-    /* Semi-transparent background */
+    background-color: rgba(0, 0, 0, 1);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Popup content */
 .popup-content {
     height: 50vh;
     display: flex;
@@ -243,9 +177,8 @@ select {
     font-size: 20px;
     align-items: center;
     background-color: rgb(65, 65, 65);
-    padding: 20px;
-    top: 175vh;
-    position: absolute;
+    /* padding: 20px; */
+    /* top: 175vh; */
     width: 60%;
     transition: all 1s ease;
     border-radius: 20px;
@@ -256,25 +189,17 @@ select {
     margin-right: 10px;
 }
 
-.merch-price {
-    /* background-color: #ffffff99; */
+.merch-price, .merch-name {
     height: 5vh;
     border-radius: 10px;
     font-size: 20px;
-    color: black;
-    width: 80px;
     color: white;
     background-color: #323232;
-    /* padding-left: 10%; */
-    /* margin-left: 10px; */
 }
-.merch-title{
-    color: grey;
-}
+
 .form-for-merch {
     display: flex;
-    gap: 90px;
-    /* justify-content: space-between; */
+    /* gap: 90px; */
 }
 
 .form-container-for-merch {
@@ -284,33 +209,57 @@ select {
     justify-content: space-around;
 }
 
-.merch-submit {
-    padding: 10px 15px 10px 18px;
-  border-radius: 20px;
-  cursor: pointer;
-  /* margin: auto; */
-  background-color: rgba(0, 0, 0, 0.193);
-  color: grey;
-  font-weight: 700;
-  letter-spacing: 2px;
-  font-family: Poppins;
-  font-size: 17px;
-  box-shadow: 2px 5px 10px black;
-  transition: all 1s ease;
+.select-photo {
+    padding-top: 10px;
 }
 
-.merch-submit:hover {
-    transform: scale(110%) translateY(-2px);
-  /* background-color: grey; */
-  box-shadow: 7px 7px 15px black;
-  /* color: rgba(0, 0, 0, 0.63); */
+/* Media Queries for Responsiveness */
+
+@media screen and (max-width: 1200px) {
+    .add-data-form-container-1, .add-data-form-container-2 {
+        width: 75vw;
+    }
+    .add-data-form-input-insides{
+        font-size: 30px;
+    }
+    .add-data-form-input-insides option{
+        font-size: 13px;
+    }
+    .merch-submit, .team-submit, .player-submit {
+        font-size: 15px;
+    }
 }
 
-.merch-name {
-    height: 5vh;
-    border-radius: 10px;
-    font-size: 20px;
-    color: white;
-    background-color: #323232;
-    width: 150px;
+@media screen and (max-width: 768px) {
+    .add-data-form-container-1, .add-data-form-container-2 {
+        width: 90vw;
+        flex-direction: column;
+    }
+
+    .form-for-merch {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .add-data-form-container-1, .add-data-form-container-2 {
+        width: 90vw;
+        padding: 10px;
+    }
+
+    .merch-price, .merch-name {
+        font-size: 16px;
+        width: 100px;
+    }
+
+    .popup-content {
+        width: 80%;
+        padding: 10px;
+    }
+
+    .merch-submit, .team-submit, .player-submit {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
 }

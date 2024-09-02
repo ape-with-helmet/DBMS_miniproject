@@ -8,7 +8,6 @@ body{
 }
 .main-container-home{
   display: flex;
-  gap: 10%;
   margin: auto;
   height: 100vh;
   align-items: center;
@@ -20,114 +19,101 @@ body{
     display: flex; /* Use flexbox layout */
     width: 100vw;
     list-style-type: none;
-    /* margin: 0; */
-    margin: auto;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
     flex-direction: row;
-    flex-wrap: wrap;
   }
   
-  .left-div, .right-div {
-    flex: 1; /* Distribute remaining space equally */
-  }
-  
-  /* Optional styling */
-  .left-div {
-    padding: 20px; /* Example padding */
-    overflow: hidden;
-  }
-  
-  .right-div {
-    background-color: rgba(255, 0, 0, 0);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    align-items: center;
-    align-content: center;
-    justify-items: center;
-    margin: 1vw;
-    position: relative;
-    padding: 10vh;
-    padding-top: 20vh;
-    display: flex;
-    height: 30vh;
-    width: 20vw;
-    transition: all 1s ease;
-    color: rgba(255, 255, 255, 0.937);
-  }
-  .left-div {
-    background-color: rgba(255, 0, 0, 0);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    align-items: center;
-    align-content: center;
-    justify-items: center;
-    margin: 1vw;
-    position: relative;
-    padding: 10vh;
-    padding-top: 15vh;
-    display: flex;
-    height: 30vh;
-    width: 20vw;
-    transition: all 1s ease;
-    color: rgba(255, 255, 255, 0.937);
-  }
-  .team_logo{
-    width: 20vw;
-    padding-bottom: 10vh;
-    filter: invert(100);
-    transition: all 1s ease;
-  }
-  .game_logo{
-    width: 20vw;
-    padding-bottom: 10vh;
-    transition: all 1s ease;
+.left-div, .right-div {
+  flex: 1; /* Distribute remaining space equally */
+}
+
+
+.right-div {
+  background-color: rgba(255, 0, 0, 0);
+  border-radius: 10px;
+  overflow: hidden;
+  align-items: center;
+  justify-items: center;
+  display: flex;
+  height: 30vh;
+  width: 20vw;
+  transition: all 1s ease;
+  color: rgba(255, 255, 255, 0.937);
+}
+.left-div {
+  background-color: rgba(255, 0, 0, 0);
+  border-radius: 10px;
+  overflow: hidden;
+  align-items: center;
+  justify-items: center;
+  display: flex;
+  height: 30vh;
+  width: 20vw;
+  transition: all 1s ease;
+  color: rgba(255, 255, 255, 0.937);
+}
+.team_logo{
+  width: 20vw;
+  /* padding-bottom: 10vh; */
+  filter: invert(100);
+  transition: all 1s ease;
+}
+.game_logo{
+  width: 20vw;
+  height:max-content;
+  /* padding-top: 5vh; */
+  transition: all 1s ease;
+}
+.text_home{
+  text-decoration: none;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.outer-animation{
+  transition: all 1.5s ease;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  z-index: 4;
+}
+.home-text{
+  position: absolute;
+  width: 20%;
+  text-align: justify;
+  transform: translateY(10vh) rotateX(-90deg);
+  /* bottom: 25vh; */
+  opacity: 0%;
+  transition: all 1s ease;
+}
+.outer-animation:hover .game_logo{
+  transform: translateY(-10vh) rotateX(90deg);
+  opacity: 0%;
+}
+.outer-animation:hover .team_logo{
+  transform: translateY(-10vh) rotateX(90deg);
+  opacity: 0%;
+}
+.outer-animation:hover .home-text{
+  transform: translateY(0vh);
+  opacity: 100%;
+}
+
+@media (min-width: 600px) and (max-width:1024px){
+  .container{
+    /* background-color: #fff; */
+    flex-direction: row;
   }
   .text_home{
-    text-decoration: none;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .outer-animation{
-    transition: all 1.5s ease;
-    height: 40vh;
-    color: rgb(255, 255, 255);
-    z-index: 4;
-  }
-  .outer-box-right{
-    background-color: rgba(0, 0, 0, 0);
-    border-radius: 30px;
-    height: 45vh;
-    overflow: hidden;
-    width: 40vw;
-    text-align: center;
-    align-content: center;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 12vh;
-    padding-bottom: 4vh;
-    transition: all 1s ease;
+    height: 20vh;
   }
   .home-text{
-    position: absolute;
-    bottom: -1vh;
-    opacity: 0%;
-    transition: all 1s ease;
+    font-size: 10px;
   }
-  .outer-animation:hover .game_logo{
-    transform: translateY(-10vh);
-    opacity: 0%;
-  }
-  .outer-animation:hover .team_logo{
-    transform: translateY(-10vh);
-    opacity: 0%;
-  }
-  .outer-animation:hover .home-text{
-    transform: translateY(-25vh);
-    opacity: 100%;
-  }
+}

@@ -1,6 +1,5 @@
-.select-game-container{
-    /* background-color: #ffffff29; */
-    /* padding-top: 300px; */
+/* Base styles */
+.select-game-container {
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -8,7 +7,8 @@
     align-items: center;
     width: 100vw;
 }
-.select-game-form{
+
+.select-game-form {
     background-color: rgba(57, 57, 57, 0.73);
     width: 30vw;
     color: silver;
@@ -24,7 +24,8 @@
     border-bottom: rgb(29, 29, 29) solid 2px;
     border-right: rgb(29, 29, 29) solid 2px;
 }
-.select-game-form-inside{
+
+.select-game-form-inside {
     background-color: rgba(0, 0, 0, 0.45);
     padding: 10px;
     font-family: Poppins;
@@ -37,7 +38,65 @@
     border-radius: 20px;
     width: 100%;
 }
-.select-game-form-inside option{
+
+.select-game-form-inside option {
     background-color: grey;
     color: white;
+}
+
+/* Responsive styles */
+
+/* For small devices (phones, up to 600px) */
+@media (max-width: 600px) {
+    .select-game-form {
+        width: 80vw; /* Increase the width on smaller screens */
+        padding: 15px; /* Adjust padding */
+    }
+
+    .select-game-form-inside {
+        font-size: 14px; /* Reduce font size slightly */
+        padding: 8px; /* Adjust padding */
+    }
+}
+
+/* For medium devices (tablets, 600px to 1024px) */
+@media (min-width: 600px) and (max-width: 1024px) {
+    .select-game-form {
+        width: 50vw; /* Adjust width for tablets */
+        padding: 18px;
+    }
+
+    .select-game-form-inside {
+        font-size: 20px;
+        padding: 10px;
+    }
+    .select-game-form-inside option{
+        font-size: 14px;
+    }
+}
+
+/* For large devices (desktops, 1024px to 1440px) */
+@media (min-width: 1024px) and (max-width: 1440px) {
+    .select-game-form {
+        width: 35vw; /* Slightly smaller width for large desktops */
+        padding: 20px;
+    }
+
+    .select-game-form-inside {
+        font-size: 15px;
+        padding: 12px;
+    }
+}
+
+/* For extra large devices (large 4K TVs, 1440px and above) */
+@media (min-width: 1440px) {
+    .select-game-form {
+        width: 25vw; /* Slightly smaller width for large screens */
+        padding: 25px; /* Increase padding for larger screens */
+    }
+
+    .select-game-form-inside {
+        font-size: 16px;
+        padding: 15px;
+    }
 }

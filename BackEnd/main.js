@@ -118,7 +118,6 @@ app.post("/cancel_merch", (req, res) => {
     })
 })
 
-//adds player details
 const multer = require('multer');
 const upload = multer(); // Initialize multer
 
@@ -128,18 +127,22 @@ app.post("/add_player_data", upload.single('photo'), (req, res) => {
     const sex = req.body.sex;
     const pname = req.body.name;
     const origin = req.body.origin;
-    const photo = req.file.buffer; 
+    const photo = req.file.buffer; // Handle photo as a buffer
 
     const sql = `INSERT INTO player (pname, dob, description, origin, sex, photo) VALUES (?, ?, ?, ?, ?, ?);`;
-    connection.query(sql, [pname, dob, desc, origin, sex, photo], function (err,response) {
+    connection.query(sql, [pname, dob, desc, origin, sex, photo], function (err, response) {
         if (err) {
-            res.status(500).send({ message: "Error inserting data" });
+            // Handle SQL errors, including duplicates
+            if (err.code === 'ER_SIGNAL_EXCEPTION') {
+                res.status(400).send({ message: err.sqlMessage });
+            } else {
+                res.status(500).send({ message: "Error inserting data" });
+            }
         } else {
             res.status(200).send({ message: "Added the player to the Roster!" });
         }
     });
 });
-
 
 
 //adds team details

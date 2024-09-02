@@ -1,6 +1,6 @@
 .games-card-list {
     list-style-type: none;
-    padding-right: 100px;
+    /* padding-right: 100px; */
     /* margin: 0; */
     width: 100%;
     justify-content: space-between;
@@ -15,16 +15,12 @@
     flex: 1 0 calc(20% - 20px); /* Adjust width based on 4 items per row */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    margin-bottom: 10px;
-    margin-left: auto;
-    margin-right: auto;
     align-items: center;
-    align-content: center;
     justify-content: center;
     margin: 1vw;
-    position: relative;
     display: flex;
-    height: 60vh;
+    /* height: 60vh; */
+    cursor: pointer;
     width: 20vw;
     transition: all 1s ease;
     color: rgba(255, 255, 255, 0.482);
@@ -39,16 +35,20 @@
 }
 .roll-animation{
     transition: all 1s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     height: 40vh;
     color: rgba(255, 255, 255, 0.482);
     z-index: 4;
 }
-.roll-animation:hover .game_image{
-    transform: translateY(-50vh);
+.games-card:hover .game_image{
+    transform: translateY(-10vh) rotateX(90deg);
     opacity: 0%;
 }
-.roll-animation:hover .games-text{
-    transform: translateY(-50vh);
+.games-card:hover .games-text{
+    transform: translateY(0vh);
     opacity: 100%;
 }
 .game_image{
@@ -59,9 +59,35 @@
     transition: all 1s ease;
 }
 .games-text{
+    transform: translateY(10vh) rotateX(-90deg);
     position: absolute;
-    bottom: -30vh;
-    padding-right: 20px;
     opacity: 0%;
     transition: all 1s ease;
+}
+@media (min-width: 600px) and (max-width: 1024px){
+    .games-card {
+        flex: 1 0 calc(50% - 20px); /* Adjust width based on 4 items per row */
+        height: 20vh;
+    }
+    .roll-animation{
+        height: 50%;
+    }
+}
+@media (min-width: 1024px) and (max-width: 1440px){
+    .games-card {
+        flex: 1 0 calc(10% - 20px); /* Adjust width based on 4 items per row */
+        height: 20vh;
+    }
+    .roll-animation{
+        height: 100%;
+    }
+}
+@media (min-width: 1440px){
+    .games-card {
+        flex: 1 0 calc(20% - 20px); /* Adjust width based on 4 items per row */
+        height: 40vh;
+    }
+    .roll-animation{
+        height: 100%;
+    }
 }
