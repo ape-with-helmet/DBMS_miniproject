@@ -7,7 +7,7 @@ import { Buffer } from 'buffer';
 function App() {
     const [data1, setData1] = useState([]);
     useEffect(() => {
-        axios.get("https://dbms-miniproject.onrender.com//team_details")
+        axios.get("https://dbms-miniproject.onrender.com/team_details")
             .then(data1 => setData1(data1.data))
             .catch(err => console.log(err))
     },[])
