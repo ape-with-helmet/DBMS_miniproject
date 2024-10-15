@@ -11,7 +11,7 @@ const Games = () => {
     useEffect(() => {
         const getGameDetails = async () => {
             try {
-                const response = await toast.promise( axios.get("https://690c-2405-201-d00f-608c-4e4b-9e5b-b74a-27ab.ngrok-free.app/game_details"),
+                const response = await toast.promise( axios.get("https://dbms-miniproject.onrender.com//game_details"),
                 {
                     pending: "Waiting for server to respond",
                     success: "Found the data",
