@@ -10,7 +10,7 @@ const Merch = () => {
     useEffect(() => {
         const getMerchData = async (download) => {
             try {
-                const response = await axios.post("https://dbms-miniproject.onrender.com//fetch_merch", {
+                const response = await axios.post("https://dbms-miniproject.onrender.com/fetch_merch", {
                     id: download,
                 });
                 setStock(response.data)
@@ -23,7 +23,7 @@ const Merch = () => {
     })
     const buymerch = async (bought_merch) => {
         try {
-            const response = await axios.post("https://dbms-miniproject.onrender.com//buy_merch", {
+            const response = await axios.post("https://dbms-miniproject.onrender.com/buy_merch", {
                 teamname: download,
                 merch_name: bought_merch
             });
@@ -34,7 +34,7 @@ const Merch = () => {
     }
     const cancelmerch = async (bought_merch) => {
         try {
-            const response = await axios.post("https://dbms-miniproject.onrender.com//cancel_merch", {
+            const response = await axios.post("https://dbms-miniproject.onrender.com/cancel_merch", {
                 teamname: download,
                 merch_name: bought_merch
             });
