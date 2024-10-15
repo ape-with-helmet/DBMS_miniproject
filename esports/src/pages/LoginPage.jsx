@@ -22,7 +22,7 @@ const LoginPage = () => {
     if (!regex.test(email)) {
       return toast.error("Bad email id")
     }
-    const response = await axios.post("https://dbms-miniproject.onrender.com//login", {
+    const response = await axios.post("https://dbms-miniproject.onrender.com/login", {
       email, password
     })
     if (!response.data.data) {
