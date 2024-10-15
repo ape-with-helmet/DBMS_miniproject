@@ -23,7 +23,7 @@ const GameTeam = () => {
     const getTeamData = async () => {
       try {
         const response = await toast.promise(
-          axios.post("https://dbms-miniproject.onrender.com//fetch_game_teams", { id: download }),
+          axios.post("https://dbms-miniproject.onrender.com/fetch_game_teams", { id: download }),
           {
             pending: "Waiting for server to respond",
             success: "Found the data",
