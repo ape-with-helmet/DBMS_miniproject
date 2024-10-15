@@ -42,7 +42,7 @@ function AddData() {
   useEffect(() => {
     async function getEmptyTeam() {
       try {
-        const response = await axios.get("https://dbms-miniproject.onrender.com//unassigned_players");
+        const response = await axios.get("https://dbms-miniproject.onrender.com/unassigned_players");
         setCaptainTeam(response.data); // Update state with response.data
       } catch (error) {
         console.error("Error fetching empty teams:", error);
@@ -53,7 +53,7 @@ function AddData() {
   useEffect(() => { 
     async function getEmptyCap() {
       try {
-        const response = await axios.get("https://dbms-miniproject.onrender.com//get_blank_team");
+        const response = await axios.get("https://dbms-miniproject.onrender.com/get_blank_team");
         setEmptyTeam(response.data[0]); // Update state with response.data
       } catch (error) {
         console.error("Error fetching empty teams:", error);
@@ -119,7 +119,7 @@ function AddData() {
   const handleFinalTeamChange = async (e) => {
     const { name, value, type } = e.target;
     const val = type === 'file' ? e.target.files[0] : value;
-    const response = await axios.post("https://dbms-miniproject.onrender.com//given_team_players", {
+    const response = await axios.post("https://dbms-miniproject.onrender.com/given_team_players", {
       id: value
     })
     setCaptainSet(response.data)
@@ -159,7 +159,7 @@ function AddData() {
   
     try {
       const response = await toast.promise(
-        axios.post("https://dbms-miniproject.onrender.com//add_player_data", formData, {
+        axios.post("https://dbms-miniproject.onrender.com/add_player_data", formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           }
@@ -209,7 +209,7 @@ function AddData() {
     tormData.append('p3', teamFormData.player3);
     tormData.append('social', teamFormData.social);
     try {
-      await toast.promise(axios.post("https://dbms-miniproject.onrender.com//add_team_data", tormData, {
+      await toast.promise(axios.post("https://dbms-miniproject.onrender.com/add_team_data", tormData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -285,7 +285,7 @@ function AddData() {
   const handleMerchSubmit = async (e) => {
     e.preventDefault();
     merchDetails.tid = finalForm.team;
-    await toast.promise(axios.post("https://dbms-miniproject.onrender.com//add_captain_and_create_merch", {
+    await toast.promise(axios.post("https://dbms-miniproject.onrender.com/add_captain_and_create_merch", {
       team: finalForm,
       merch: merchDetails
     }),{
