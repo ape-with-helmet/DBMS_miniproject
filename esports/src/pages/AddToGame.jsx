@@ -11,14 +11,14 @@ const AddToGame = () => {
     const [selGame, setSelGame] = useState('')
     useEffect(() => {
         const getTeam = async () => {
-            const response = await axios.get("https://dbms-miniproject.onrender.com//team_details");
+            const response = await axios.get("https://dbms-miniproject.onrender.com/team_details");
             setTeams(response.data)
         }
         getTeam();
     }, [])
     useEffect(() => {
         const getNonPart = async () => {
-            const response = await axios.post("https://dbms-miniproject.onrender.com//games_not_played_by_team", {
+            const response = await axios.post("https://dbms-miniproject.onrender.com/games_not_played_by_team", {
                 id: gameForm
             })
             setNon(response.data.payload)
@@ -29,7 +29,7 @@ const AddToGame = () => {
         if (!gameForm || !selGame) {
             return toast.error("Enter the details");
         }
-        const response = await toast.promise(axios.post("https://dbms-miniproject.onrender.com//add_team_to_game", {
+        const response = await toast.promise(axios.post("https://dbms-miniproject.onrender.com/add_team_to_game", {
             team: gameForm,
             game: selGame
         }),{
