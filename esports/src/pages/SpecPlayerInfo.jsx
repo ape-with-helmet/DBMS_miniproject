@@ -13,7 +13,7 @@ const SpecPlayerInfo = () => {
     useEffect(() => {
         const getTeamData = async (download) => {
             try {
-                const response = await axios.post("https://dbms-miniproject.onrender.com//fetch_player_details", {
+                const response = await axios.post("https://dbms-miniproject.onrender.com/fetch_player_details", {
                     id: download
                 });
                 setPlayer(response.data)
